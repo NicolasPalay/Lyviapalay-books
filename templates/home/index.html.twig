@@ -3,10 +3,18 @@
 {% block title %}Hello HomeControlerController!{% endblock %}
 
 {% block body %}
+    {% for message in  app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {#  {% if error %}
+        {% for message in  app.flashes('error') %}
+            <div class="alert alert-danger" role="alert">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}#}
 
 
-<div class="example-wrapper">
-    <h1>Hello</h1>
-
-</div>
 {% endblock %}
