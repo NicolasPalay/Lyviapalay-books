@@ -1,0 +1,10 @@
+.ly-register-form ul li {
+        padding: 0;
+    list-style: none;
+    color: red;
+}
+.ly-register-form ul {margin-bottom: 0;
+}
+.ly-register-form div{
+    margin: 5px 0 10px
+}
