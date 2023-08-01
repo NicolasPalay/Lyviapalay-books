@@ -25,6 +25,7 @@ class AppFixtures extends Fixture
             $user->setFirstname($this->faker->firstName);
             $user->setLastname($this->faker->lastName);
             $user->setPlainPassword('123456');
+            $user->setIsVerified(false);
 
             $manager->persist($user);
         }
@@ -35,7 +36,7 @@ class AppFixtures extends Fixture
             $user->setLastname('palay');
             $user->setRoles(['ROLE_ADMIN']);
             $user->setPlainPassword('123456');
-
+            $user->setIsVerified(true);
             $manager->persist($user);
 
         $manager->flush();
