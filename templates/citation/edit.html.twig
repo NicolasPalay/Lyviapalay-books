@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Citation{% endblock %}
+
+{% block body %}
+    <h1>Edit Citation</h1>
+
+    {{ include('citation/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_citation_index') }}">back to list</a>
+
+    {{ include('citation/_delete_form.html.twig') }}
+{% endblock %}
