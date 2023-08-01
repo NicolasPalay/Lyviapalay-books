@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Citation index{% endblock %}
+
+{% block body %}
+    <h1>Citation index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Author</th>
+                <th>Content</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for citation in citations %}
+            <tr>
+                <td>{{ citation.id }}</td>
+                <td>{{ citation.Author }}</td>
+                <td>{{ citation.content }}</td>
+                <td>
+                    <a href="{{ path('app_citation_show', {'id': citation.id}) }}">show</a>
+                    <a href="{{ path('app_citation_edit', {'id': citation.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_citation_new') }}">Create new</a>
+{% endblock %}
