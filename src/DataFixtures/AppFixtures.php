@@ -46,10 +46,9 @@ const  CATEGORIESPROD = [ 'Livre','Ebook','Goodies'];
             $category = new CategoryProduct();
             $category->setName($categoryName);
             $manager->persist($category);
+            $this->addReference('categoryProd_' . $categoryName, $category);
         }
         $manager->flush();
-
-
     }
 
 }
