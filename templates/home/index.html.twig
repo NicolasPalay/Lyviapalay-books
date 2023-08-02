@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeControlerController!{% endblock %}
+{% block title %}Hello Home{% endblock %}
+
 
 {% block body %}
     {% for message in  app.flashes('success') %}
@@ -8,13 +9,20 @@
             {{ message }}
         </div>
     {% endfor %}
-    {#  {% if error %}
-        {% for message in  app.flashes('error') %}
-            <div class="alert alert-danger" role="alert">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}#}
+<section>
+    {% for product in products %}
+    <article>
+        <ul>
+            <li><img src="{{ asset('assets/uploads/' ~ product.picture) }}" alt=""></li>
+            <li><em>{{ product.category.name }}</em></li>
+            <li><h3>{{ product.name }}</h3></li>
+            <li><p>{{ product.price }} €</p></li>
+            
+        </ul>
+    </article>
+    
+    {% endfor %}
+</section>
 
 
 {% endblock %}
