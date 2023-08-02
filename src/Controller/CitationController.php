@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Citation;
+use App\Entity\User;
 use App\Form\CitationType;
 use App\Repository\CitationRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -25,7 +26,11 @@ class CitationController extends AbstractController
     #[Route('/new', name: 'app_citation_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
+
         $citation = new Citation();
+
+
         $form = $this->createForm(CitationType::class, $citation);
         $form->handleRequest($request);
 

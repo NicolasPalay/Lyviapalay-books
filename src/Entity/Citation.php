@@ -4,12 +4,12 @@ namespace App\Entity;
 
 use App\Repository\CitationRepository;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Timestampable\Traits\TimestampableEntity;
+
 
 #[ORM\Entity(repositoryClass: CitationRepository::class)]
 class Citation
 {
-    use TimestampableEntity;
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
@@ -21,6 +21,11 @@ class Citation
     #[ORM\Column(length: 255)]
     private ?string $content = null;
 
+    #[ORM\Column]
+    private ?\DateTimeImmutable $createAt = null;
+public function __construct(){
+    $this->createAt = new \DateTimeImmutable();
+}
     public function getId(): ?int
     {
         return $this->id;
@@ -46,6 +51,18 @@ class Citation
     public function setContent(string $content): static
     {
         $this->content = $content;
+
+        return $this;
+    }
+
+    public function getCreateAt(): ?\DateTimeImmutable
+    {
+        return $this->createAt;
+    }
+
+    public function setCreateAt(\DateTimeImmutable $createAt): static
+    {
+        $this->createAt = $createAt;
 
         return $this;
     }

@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\CategoryProduct;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Faker\Factory;
@@ -10,7 +11,7 @@ use Doctrine\Persistence\ObjectManager;
 class AppFixtures extends Fixture
 {
     private $faker;
-
+const  CATEGORIESPROD = [ 'Livre','Ebook','Goodies'];
     public function __construct()
     {
         $this->faker = Factory::create('fr_FR');
@@ -40,5 +41,15 @@ class AppFixtures extends Fixture
             $manager->persist($user);
 
         $manager->flush();
+
+        foreach (self::CATEGORIESPROD as $categoryName) {
+            $category = new CategoryProduct();
+            $category->setName($categoryName);
+            $manager->persist($category);
+        }
+        $manager->flush();
+
+
     }
+
 }
