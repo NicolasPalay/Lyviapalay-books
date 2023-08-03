@@ -23,31 +23,7 @@ class CitationController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_citation_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
-    {
-
-
-        $citation = new Citation();
-
-
-        $form = $this->createForm(CitationType::class, $citation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->persist($citation);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_citation_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('citation/new.html.twig', [
-            'citation' => $citation,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_citation_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_citation_show', methods: ['GET'])]
     public function show(Citation $citation): Response
     {
         return $this->render('citation/show.html.twig', [
@@ -55,32 +31,4 @@ class CitationController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_citation_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Citation $citation, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(CitationType::class, $citation);
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_citation_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('citation/edit.html.twig', [
-            'citation' => $citation,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_citation_delete', methods: ['POST'])]
-    public function delete(Request $request, Citation $citation, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$citation->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($citation);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_citation_index', [], Response::HTTP_SEE_OTHER);
-    }
 }
