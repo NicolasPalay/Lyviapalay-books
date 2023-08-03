@@ -3,33 +3,27 @@
 {% block title %}Product{% endblock %}
 
 {% block body %}
-    <h1>Product</h1>
+<section class="container ">
+    <div  class="my-4 d-block" >
+    <span>accueil / </span>
+        <a href="{{ path('boutique_index') }}">boutique</a> / <span>{{ product.name }}</span>
+    </div>
+    <div class="row d-flex flex-lg-row">
+        <div class="col-md-5">
+            <img  src="{{asset('assets/uploads/pictures/' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+            <div class="img-gallery">
+            {% for picture in product.pictures %}
+                <img class="lp-vignette img-fluid" src="{{asset('assets/uploads/pictures/mini/150x200-' ~ picture.urlName) }}"  alt="{{ product.name }}">
+            {% endfor %}
+            </div>
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ product.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ product.name }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ product.slug }}</td>
-            </tr>
-            <tr>
-                <th>Description</th>
-                <td>{{ product.description }}</td>
-            </tr>
-            <tr>
-                <th>Price</th>
-                <td>{{ product.price }}</td>
-            </tr>
-        </tbody>
-    </table>
-
-    <a href="{{ path('app_product_index') }}">back to list</a>
+        <div class="col-md-7 text-center">
+            <h1>{{ product.name }}</h1>
+            <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
+                <p>{{ product.description }}</p>
+            <a href="" class="btn lp-btn">Ajouter au Panier</a>
+        </div>
+    </div>
 
 {% endblock %}

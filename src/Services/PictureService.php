@@ -20,7 +20,7 @@ class PictureService
                         ?int         $height = 300): string
     {
         // Generate a unique name
-        $filename = uniqid('hair') . '.jpg';
+        $filename = uniqid('lyviapalay-') . '.jpg';
 
         //Information about the picture
         $pictureInfos = getImageSize($picture);

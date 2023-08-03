@@ -3,39 +3,45 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <h1>Product index</h1>
+    <section class="container">
+        <div class="row">
+            <article class="col-md-3">
+                <h3 class="text-center">La boutique de Lyvia</h3>
+                {{ form(form) }}
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-            <tr>
-                <td>{{ product.id }}</td>
-                <td>{{ product.name }}</td>
-                <td>{{ product.slug }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
-                <td>
-                    <a href="{{ path('app_product_show', {'slug': product.slug}) }}">show</a>
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="6">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+            </article>
 
-    <a href="{{ path('app_product_new') }}">Create new</a>
+            <article class="col-md-9">
+                <h3 class="text-center">La boutique de Lyvia</h3>
+                <div class="row d-flex justify-content-between">
+                    {% for product in products %}
+                        <div class="col-md-4 lp-card-product text-center ">
+                            <a href="{{ path('app_product_show', {'slug': product.slug}) }}">
+                                <div class="lp-picture">
+                                    <div class="lp-mask"></div>
+                                    <img  src="{{asset('assets/uploads/pictures/mini/150x200-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                </div>
+                                <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
+
+
+
+
+
+                                <h4>{{ product.name }}</h4></a>
+                            <span class="d-block mt-4">{{ product.category.name }}</span>
+                        </div>
+
+                    {% else %}
+
+                        no records found
+
+                    {% endfor %}
+                </div>
+            </article>
+
+
+
+        </div>
+    </section>
 {% endblock %}
