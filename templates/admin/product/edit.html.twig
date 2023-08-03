@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Product{% endblock %}
+
+{% block body %}
+    <h1>Edit Product</h1>
+
+    {{ include('admin/product/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_product_index') }}">back to list</a>
+
+    {{ include('admin/product/_delete_form.html.twig') }}
+
+    <div class="d-flex">
+        {% for image in product.pictures %}
+            <div class="ca-box-book">
+                <div class="c-dflex-columns ">
+
+                    <img class="ca-mini-img-admin" src="{{ asset('assets/uploads/pictures/mini/150x150-' ~ image.urlName) }}" alt="">
+                    <a href="{{ path('picture_delete', {id: image.id}) }}" class="btn btn-danger">Supprimer</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
