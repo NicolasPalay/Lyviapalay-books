@@ -21,8 +21,8 @@
                 <td>{{ citation.Author }}</td>
                 <td>{{ citation.content }}</td>
                 <td>
-                    <a href="{{ path('app_citation_show', {'id': citation.id}) }}">show</a>
-                    <a href="{{ path('app_citation_edit', {'id': citation.id}) }}">edit</a>
+                    <a href="{{ path('app_citation_show', {'slug': citation.slug}) }}">show</a>
+                    <a href="{{ path('admin_citation_edit', {'slug': citation.slug}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -33,5 +33,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_citation_new') }}">Create new</a>
+    <a href="{{ path('admin_citation_new') }}">Create new</a>
 {% endblock %}
