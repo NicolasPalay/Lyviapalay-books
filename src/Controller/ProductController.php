@@ -2,32 +2,43 @@
 
 namespace App\Controller;
 
-use App\Entity\Picture;
-use App\Entity\Product;
-use App\Form\ProductType;
+use App\Classe\Search;
+use App\Form\SearchType;
 use App\Repository\ProductRepository;
-use App\Services\PictureService;
-use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/product')]
+#[Route('/boutique')]
 class ProductController extends AbstractController
 {
-    #[Route('/', name: 'app_product_index', methods: ['GET'])]
-    public function index(ProductRepository $productRepository): Response
+    #[Route('/', name: 'boutique_index', methods: ['GET'])]
+    public function index(Request $request, ProductRepository $productRepository): Response
     {
+        $products = $productRepository->findAll();
+        $search = new Search();
+        $form= $this->createForm(SearchType::class, $search);
+        $form->handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            $products = $productRepository->findBySearch($search);
+            dd($products)     ;
+        }
+
         return $this->render('product/index.html.twig', [
-            'products' => $productRepository->findAll(),
+            'products' => $products,
+            'form' => $form->createView()
         ]);
     }
 
 
     #[Route('/{slug}', name: 'app_product_show', methods: ['GET'])]
-    public function show(Product $product): Response
+    public function show(ProductRepository $productRepository, $slug): Response
     {
+        $product = $productRepository->findOneBy(['slug' => $slug]);
+        if (!$product) {
+            return $this->redirectToRoute('boutique_index');
+        }
         return $this->render('product/show.html.twig', [
             'product' => $product,
         ]);

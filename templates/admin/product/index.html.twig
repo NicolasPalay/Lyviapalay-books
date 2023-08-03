@@ -19,15 +19,17 @@
         <tbody>
         {% for product in products %}
             <tr>
-                <td>{{ product.id }}</td>
+                <td><img class="lp-img-admin" src="{{asset('assets/uploads/pictures/mini/150x200-' ~ product.pictures[0].urlName) }}" alt="{{ product.name }}"></td>
                 <td>{{ product.name }}</td>
+
                 <td>{{ product.slug }}</td>
-                <td>{{ product.description }}</td>
-                <td>{{ product.price }}</td>
                 <td>
-                    <a href="{{ path('app_product_show', {'slug': product.slug}) }}">show</a>
-                    <a href="{{ path('admin_product_edit', {'slug': product.slug}) }}">edit</a>
+                    {{ product.description | length > 50 ? product.description|slice(0, 50) ~ '...' : product.description }}
                 </td>
+                <td>{{ product.price | number_format(2,',' ,'.')  }} €</td>
+                <td><a href="{{ path('admin_product_edit', {'slug': product.slug}) }}">edit</a></td>
+
+
             </tr>
         {% else %}
             <tr>

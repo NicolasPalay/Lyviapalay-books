@@ -42,10 +42,7 @@ class ProductController extends AbstractController
             $folder = 'pictures';
 
             foreach ($pictures as $picture) {
-                $pictureName = $pictureService->add($picture, $folder, 150, 150);
-
-                // Set the picture property for the Product entity
-                $product->setPicture($pictureName);
+                $pictureName = $pictureService->add($picture, $folder, 150, 200);
 
                 $newPicture = new Picture();
                 $newPicture->setUrlName($pictureName);
@@ -82,10 +79,10 @@ class ProductController extends AbstractController
             $folder = 'pictures';
 
             foreach ($pictures as $picture) {
-                $pictureName = $pictureService->add($picture, $folder, 150, 150);
+                $pictureName = $pictureService->add($picture, $folder, 150, 200);
 
                 // Set the picture property for the Product entity
-                $product->setPicture($pictureName);
+
                 $slug = $slugger->slug($product->getName());
                 $product->setSlug($slug);
                 $newPicture = new Picture();
