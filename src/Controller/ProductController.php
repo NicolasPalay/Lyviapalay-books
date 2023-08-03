@@ -24,44 +24,8 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_product_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager,PictureService $pictureService):
-    Response
-    {
-        $product = new Product();
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $pictures = $form->get('pictures')->getData();
-
-            $folder = 'pictures';
-
-            foreach ($pictures as $picture) {
-                $pictureName = $pictureService->add($picture, $folder, 150, 150);
-
-                // Set the picture property for the Product entity
-                $product->setPicture($pictureName);
-
-                $newPicture = new Picture();
-                $newPicture->setUrlName($pictureName);
-                $product->addPicture($newPicture);
-            }
-
-// Now persist the product and the associated pictures
-            $entityManager->persist($product);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('product/new.html.twig', [
-            'product' => $product,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_product_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_product_show', methods: ['GET'])]
     public function show(Product $product): Response
     {
         return $this->render('product/show.html.twig', [
@@ -69,50 +33,5 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_product_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request,
-                         Product $product,
-                         EntityManagerInterface $entityManager,
-                         PictureService $pictureService): Response
-    {
-        $form = $this->createForm(ProductType::class, $product);
-        $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $pictures = $form->get('pictures')->getData();
-
-            $folder = 'pictures';
-
-            foreach ($pictures as $picture) {
-                $pictureName = $pictureService->add($picture, $folder, 150, 150);
-
-                // Set the picture property for the Product entity
-                $product->setPicture($pictureName);
-
-                $newPicture = new Picture();
-                $newPicture->setUrlName($pictureName);
-                $product->addPicture($newPicture);
-            }
-            $entityManager->persist($product);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('product/edit.html.twig', [
-            'product' => $product,
-            'form' => $form,
-        ]);
-    }
-
-    #[Route('/{id}', name: 'app_product_delete', methods: ['POST'])]
-    public function delete(Request $request, Product $product, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$product->getId(), $request->request->get('_token'))) {
-            $entityManager->remove($product);
-            $entityManager->flush();
-        }
-
-        return $this->redirectToRoute('app_product_index', [], Response::HTTP_SEE_OTHER);
-    }
 }

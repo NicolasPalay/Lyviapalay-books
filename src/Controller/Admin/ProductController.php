@@ -12,6 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('admin/product', name: 'admin_product_')]
 class ProductController extends AbstractController
@@ -27,7 +28,8 @@ class ProductController extends AbstractController
     #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request,
                         EntityManagerInterface $entityManager,
-                        PictureService $pictureService):
+                        PictureService $pictureService,
+    SluggerInterface $slugger):
     Response
     {
         $product = new Product();
@@ -49,7 +51,8 @@ class ProductController extends AbstractController
                 $newPicture->setUrlName($pictureName);
                 $product->addPicture($newPicture);
             }
-
+            $slug = $slugger->slug($product->getName());
+            $product->setSlug($slug);
 // Now persist the product and the associated pictures
             $entityManager->persist($product);
             $entityManager->flush();
@@ -63,11 +66,12 @@ class ProductController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
+    #[Route('/{slug}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request,
                          Product $product,
                          EntityManagerInterface $entityManager,
-                         PictureService $pictureService): Response
+                         PictureService $pictureService,
+                         SluggerInterface $slugger): Response
     {
         $form = $this->createForm(ProductType::class, $product);
         $form->handleRequest($request);
@@ -82,7 +86,8 @@ class ProductController extends AbstractController
 
                 // Set the picture property for the Product entity
                 $product->setPicture($pictureName);
-
+                $slug = $slugger->slug($product->getName());
+                $product->setSlug($slug);
                 $newPicture = new Picture();
                 $newPicture->setUrlName($pictureName);
                 $product->addPicture($newPicture);
