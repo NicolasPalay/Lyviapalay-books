@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "175cafd50928e2e6421cad01a41d2794",
+    "content-hash": "52df697316147cd5394fece76e8741cb",
     "packages": [
         {
             "name": "behat/transliterator",
@@ -1446,16 +1446,16 @@
         },
         {
             "name": "easycorp/easyadmin-bundle",
-            "version": "v4.7.0",
+            "version": "v4.7.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/EasyCorp/EasyAdminBundle.git",
-                "reference": "17562010c5c7d160a5059c7f70b2c7e03f149d40"
+                "reference": "4eb0e95bb9a18b3b9c901ad4b031ecb1f9d02f21"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/17562010c5c7d160a5059c7f70b2c7e03f149d40",
-                "reference": "17562010c5c7d160a5059c7f70b2c7e03f149d40",
+                "url": "https://api.github.com/repos/EasyCorp/EasyAdminBundle/zipball/4eb0e95bb9a18b3b9c901ad4b031ecb1f9d02f21",
+                "reference": "4eb0e95bb9a18b3b9c901ad4b031ecb1f9d02f21",
                 "shasum": ""
             },
             "require": {
@@ -1528,7 +1528,7 @@
             ],
             "support": {
                 "issues": "https://github.com/EasyCorp/EasyAdminBundle/issues",
-                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.7.0"
+                "source": "https://github.com/EasyCorp/EasyAdminBundle/tree/v4.7.1"
             },
             "funding": [
                 {
@@ -1536,7 +1536,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2023-06-26T18:40:07+00:00"
+            "time": "2023-08-03T18:09:13+00:00"
         },
         {
             "name": "egulias/email-validator",
@@ -1799,70 +1799,6 @@
                 }
             ],
             "time": "2023-07-08T20:38:42+00:00"
-        },
-        {
-            "name": "jms/metadata",
-            "version": "2.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/schmittjoh/metadata.git",
-                "reference": "7ca240dcac0c655eb15933ee55736ccd2ea0d7a6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/schmittjoh/metadata/zipball/7ca240dcac0c655eb15933ee55736ccd2ea0d7a6",
-                "reference": "7ca240dcac0c655eb15933ee55736ccd2ea0d7a6",
-                "shasum": ""
-            },
-            "require": {
-                "php": "^7.2|^8.0"
-            },
-            "require-dev": {
-                "doctrine/cache": "^1.0",
-                "doctrine/coding-standard": "^8.0",
-                "mikey179/vfsstream": "^1.6.7",
-                "phpunit/phpunit": "^8.5|^9.0",
-                "psr/container": "^1.0|^2.0",
-                "symfony/cache": "^3.1|^4.0|^5.0",
-                "symfony/dependency-injection": "^3.1|^4.0|^5.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Metadata\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Johannes M. Schmitt",
-                    "email": "schmittjoh@gmail.com"
-                },
-                {
-                    "name": "Asmir Mustafic",
-                    "email": "goetas@gmail.com"
-                }
-            ],
-            "description": "Class/method/property metadata management in PHP",
-            "keywords": [
-                "annotations",
-                "metadata",
-                "xml",
-                "yaml"
-            ],
-            "support": {
-                "issues": "https://github.com/schmittjoh/metadata/issues",
-                "source": "https://github.com/schmittjoh/metadata/tree/2.8.0"
-            },
-            "time": "2023-02-15T13:44:18+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2135,16 +2071,16 @@
         },
         {
             "name": "phpstan/phpdoc-parser",
-            "version": "1.23.0",
+            "version": "1.23.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpdoc-parser.git",
-                "reference": "a2b24135c35852b348894320d47b3902a94bc494"
+                "reference": "846ae76eef31c6d7790fac9bc399ecee45160b26"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/a2b24135c35852b348894320d47b3902a94bc494",
-                "reference": "a2b24135c35852b348894320d47b3902a94bc494",
+                "url": "https://api.github.com/repos/phpstan/phpdoc-parser/zipball/846ae76eef31c6d7790fac9bc399ecee45160b26",
+                "reference": "846ae76eef31c6d7790fac9bc399ecee45160b26",
                 "shasum": ""
             },
             "require": {
@@ -2176,9 +2112,9 @@
             "description": "PHPDoc parser with support for nullable, intersection and generic types",
             "support": {
                 "issues": "https://github.com/phpstan/phpdoc-parser/issues",
-                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.23.0"
+                "source": "https://github.com/phpstan/phpdoc-parser/tree/1.23.1"
             },
-            "time": "2023-07-23T22:17:56+00:00"
+            "time": "2023-08-03T16:32:59+00:00"
         },
         {
             "name": "psr/cache",
@@ -3867,16 +3803,16 @@
         },
         {
             "name": "symfony/flex",
-            "version": "v2.3.1",
+            "version": "v2.3.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/flex.git",
-                "reference": "3c9c3424efdafe33e0e3cfb5e87e50b34711fedf"
+                "reference": "9c402af768c6c9f8126a9ffa192ecf7c16581e35"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/flex/zipball/3c9c3424efdafe33e0e3cfb5e87e50b34711fedf",
-                "reference": "3c9c3424efdafe33e0e3cfb5e87e50b34711fedf",
+                "url": "https://api.github.com/repos/symfony/flex/zipball/9c402af768c6c9f8126a9ffa192ecf7c16581e35",
+                "reference": "9c402af768c6c9f8126a9ffa192ecf7c16581e35",
                 "shasum": ""
             },
             "require": {
@@ -3912,7 +3848,7 @@
             "description": "Composer plugin for Symfony",
             "support": {
                 "issues": "https://github.com/symfony/flex/issues",
-                "source": "https://github.com/symfony/flex/tree/v2.3.1"
+                "source": "https://github.com/symfony/flex/tree/v2.3.3"
             },
             "funding": [
                 {
@@ -3928,7 +3864,7 @@
                     "type": "tidelift"
                 }
             ],
-            "time": "2023-05-27T07:38:25+00:00"
+            "time": "2023-08-04T09:02:35+00:00"
         },
         {
             "name": "symfony/form",
@@ -7937,114 +7873,6 @@
             "time": "2023-07-26T07:16:09+00:00"
         },
         {
-            "name": "vich/uploader-bundle",
-            "version": "2.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/dustin10/VichUploaderBundle.git",
-                "reference": "6674793a33bb0ff6069b01b757735a42ac5e3830"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/dustin10/VichUploaderBundle/zipball/6674793a33bb0ff6069b01b757735a42ac5e3830",
-                "reference": "6674793a33bb0ff6069b01b757735a42ac5e3830",
-                "shasum": ""
-            },
-            "require": {
-                "doctrine/persistence": "^3",
-                "ext-simplexml": "*",
-                "jms/metadata": "^2.4",
-                "php": "^8.1",
-                "symfony/config": "^5.4 || ^6.0",
-                "symfony/console": "^5.4 || ^6.0",
-                "symfony/dependency-injection": "^5.4 || ^6.0",
-                "symfony/event-dispatcher-contracts": "^3.0",
-                "symfony/http-foundation": "^5.4 || ^6.0",
-                "symfony/http-kernel": "^5.4 || ^6.0",
-                "symfony/mime": "^5.4 || ^6.0",
-                "symfony/property-access": "^5.4 || ^6.0",
-                "symfony/string": "^5.4 || ^6.0"
-            },
-            "conflict": {
-                "doctrine/annotations": "<1.12",
-                "league/flysystem": "<2.0"
-            },
-            "require-dev": {
-                "dg/bypass-finals": "^1.3",
-                "doctrine/doctrine-bundle": "^2.7",
-                "doctrine/mongodb-odm": "^2.4",
-                "doctrine/orm": "^2.13",
-                "ext-sqlite3": "*",
-                "knplabs/knp-gaufrette-bundle": "dev-master",
-                "league/flysystem-bundle": "^2.3",
-                "league/flysystem-memory": "^2.0",
-                "matthiasnoback/symfony-dependency-injection-test": "^4.3",
-                "mikey179/vfsstream": "^1.6.8",
-                "phpunit/phpunit": "^9.5",
-                "symfony/asset": "^5.4 || ^6.0",
-                "symfony/browser-kit": "^5.4 || ^6.0",
-                "symfony/css-selector": "^5.4 || ^6.0",
-                "symfony/doctrine-bridge": "^5.4 || ^6.0",
-                "symfony/dom-crawler": "^5.4 || ^6.0",
-                "symfony/form": "^5.4 || ^6.0",
-                "symfony/framework-bundle": "^5.4 || ^6.0",
-                "symfony/phpunit-bridge": "^6.2",
-                "symfony/security-csrf": "^5.4 || ^6.0",
-                "symfony/translation": "^5.4 || ^6.0",
-                "symfony/twig-bridge": "^5.4 || ^6.0",
-                "symfony/twig-bundle": "^5.4 || ^6.0",
-                "symfony/validator": "^5.4 || ^6.0",
-                "symfony/var-dumper": "^5.4 || ^6.0",
-                "symfony/yaml": "^5.4 || ^6.0"
-            },
-            "suggest": {
-                "doctrine/annotations": "If you use doctrine/doctrine-bundle >2.7, this package is required to use annotations",
-                "doctrine/doctrine-bundle": "For integration with Doctrine",
-                "doctrine/mongodb-odm-bundle": "For integration with Doctrine ODM",
-                "doctrine/orm": "For integration with Doctrine ORM",
-                "doctrine/phpcr-odm": "For integration with Doctrine PHPCR",
-                "knplabs/knp-gaufrette-bundle": "For integration with Gaufrette",
-                "league/flysystem-bundle": "For integration with Flysystem",
-                "liip/imagine-bundle": "To generate image thumbnails",
-                "oneup/flysystem-bundle": "For integration with Flysystem",
-                "symfony/asset": "To generate better links",
-                "symfony/form": "To handle uploads in forms",
-                "symfony/yaml": "To use YAML mapping"
-            },
-            "type": "symfony-bundle",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "2.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Vich\\UploaderBundle\\": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Dustin Dobervich",
-                    "email": "ddobervich@gmail.com"
-                }
-            ],
-            "description": "Ease file uploads attached to entities",
-            "homepage": "https://github.com/dustin10/VichUploaderBundle",
-            "keywords": [
-                "file uploads",
-                "upload"
-            ],
-            "support": {
-                "issues": "https://github.com/dustin10/VichUploaderBundle/issues",
-                "source": "https://github.com/dustin10/VichUploaderBundle/tree/2.1.1"
-            },
-            "time": "2023-03-07T07:01:20+00:00"
-        },
-        {
             "name": "webmozart/assert",
             "version": "1.11.0",
             "source": {
@@ -9490,16 +9318,16 @@
         },
         {
             "name": "sebastian/global-state",
-            "version": "5.0.5",
+            "version": "5.0.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/global-state.git",
-                "reference": "0ca8db5a5fc9c8646244e629625ac486fa286bf2"
+                "reference": "bde739e7565280bda77be70044ac1047bc007e34"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/0ca8db5a5fc9c8646244e629625ac486fa286bf2",
-                "reference": "0ca8db5a5fc9c8646244e629625ac486fa286bf2",
+                "url": "https://api.github.com/repos/sebastianbergmann/global-state/zipball/bde739e7565280bda77be70044ac1047bc007e34",
+                "reference": "bde739e7565280bda77be70044ac1047bc007e34",
                 "shasum": ""
             },
             "require": {
@@ -9542,7 +9370,7 @@
             ],
             "support": {
                 "issues": "https://github.com/sebastianbergmann/global-state/issues",
-                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.5"
+                "source": "https://github.com/sebastianbergmann/global-state/tree/5.0.6"
             },
             "funding": [
                 {
@@ -9550,7 +9378,7 @@
                     "type": "github"
                 }
             ],
-            "time": "2022-02-14T08:28:10+00:00"
+            "time": "2023-08-02T09:26:13+00:00"
         },
         {
             "name": "sebastian/lines-of-code",
@@ -10537,7 +10365,8 @@
     "platform": {
         "php": ">=8.1",
         "ext-ctype": "*",
-        "ext-iconv": "*"
+        "ext-iconv": "*",
+        "ext-gd": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"
