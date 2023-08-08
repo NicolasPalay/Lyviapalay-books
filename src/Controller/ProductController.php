@@ -22,7 +22,7 @@ class ProductController extends AbstractController
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
             $products = $productRepository->findBySearch($search);
-            dd($products)     ;
+
         }
 
         return $this->render('product/index.html.twig', [
