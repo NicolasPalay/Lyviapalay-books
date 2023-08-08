@@ -22,13 +22,14 @@ class PicturesController extends AbstractController
         $entityManager->flush();
 
         $imagePath = 'assets/uploads/pictures/' . $picture->getUrlName();
-        $imagePathMini = 'assets/uploads/pictures/mini/150x150-' . $picture->getUrlName();
+        $imagePathMini = 'assets/uploads/pictures/mini/150x200-' . $picture->getUrlName();
         if (file_exists($imagePath)) {
             unlink($imagePath);
             unlink($imagePathMini);
         }
 
-        return $this->redirectToRoute('admin_product_edit', ['id' => $picture->getProduct()->getId()
+        return $this->redirectToRoute('admin_product_edit', ['slug' => $picture->getProduct()
+            ->getSlug()
 
         ]);
     }

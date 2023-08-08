@@ -1,7 +1,22 @@
 .lp-background-nav {
     flex-direction: column;
     align-items: center;
-    background-color: var(--lp-light);
+    background: none;
+    position: absolute;
+    width: 100%;
+    z-index: 999;
+}
+.lp-logo h2 a{font-family: var(--lp-font-signature);
+font-size:1.5em;}
+.lp-font-title{font-family: var(--lp-font-signature);  font-size: 1.5em;}
+.navbar-expand-lg .navbar-collapse{justify-content: center}
+
+@media screen and (max-width: 768px) {
+    .lp-background-nav .navbar-collapse{
+
+        background: white;
+
+
+    }
 
 }
-.navbar-expand-lg .navbar-collapse{justify-content: center}

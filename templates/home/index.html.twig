@@ -4,25 +4,31 @@
 
 
 {% block body %}
+    <div class="lp-home">
+        
+        <div class="lp-welcome">
+            <img src="{{ asset('assets/uploads/carnet.png') }}" alt="">
+            <em>
+                De la lecture à l’écrite, <br>
+                la frontière n’a plus de limite ! <br>
+                Bienvenue dans mon<br>
+                univers livresque !
+            </em>
+        </div>
+        {% include '_includes/_booksHome.html.twig' %}
+    </div>
     {% for message in  app.flashes('success') %}
         <div class="alert alert-success" role="alert">
             {{ message }}
         </div>
     {% endfor %}
-<section>
-    {% for product in products %}
-    <article>
-        <ul>
-            <li><img src="{{ asset('assets/uploads/' ~ product.picture) }}" alt=""></li>
-            <li><em>{{ product.category.name }}</em></li>
-            <li><h3>{{ product.name }}</h3></li>
-            <li><p>{{ product.price }} €</p></li>
-            
-        </ul>
-    </article>
-    
-    {% endfor %}
+<section class="citationHome">
+    {% include '_includes/_homeCitation.html.twig' %}
 </section>
 
+{% include '_includes/_homeBoutique.html.twig' %}
 
+{% endblock %}
+{% block javascriptsEnd %}
+    <script src="{{ asset("assets/script.js") }}"></script>
 {% endblock %}
