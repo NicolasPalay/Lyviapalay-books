@@ -16,7 +16,7 @@ use Symfony\Component\String\Slugger\SluggerInterface;
 #[Route('admin/citation', name: 'admin_citation_')]
 class CitationController extends AbstractController
 {
-    #[Route('/', name: 'app_citation_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(CitationRepository $citationRepository): Response
     {
         return $this->render('admin/citation/index.html.twig', [
