@@ -1,8 +1,9 @@
+.lp-home-body  .lp-background-nav{position: absolute;}
 .lp-background-nav {
     flex-direction: column;
     align-items: center;
     background: none;
-    position: absolute;
+
     width: 100%;
     z-index: 999;
 }
@@ -13,10 +14,7 @@ font-size:1.5em;}
 
 @media screen and (max-width: 768px) {
     .lp-background-nav .navbar-collapse{
-
         background: white;
-
-
     }
 
 }
