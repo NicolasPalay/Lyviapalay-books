@@ -2,6 +2,7 @@
 
 namespace App\DataFixtures;
 
+use App\Entity\Blog;
 use App\Entity\Category;
 use App\Entity\CategoryProduct;
 use App\Entity\SubCategory;
@@ -20,7 +21,7 @@ class AppFixtures extends Fixture
 
     const  CATEGORIESPROD = [ 'Livre','Ebook','Goodies'];
     const CATEGORIES = ['Mes livres', 'Vos avis', 'Rencontres & Dédidaces', 'Coin partage'];
-    const SUBCATS = ['Retour de lecture','Citations', 'Ecriture & Inspiration'];
+
 
 
     public function __construct(SluggerInterface $slugger, HttpClientInterface $client )
@@ -31,16 +32,22 @@ class AppFixtures extends Fixture
     }
     public function getPosts(): array
         {
-            $response = $this->client->request(
+            $responses = $this->client->request(
                 'GET',
-                'https://www.lyviapalay-books.fr/wp-json/wp/v2/posts/'
+                'https://www.lyviapalay-books.fr/wp-json/wp/v2/posts/', [
+                    'query' => [
+                        'per_page' => 100,
+                    ],
+                ]
             );
-            return $response->toArray();
-
+            return $responses->toArray();
         }
 
     public function load(ObjectManager $manager): void
     {
+
+
+
 
         /*User role user*/
         for ($i = 0; $i < 3; $i++) {
@@ -62,6 +69,7 @@ class AppFixtures extends Fixture
             $user->setRoles(['ROLE_ADMIN']);
             $user->setPlainPassword('123456');
             $user->setIsVerified(true);
+            $this->addReference('user_admin', $user);
             $manager->persist($user);
 
         $manager->flush();
@@ -79,22 +87,34 @@ class AppFixtures extends Fixture
             $category = new Category();
             $category->setName($categoryName);
             $category->setSlug(strtolower($this->slugger->slug($categoryName)));
-            $manager->persist($category);
             $this->addReference('category_' . $categoryName, $category);
+
+            $manager->persist($category);
+            $category->setCategory($this->getReference('category_' . $categoryName));
+            $manager->persist($category);
+
         }
         $manager->flush();
 
-        foreach (self::SUBCATS as $categoryName) {
-        $subCategory = new SubCategory();
-            $subCategory->setName($categoryName);
-            $subCategory->setCategory($this->getReference('category_' . 'Coin partage'));
-            $subCategory->setSlug(strtolower($this->slugger->slug($categoryName)));
-        $manager->persist($subCategory);
-        $this->addReference('categoryProd_' . $categoryName, $subCategory);
+
+        $posts = $this->getPosts();
+        foreach($posts as $post) {
+            $blog = new Blog();
+            $blog->setTitle($post['title']['rendered'])
+                    ->setSlug($post['slug'])
+                    ->setContent($post['content']['rendered'])
+                    ->setCreatedAt(new \DateTime($post['date']))
+                    ->setUpdatedAt(new \DateTime($post['modified']))
+            ->setPublish(true);
+            $authorUser = $this->getReference('user_admin');
+            $blog->setAuthor($authorUser->getId())
+                    ->setCategory($this->getReference('category_' . $this->faker->randomElement(self::CATEGORIES)));
+
+
+            $manager->persist($blog);
+            $this->addReference('post_' . $post['title']['rendered'], $blog);
+        }
+        $manager->flush();
+
     }
-        $manager->flush();
-        }
-
-
-
 }

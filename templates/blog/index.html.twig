@@ -8,28 +8,25 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Id</th>
+
                 <th>Title</th>
-                <th>Content</th>
-                <th>Author</th>
-                <th>Slug</th>
+
                 <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
+
             </tr>
         </thead>
         <tbody>
         {% for blog in blogs %}
             <tr>
-                <td>{{ blog.id }}</td>
+
                 <td>{{ blog.title }}</td>
-                <td>{{ blog.content | slice(0, 100) }}</td>
-                <td>{{ blog.author }}</td>
-                <td>{{ blog.slug }}</td>
+
+
                 <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+
                 <td>
-                                    <a href="{{ path('admin_blog_edit', {'id': blog.id}) }}">edit</a>
+                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}">show</a>
+
                 </td>
             </tr>
         {% else %}
@@ -40,5 +37,4 @@
         </tbody>
     </table>
 
-    <a href="{{ path('admin_blog_new') }}">Create new</a>
 {% endblock %}

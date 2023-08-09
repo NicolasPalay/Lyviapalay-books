@@ -29,7 +29,7 @@ class ProductController extends AbstractController
     public function new(Request $request,
                         EntityManagerInterface $entityManager,
                         PictureService $pictureService,
-    SluggerInterface $slugger):
+                        SluggerInterface $slugger):
     Response
     {
         $product = new Product();
