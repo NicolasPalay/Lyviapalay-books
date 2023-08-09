@@ -12,7 +12,8 @@
         {% block javascripts %}
         {% endblock %}
     </head>
-    <body>
+    <body class="{% block bodyClass %}
+    {% endblock %}">
     {% include '_includes/navigation.html.twig' %}
     {%  if app.user and app.user.isVerified == false %}
         <div class="alert alert- alert-dismissible fade show" role="alert">
