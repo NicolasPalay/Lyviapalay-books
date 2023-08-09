@@ -24,9 +24,17 @@ class Category
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent')]
+    private ?self $category = null;
+
+    #[ORM\OneToMany(mappedBy: 'category', targetEntity: self::class)]
+    private Collection $parent;
+
     public function __construct()
     {
         $this->blogs = new ArrayCollection();
+
+        $this->parent = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -87,4 +95,46 @@ class Category
 
         return $this;
     }
+    public function getCategory(): ?self
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?self $category): static
+    {
+        $this->category = $category;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, self>
+     */
+    public function getParent(): Collection
+    {
+        return $this->parent;
+    }
+
+    public function addParent(self $parent): static
+    {
+        if (!$this->parent->contains($parent)) {
+            $this->parent->add($parent);
+            $parent->setCategory($this);
+        }
+
+        return $this;
+    }
+
+    public function removeParent(self $parent): static
+    {
+        if ($this->parent->removeElement($parent)) {
+            // set the owning side to null (unless already changed)
+            if ($parent->getCategory() === $this) {
+                $parent->setCategory(null);
+            }
+        }
+
+        return $this;
+    }
+
 }
