@@ -24,7 +24,7 @@ class Blog
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Picture::class)]
+    #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Picture::class, cascade: ["persist"])]
     private Collection $picture;
 
     #[ORM\Column(length: 255)]
@@ -35,6 +35,9 @@ class Blog
 
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
+
+    #[ORM\Column]
+    private ?bool $publish = null;
 
     public function __construct()
     {
@@ -132,6 +135,18 @@ class Blog
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function isPublish(): ?bool
+    {
+        return $this->publish;
+    }
+
+    public function setPublish(bool $publish): static
+    {
+        $this->publish = $publish;
 
         return $this;
     }
