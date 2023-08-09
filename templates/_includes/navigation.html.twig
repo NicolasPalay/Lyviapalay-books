@@ -20,10 +20,25 @@
                         Link
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        {% for cat in cats.getCategories %}
+                            {% if cat.category == null  %}
+                            <li  class="dropdown-item"><a href="{{ path("app_category_show", { slug: cat.slug, slug: cat.slug }) }}">{{ cat.name }}</a>
+                              {% endif %}
+                                {% if cat.parent is not empty %}
+                                    <ul>
+                                        {% for child in cat.parent %}
+                                            <li><a href="#">{{ child.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}</li>
+
+                       {% endfor %}
+                        <li><hr class="dropdown-divider">
+                        <ul class="dropdown-menu catNav" aria-labelledby="navbarDropdown">
+
+
+                        </ul>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
