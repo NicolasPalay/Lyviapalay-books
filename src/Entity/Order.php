@@ -17,7 +17,7 @@ class Order
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $reference = null;
+    private ?int $reference = null;
 
     #[ORM\ManyToOne(inversedBy: 'orders')]
     private ?User $user = null;
@@ -25,12 +25,14 @@ class Order
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'reference', targetEntity: OrderDetail::class)]
+    #[ORM\OneToMany(mappedBy: 'reference', targetEntity: OrderDetail::class, orphanRemoval:true,
+        cascade: ['persist'])]
     private Collection $orderDetails;
 
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
+        $this->createdAt = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -38,12 +40,12 @@ class Order
         return $this->id;
     }
 
-    public function getReference(): ?string
+    public function getReference(): ?int
     {
         return $this->reference;
     }
 
-    public function setReference(string $reference): static
+    public function setReference(int $reference): static
     {
         $this->reference = $reference;
 
