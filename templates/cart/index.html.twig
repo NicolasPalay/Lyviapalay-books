@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product index{% endblock %}
+
+{% block body %}
+    <section class="container">
+        <div class="row">
+            <article class="col-md-3">
+                <h3 class="text-center">La boutique de Lyvia</h3>
+
+
+
+            </article>
+
+            <article class="col-md-12">
+                <h3 class="text-center">Panier</h3>
+                <div class="row d-flex justify-content-between">
+                    <div class="col-md-12">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Produit</th>
+                                <th>Quantité</th>
+                                <th>Prix</th>
+                                <th>Total</th>
+                                <th>Supprimer</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for item in items %}
+                                <tr>
+                                    <td>{{ item.product.name }}</td>
+                                    <td>{{ item.quantity }}</td>
+                                    <td>{{ item.product.price  | number_format(2,',' ,'.')}} €</td>
+                                    <td>{{ item.product.price * item.quantity  }} €</td>
+                                    <td>
+                                        <a href="{{ path('cart_ajouter', {id : item.product.id}) }}" class="btn btn-danger">+</a>
+                                        <a href="{{ path('cart_remove', {id : item.product.id}) }}" class="btn btn-danger">-</a>
+                                        <a href=" " class="btn btn-danger">Supprimer</a>
+                                    </td>
+                                </tr>
+                                {% else %}
+                                <tr>le panier est vide</tr>
+                            {% endfor %}
+                            </tbody>
+                            <tfoot>
+                            <tr>
+                                <td colspan="3">Total</td>
+                                <td>{{ total | number_format(2,',' ,'.')}} €</td>
+                                <td> <a href="{{ path('cart_empty') }}" class="btn btn-danger">vider</a></td>
+                            </tr>
+                            </tfoot>
+                        </table>
+                        <a href="{{ path('app_order_add') }}" class="btn lp-btn">Valider le panier</a>
+                </div>
+                </div>
+            </article>
+
+
+
+        </div>
+    </section>
+{% endblock %}

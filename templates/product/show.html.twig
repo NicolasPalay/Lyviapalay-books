@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Product{% endblock %}
+
+{% block body %}
+<section class="container ">
+    <div  class="my-4 d-block" >
+    <span>accueil / </span>
+        <a href="{{ path('boutique_index') }}">boutique</a> / <span>{{ product.name }}</span>
+    </div>
+    <div class="row d-flex flex-lg-row">
+        <div class="col-md-5">
+            <img  src="{{asset('assets/uploads/pictures/' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+            <div class="img-gallery">
+            {% for picture in product.pictures %}
+                <img class="lp-vignette img-fluid" src="{{asset('assets/uploads/pictures/mini/150x200-' ~ picture.urlName) }}"  alt="{{ product.name }}">
+            {% endfor %}
+            </div>
+        </div>
+
+        <div class="col-md-7 text-center">
+            <h1>{{ product.name }}</h1>
+            <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
+                <p>{{ product.description }}</p>
+            <a href="{{ path('cart_ajouter', {id: product.id}) }}" class="btn lp-btn">Ajouter au Panier</a>
+
+        </div>
+    </div>
+
+{% endblock %}

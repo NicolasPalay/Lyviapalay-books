@@ -1,13 +1,16 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg lp-background-nav">
+    <div class="lp-logo">
+       <h2> <a class="navbar-brand" href="{{ path('app_home') }}">Lyvia Palay</a></h2>
+    </div>
     <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar scroll</a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarScroll">
-            <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 100px;">
+        <div class="collapse navbar-collapse lp-font-title" id="navbarScroll">
+            <ul class="navbar-nav my-2 my-lg-0" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="{{ path('boutique_index') }}">Boutique</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Link</a>
@@ -17,16 +20,30 @@
                         Link
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li><hr class="dropdown-divider"></li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
+                        {% for cat in cats.getCategories %}
+                            {% if cat.category == null  %}
+                            <li  class="dropdown-item"><a href="{{ path("app_category_show", { slug: cat.slug, slug: cat.slug }) }}">{{ cat.name }}</a>
+                              {% endif %}
+                                {% if cat.parent is not empty %}
+                                    <ul>
+                                        {% for child in cat.parent %}
+                                            <li><a href="#">{{ child.name }}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                {% endif %}</li>
+
+                       {% endfor %}
+                        <li><hr class="dropdown-divider">
+                        <ul class="dropdown-menu catNav" aria-labelledby="navbarDropdown">
+
+
+                        </ul>
+                        </li>
                     </ul>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link disabled">Link</a>
                 </li>
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
             </ul>

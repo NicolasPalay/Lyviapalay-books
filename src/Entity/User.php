@@ -3,15 +3,18 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\EntityListeners(['App\EntityListener\UserListener'])]
-#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+#[UniqueEntity(fields: ['email'], message: "L'email doit être unique")]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -20,6 +23,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?int $id = null;
 
     #[ORM\Column(length: 180, unique: true)]
+    #[Assert\NotBlank(message: 'Veuillez saisir votre email')]
+    #[Assert\Length(min: 2, max: 180)]
     private ?string $email = null;
 
     #[ORM\Column]
@@ -32,14 +37,29 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $password = null;
     private ?string $plainPassword = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Veuillez saisir votre prénom')]
+    #[Assert\Length(min: 2, max: 50)]
     private ?string $firstname = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 50)]
+    #[Assert\NotBlank(message: 'Veuillez saisir votre nome')]
+    #[Assert\Length(min: 2, max: 50)]
     private ?string $lastname = null;
 
     #[ORM\Column(nullable: true)]
     private ?int $phone = null;
+
+    #[ORM\Column]
+    private ?bool $isVerified = null;
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Order::class)]
+    private Collection $orders;
+
+    public function __construct()
+    {
+        $this->orders = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -152,6 +172,48 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPhone(?int $phone): static
     {
         $this->phone = $phone;
+
+        return $this;
+    }
+
+    public function isIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): static
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Order>
+     */
+    public function getOrders(): Collection
+    {
+        return $this->orders;
+    }
+
+    public function addOrder(Order $order): static
+    {
+        if (!$this->orders->contains($order)) {
+            $this->orders->add($order);
+            $order->setUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeOrder(Order $order): static
+    {
+        if ($this->orders->removeElement($order)) {
+            // set the owning side to null (unless already changed)
+            if ($order->getUser() === $this) {
+                $order->setUser(null);
+            }
+        }
 
         return $this;
     }

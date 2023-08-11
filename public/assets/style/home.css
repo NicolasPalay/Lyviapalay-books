@@ -1,0 +1,94 @@
+.lp-home{
+
+    top: 0;
+    left: 0;
+    width: 100%;
+height: 900px;
+
+
+    background: url("/assets/uploads/home-lyvia-palay-books.jpg") no-repeat top left;
+    background-size: cover;
+}
+
+.lp-welcome{
+    position: absolute;
+    top: 17%;
+}
+.lp-welcome img
+{
+    width:  445px
+}
+.lp-welcome em {
+   left: 0;
+    top: 32%;
+    position: absolute;
+    font-family: var(--lp-font-signature);
+    font-size: 1.4rem;
+    font-style: italic;
+    text-align: center;
+    width:100%;
+    padding-left: 11%;
+
+}
+
+
+.citationHome{
+    background-color: var(--lp-color-secondary);
+    font-size: 1.5em;
+    font-style: italic;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+    padding: 3em;
+
+}
+/*books home*/
+.lp-roman-home{ position: absolute; top: 25%; transition: 0.5s ease-in-out; width: 12%; min-width: 100px;}
+.lp-roman-home:hover, .lp-children-home:hover{ scale: 1.1;}
+.lp-home-hasard{right:37%; transform: rotate(5deg); z-index: 999;}
+.lp-home-trio{ right: 27%; transform: rotate(-3deg); z-index: 888;}
+.lp-home-duo{ right: 17%; transform: rotate(7deg); z-index: 777;}
+
+.lp-children-home{ position: absolute; top: 60%; transition: 0.5s ease-in-out; width: 12%; min-width: 100px;}
+.lp-home-tilou-venise{ right: 22%; transform: rotate(7deg);z-index:555 ;}
+.lp-home-soleil{ right: 32%; transform: rotate(-3deg); z-index:666 ;}
+@media screen and (max-width: 1370px) {
+    .lp-roman-home{ top :33%;}
+    .lp-children-home { top: 66%;}
+}
+@media screen and (max-width: 1024px) {
+    .lp-home{background: url("/assets/uploads/welcome-lyvia-1024.jpg") no-repeat top center;}
+    .lp-roman-home{ top :33%;width: 17%;}
+    .lp-children-home { top: 66%;width: 17%;}
+    .lp-home-hasard{right:34%; }
+    .lp-home-trio{ right: 18%; }
+    .lp-home-duo{ right: 4%; }
+    .lp-home-tilou-venise{ right: 16%;;}
+
+}
+@media screen and (max-width: 768px) {
+    .lp-roman-home{ top :25%;width: 17%;}
+    .lp-children-home{top: 45%; }
+    .lp-home{
+        height: 600px;
+    }
+    .lp-welcome img
+    {
+        width:  300px
+    }
+    .lp-welcome em {
+        top: 32%;
+        font-size: 1rem;
+        padding-left: 35px;
+    }
+    .lp-citation a{
+        font-size: 1em;
+        padding: 1em 3em;
+    }
+    .carousel-control-prev{
+        left: -10%;
+    }
+    .carousel-control-next{
+        right: -10%;
+    }
+}

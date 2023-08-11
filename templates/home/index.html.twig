@@ -1,12 +1,36 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello HomeControlerController!{% endblock %}
+{% block title %}Hello Home{% endblock %}
+{% block bodyClass %}lp-home-body
+{% endblock %}
 
 {% block body %}
+    <div class="lp-home">
+        
+        <div class="lp-welcome">
+            <img src="{{ asset('assets/uploads/carnet.png') }}" alt="">
+            <em>
+                Il n'y a pas de meilleur endroit qu'un bon livre pour s'évader tout en restant où l'on est.<br>
+                Voilà ma vision de la littérature.<br>
+                <br>
+                Bienvenue dans mon univers, adultes et jeunesse.<br>
+                Prenez une pause détente pour visiter ce site.<br>
+            </em>
+        </div>
+        {% include '_includes/_booksHome.html.twig' %}
+    </div>
+    {% for message in  app.flashes('success') %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endfor %}
+<section class="citationHome">
+    {% include '_includes/_homeCitation.html.twig' %}
+</section>
 
+{% include '_includes/_homeBoutique.html.twig' %}
 
-<div class="example-wrapper">
-    <h1>Hello</h1>
-
-</div>
+{% endblock %}
+{% block javascriptsEnd %}
+    <script src="{{ asset("assets/script.js") }}"></script>
 {% endblock %}

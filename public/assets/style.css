@@ -1,0 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Alegreya+Sans&family=Dancing+Script:wght@700&family=Josefin+Sans&display=swap');
+
+@import "style/register.css";
+@import "style/product.css";
+@import "style/navigation.css";
+@import "style/admin.css";
+@import "style/home.css";
+
+:root{
+    --lp-color-primary: #92278f;
+    --lp-color-secondary: #1DEDC3;
+    --lp-color-tertiary: #f0ece9;
+    --lp-dark: #343434;
+    --lp-light: rgba(240, 236, 233,0.7);
+
+    --lp-font-title: 'Acme', sans-serif;
+    --lp-font-secondary: 'Alegreya Sans', sans-serif;
+    --lp-font-tertiary: 'Josefin Sans', sans-serif;
+    --lp-font-signature: 'Dancing Script', cursive;
+
+}
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+a{
+    text-decoration: none;
+    color: var(--lp-color-primary);
+}
+a:hover{
+    color: var(--lp-color-secondary);
+}
+
+/* button */
+.lp-btn{
+
+    padding: 0.5rem 1rem;
+    border-radius: 10px;
+    background-color: var(--lp-color-primary);
+    color: var(--lp-color-tertiary);
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+    border: 2px solid white;
+}
+.lp-btn:hover{
+    border: 2px solid var(--lp-color-primary);
+    background-color: white;
+    color: var(--lp-color-primary);
+}
