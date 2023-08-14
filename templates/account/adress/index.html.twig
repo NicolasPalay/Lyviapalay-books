@@ -1,0 +1,18 @@
+{% extends '../../base.html.twig' %}
+
+{% block title %}Mes adresses{% endblock %}
+
+{% block body %}
+<h1>Mes adresses</h1>
+    <a class="btn-info btn-sm" href="{{ path('account_address_add') }}">Ajouter une adresse</a>
+    <p>C'est votre espace personnelle, vous allez pouvoir gérer vos adresses</p>
+    <a href="#">retourne à votre compte.</a>
+    <hr>
+{% if app.user.adresses|length ==0 %}
+    <p class="text-center">vous n'avez pas encore enregistré d'adresse dans votre compte.</p>
+    <a class="btn-info btn-sm" href="{{ path('account_address_add') }}">Ajouter une adresse</a>
+    {% else %}
+    {{ app.user.adresses|length }} adresse(s) enregistrée(s) dans votre compte.
+    {{ app.user.adresses.name }}
+    {% endif %}
+{% endblock %}
