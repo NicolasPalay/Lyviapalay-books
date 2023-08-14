@@ -5,7 +5,12 @@
 {% block body %}
     <h1>Mon compte</h1>
     Bienvenue {{ app.user.firstName }} dans votre compte.
+<br>
     <a href="{{ path('account_password') }}">Modifier mon mot de passe</a>
 <br>
+    adresse mail : {{ app.user.email }}
+<br>
+        mes adresses  : <a href="{{ path('account_address') }}">mes adresses </a>
+    <br>
     <a href="{{ path('app_logout') }}">Déconnexion</a>
 {% endblock %}

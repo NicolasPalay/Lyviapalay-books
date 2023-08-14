@@ -1,0 +1,39 @@
+
+
+
+    {{ form_errors(form) }}
+
+        {{ form_start(form) }}
+
+<div class="container mx-auto">
+    <div class="row">
+        <div class="col-md-12 ">
+            {{ form_row(form.name) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.firstname) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.lastname) }}
+        </div>
+        <div class="col-md-12">
+            {{ form_row(form.adress) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.postal) }}
+        </div>
+        <div class="col-md-6">
+            {{ form_row(form.city) }}
+        </div>
+
+        <div class="col-md-6">
+            {{ form_row(form.phone) }}
+        </div>
+    </div>
+
+
+        {{ form_widget(form) }}
+    </div>
+        {{ form_end(form) }}
+
+
