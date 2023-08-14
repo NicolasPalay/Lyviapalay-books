@@ -8,8 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ProductRepository::class)]
+#[UniqueEntity(fields: ['name'], message: "Le nom du produit doit être unique")]
 class Product
 {
     use TimestampableEntity;
@@ -20,6 +23,8 @@ class Product
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Assert\NotBlank(message: 'Veuillez le nom du produit')]
+    #[Assert\Length(min: 10, max: 255)]
     private ?string $name = null;
 
     #[ORM\Column(length: 255)]
@@ -27,9 +32,13 @@ class Product
 
 
     #[ORM\Column(type: Types::TEXT)]
+    #[Assert\NotBlank(message: 'Veuillez la description du produit')]
     private ?string $description = null;
 
     #[ORM\Column]
+    #[Assert\NotBlank(message: 'Veuillez le prix du produit')]
+    #[Assert\Positive(message: 'Le prix doit être positif')]
+    #[Assert\Length(min: 0, max: 1000)]
     private ?float $price = null;
 
     #[ORM\ManyToOne(inversedBy: 'products')]
