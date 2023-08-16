@@ -17,7 +17,7 @@ class MailerService
         public function sendEmail(): void
     {
         $email = (new Email())
-            ->from($this->getParameter('mailer_from'))
+            ->from($this->params->get('mailer_from'))
             ->to('you@example.com')
             //->cc('cc@example.com')
             //->bcc('bcc@example.com')
