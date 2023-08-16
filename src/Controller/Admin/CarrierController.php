@@ -11,18 +11,18 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-#[Route('/carrier')]
+#[Route('admin/carrier', name: 'admin_carrier_')]
 class CarrierController extends AbstractController
 {
-    #[Route('/', name: 'app_carrier_index', methods: ['GET'])]
+    #[Route('/', name: 'index', methods: ['GET'])]
     public function index(CarrierRepository $carrierRepository): Response
     {
-        return $this->render('carrier/index.html.twig', [
+        return $this->render('admin/carrier/index.html.twig', [
             'carriers' => $carrierRepository->findAll(),
         ]);
     }
 
-    #[Route('/new', name: 'app_carrier_new', methods: ['GET', 'POST'])]
+    #[Route('/new', name: 'new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
         $carrier = new Carrier();
@@ -33,24 +33,24 @@ class CarrierController extends AbstractController
             $entityManager->persist($carrier);
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_carrier_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_carrier_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('carrier/new.html.twig', [
+        return $this->render('admin/carrier/new.html.twig', [
             'carrier' => $carrier,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_carrier_show', methods: ['GET'])]
+    #[Route('/{id}', name: 'show', methods: ['GET'])]
     public function show(Carrier $carrier): Response
     {
-        return $this->render('carrier/show.html.twig', [
+        return $this->render('admin/carrier/show.html.twig', [
             'carrier' => $carrier,
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_carrier_edit', methods: ['GET', 'POST'])]
+    #[Route('/{id}/edit', name: 'edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Carrier $carrier, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(CarrierType::class, $carrier);
@@ -59,16 +59,16 @@ class CarrierController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->flush();
 
-            return $this->redirectToRoute('app_carrier_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('admin_carrier_index', [], Response::HTTP_SEE_OTHER);
         }
 
-        return $this->render('carrier/edit.html.twig', [
+        return $this->render('admin/carrier/edit.html.twig', [
             'carrier' => $carrier,
             'form' => $form,
         ]);
     }
 
-    #[Route('/{id}', name: 'app_carrier_delete', methods: ['POST'])]
+    #[Route('/{id}', name: 'delete', methods: ['POST'])]
     public function delete(Request $request, Carrier $carrier, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$carrier->getId(), $request->request->get('_token'))) {
@@ -76,6 +76,6 @@ class CarrierController extends AbstractController
             $entityManager->flush();
         }
 
-        return $this->redirectToRoute('app_carrier_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('admin_carrier_index', [], Response::HTTP_SEE_OTHER);
     }
 }

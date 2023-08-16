@@ -23,8 +23,8 @@
                 <td>{{ carrier.description }}</td>
                 <td>{{ carrier.price }}</td>
                 <td>
-                    <a href="{{ path('app_carrier_show', {'id': carrier.id}) }}">show</a>
-                    <a href="{{ path('app_carrier_edit', {'id': carrier.id}) }}">edit</a>
+                    <a href="{{ path('admin_carrier_show', {'id': carrier.id}) }}">show</a>
+                    <a href="{{ path('admin_carrier_edit', {'id': carrier.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_carrier_new') }}">Create new</a>
+    <a href="{{ path('admin_carrier_new') }}">Create new</a>
 {% endblock %}
