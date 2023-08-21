@@ -10,52 +10,48 @@
         <div class="collapse navbar-collapse lp-font-title" id="navbarScroll">
             <ul class="navbar-nav my-2 my-lg-0" style="--bs-scroll-height: 100px;">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ path('boutique_index') }}">Boutique</a>
+                    <a class="nav-link" aria-current="page" href="{{ path('boutique_index') }}">Boutique</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('cart_index') }}">panier</a>
                 </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Link
-                    </a>
-                    <ul class="dropdown-menu">
-                        {% for cat in cats.getCategories %}
-                            {% if cat.category == null  %}
-                            <li  class="dropdown-item"><a href="{{ path("app_category_show", { slug: cat.slug, slug: cat.slug }) }}">{{ cat.name }}</a>
-                              {% endif %}
-                                {% if cat.parent is not empty %}
-                                    <ul>
-                                        {% for child in cat.parent %}
-                                            <li><a href="#">{{ child.name }}</a></li>
-                                        {% endfor %}
-                                    </ul>
-                                {% endif %}</li>
+                {% for cat in cats.getCategories %}
+                    {% if cat.category == null  %}
+                        <li   class="nav-item nav-item dropdown">
+                        <a class="nav-link  {% if cat.parent is not empty %}dropdown-toggle{% endif %}" href="{{ path("app_category_show", { slug: cat.slug, slug: cat.slug }) }}" {% if cat.parent is not empty %}role="button" data-bs-toggle="dropdown" aria-expanded="false"{% endif %} >{{ cat.name }}</a>
 
-                       {% endfor %}
-                        <li><hr class="dropdown-divider">
-                        <ul class="dropdown-menu catNav" aria-labelledby="navbarDropdown">
-
-
+                    {% endif %}
+                    {% if cat.parent is not empty %}
+                        <ul class="dropdown-menu">
+                            {% for child in cat.parent %}
+                                <li   class="nav-item dropdown"><a href="{{ path("app_category_show", { slug: child.slug, slug: child.slug }) }}">{{ child.name }}</a></li>
+                            {% endfor %}
                         </ul>
-                        </li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled">Link</a>
-                </li>
+                    {% endif %}</li>
+
+                {% endfor %}
+
+                <li class="nav-item"><a class="nav-link" href="#"><span class="material-icons lp-icon">search</span></a></li>
+
                 {% if app.user %}
-                <li class="nav-item"><a class="nav-link" href="{{ path('account') }}">Mon compte</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('account') }}"><span class="material-icons lp-icon">account_circle</span></a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_logout') }}">Déconnexion</a></li>
                     {% else %}
-                <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Connexion</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_login') }}">Login</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
                 {% endif %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('cart_index') }}"><span class="material-icons lp-icon">shopping_cart</span></a>
+                </li>
+
             </ul>
-            <form class="d-flex" role="search">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
+
         </div>
     </div>
 </nav>
+<div class="lp-search"><form class="d-flex" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+</div>

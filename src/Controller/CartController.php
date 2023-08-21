@@ -25,7 +25,8 @@ class CartController extends AbstractController
                 'quantity' => $quantity
             ];
             $total += $product->getPrice() * $quantity;
-        }
+            }
+
         return $this->render('cart/index.html.twig', [
             'items' => $data,
             'total' => $total
