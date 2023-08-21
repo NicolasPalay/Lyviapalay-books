@@ -1,22 +1,23 @@
-@import url('https://fonts.googleapis.com/css2?family=Acme&family=Alegreya+Sans&family=Dancing+Script:wght@700&family=Josefin+Sans&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Acme&family=Alegreya+Sans&family=Great+Vibes&family=Josefin+Sans&display=swap');
 @import "style/register.css";
 @import "style/product.css";
 @import "style/navigation.css";
 @import "style/admin.css";
 @import "style/home.css";
+@import "style/googleIcon.css";
+@import "style/blog.css";
 
 :root{
     --lp-color-primary: #92278f;
-    --lp-color-secondary: #1DEDC3;
-    --lp-color-tertiary: #f0ece9;
+    --lp-color-secondary: #6F8F8A;
+    --lp-color-tertiary: #999999;
     --lp-dark: #343434;
     --lp-light: rgba(240, 236, 233,0.7);
 
     --lp-font-title: 'Acme', sans-serif;
     --lp-font-secondary: 'Alegreya Sans', sans-serif;
     --lp-font-tertiary: 'Josefin Sans', sans-serif;
-    --lp-font-signature: 'Dancing Script', cursive;
+    --lp-font-signature: 'Great Vibes', cursive;
 
 }
 *{
@@ -24,11 +25,18 @@
     padding: 0;
     box-sizing: border-box;
 }
-a{
+h4 {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 0;
+    font-family: var(--lp-font-tertiary);
+}
+a, .nav-link, .nav-link:active, .nav-link:visited{
     text-decoration: none;
     color: var(--lp-color-primary);
+    font-size: 0.8em;
 }
-a:hover{
+a:hover, .nav-link:hover{
     color: var(--lp-color-secondary);
 }
 

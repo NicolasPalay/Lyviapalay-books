@@ -1,10 +1,11 @@
 .lp-home{
-
     top: 0;
     left: 0;
     width: 100%;
-height: 900px;
-
+    height: 900px;
+    box-shadow: 1px 3px 50px #92278f;
+    -webkit-box-shadow: 1px 3px 50px #92278f;
+    -moz-box-shadow: 1px 3px 50px #92278f;
 
     background: url("/assets/uploads/home-lyvia-palay-books.jpg") no-repeat top left;
     background-size: cover;
@@ -19,29 +20,42 @@ height: 900px;
     width:  445px
 }
 .lp-welcome em {
-   left: 0;
-    top: 32%;
+    left: 0;
+    top: 16%;
     position: absolute;
-    font-family: var(--lp-font-signature);
-    font-size: 1.4rem;
+    font-family: var(--lp-font-tertiary);
+    font-size: 1rem;
     font-style: italic;
     text-align: center;
-    width:100%;
-    padding-left: 11%;
-
+    width: 80%;
+    padding-left: 29%;
+    transform: rotate(2deg);
 }
 
 
 .citationHome{
-    background-color: var(--lp-color-secondary);
+    -webkit-box-shadow: 0px 10px 13px -7px var(--lp-color-primary), inset 0px -5px 21px 8px rgba(0,0,0,0);
+    box-shadow: 0px 10px 13px -7px var(--lp-color-primary), inset 0px -5px 21px 8px rgba(0,0,0,0);
     font-size: 1.5em;
     font-style: italic;
     text-align: center;
-    margin-top: 1em;
+
     margin-bottom: 1em;
     padding: 3em;
 
 }
+.carousel-control-next, .carousel-control-prev{
+    color: var(--lp-color-primary);
+}
+.carousel-control-prev-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2392278f'%3e%3cpath d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3e%3c/svg%3e");
+}
+.carousel-control-next-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%2392278f'%3e%3cpath d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708z'/%3e%3c/svg%3e");
+}
+
+
+
 /*books home*/
 .lp-roman-home{ position: absolute; top: 25%; transition: 0.5s ease-in-out; width: 12%; min-width: 100px;}
 .lp-roman-home:hover, .lp-children-home:hover{ scale: 1.1;}
@@ -52,6 +66,7 @@ height: 900px;
 .lp-children-home{ position: absolute; top: 60%; transition: 0.5s ease-in-out; width: 12%; min-width: 100px;}
 .lp-home-tilou-venise{ right: 22%; transform: rotate(7deg);z-index:555 ;}
 .lp-home-soleil{ right: 32%; transform: rotate(-3deg); z-index:666 ;}
+
 @media screen and (max-width: 1370px) {
     .lp-roman-home{ top :33%;}
     .lp-children-home { top: 66%;}
@@ -77,9 +92,10 @@ height: 900px;
         width:  300px
     }
     .lp-welcome em {
-        top: 32%;
-        font-size: 1rem;
-        padding-left: 35px;
+        top: 13%;
+        font-size: 0.7em;
+        padding-left: 82px;
+        width: 85%;
     }
     .lp-citation a{
         font-size: 1em;
@@ -92,3 +108,14 @@ height: 900px;
         right: -10%;
     }
 }
+@media screen and (max-width: 624px){
+    .lp-roman-home, .lp-children-home {
+        top: 51%;
+        width: 17%;
+    }
+    .lp-home-hasard {left: 4%;}
+    .lp-home-trio {left: 23%;}
+    .lp-home-duo {left: 40%;}
+    .lp-home-soleil {right: 22%;}
+    .lp-home-tilou-venise {right: 4%;}
+    }
