@@ -23,7 +23,10 @@ class OrderDetail
     private ?int $quantity = null;
 
     #[ORM\Column]
-    private ?int $price = null;
+    private ?float $price = null;
+
+    #[ORM\Column]
+    private ?float $total = null;
 
     public function getId(): ?int
     {
@@ -66,14 +69,26 @@ class OrderDetail
         return $this;
     }
 
-    public function getPrice(): ?int
+    public function getPrice(): ?float
     {
         return $this->price;
     }
 
-    public function setPrice(int $price): static
+    public function setPrice(float $price): static
     {
         $this->price = $price;
+
+        return $this;
+    }
+
+    public function getTotal(): ?float
+    {
+        return $this->total;
+    }
+
+    public function setTotal(float $total): static
+    {
+        $this->total = $total;
 
         return $this;
     }
