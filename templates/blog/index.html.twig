@@ -3,38 +3,38 @@
 {% block title %}Blog index{% endblock %}
 
 {% block body %}
-    <h1>Blog index</h1>
+    <section class="container">
+        <article class="col">
+            <h1 class="text-center my-5">Tous Les articles</h1>
+            <div class="row d-flex justify-content-around">
+                {% for article in pagination %}
 
-    <table class="table">
-        <thead>
-            <tr>
-
-                <th>Title</th>
-
-                <th>CreatedAt</th>
-
-            </tr>
-        </thead>
-        <tbody>
-        {% for blog in blogs %}
-            <tr>
-
-                <td>{{ blog.title }}</td>
+                    <div class="col-md-4 lp-card-blog text-center ">
+                        <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">
+                            <h4 class="mb-4">{{ article.title | slice(0, 28)  }}...</h4></a>
 
 
-                <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                        <div class="lp-picture">
+                            <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">
+                                <img  src="{{asset('assets/' ~ article.picture[0].urlName) }}"  class="img-fluid" alt="{{ article.title }}">
+                            </a>
+                        </div>
 
-                <td>
-                    <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">show</a>
+                        <span class="d-block mt-1">{{ article.category.name }}</span>
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+                        <span class="mt-4">{{ article.excerpt| slice(0, 100) | raw }}...</span>
+                    </div>
 
+                {% else %}
+
+                    no records found
+
+                {% endfor %}
+            </div>
+            <div class="d-flex justify-content-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+        </article>
+
+    </section>
 {% endblock %}
