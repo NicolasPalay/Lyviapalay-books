@@ -26,7 +26,7 @@ class ApiController extends AbstractController
     {
         $responses = $this->client->request(
             'GET',
-            'https://www.lyviapalay-books.fr/wp-json/wp/v2/media/',
+            'https://www.lyviapalay-books.fr/wp-json/wp/v2/posts/',
             [
                 'query' => [
                     'per_page' => 100,
