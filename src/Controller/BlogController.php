@@ -23,7 +23,7 @@ class BlogController extends AbstractController
             'blogs' => $blogRepository->findAll(),
         ]);
     }
-    #[Route('/{id}', name: 'app_blog_show', methods: ['GET'])]
+    #[Route('/{slug}', name: 'app_blog_show', methods: ['GET'])]
     public function show(Blog $blog): Response
     {
         return $this->render('blog/show.html.twig', [

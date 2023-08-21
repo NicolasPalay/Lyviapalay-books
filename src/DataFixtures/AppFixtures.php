@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Blog;
 use App\Entity\Category;
 use App\Entity\CategoryProduct;
+use App\Entity\Picture;
 use App\Entity\SubCategory;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -20,7 +21,8 @@ class AppFixtures extends Fixture
     private $client;
 
     const  CATEGORIESPROD = [ 'Livre','Ebook','Goodies'];
-    const CATEGORIES = ['Mes livres', 'Vos avis', 'Rencontres & Dédidaces', 'Coin partage'];
+    const CATEGORIES = ['Mes livres', 'Vos avis', 'Rencontres & Dédidaces', 'Coin partage',
+        'Retours des lecteurs', 'Posts passions', 'Ecriture AE'];
 
 
 
@@ -37,11 +39,33 @@ class AppFixtures extends Fixture
                 'https://www.lyviapalay-books.fr/wp-json/wp/v2/posts/', [
                     'query' => [
                         'per_page' => 100,
+                        'orderby' => 'id', // Trie par ID croissant
+                        'order' => 'asc'
+
                     ],
                 ]
             );
             return $responses->toArray();
         }
+    public function getPictures(): array
+    {
+        $allPictures = [];
+        for ($i=1;$i<3;$i++){
+            $responsesPict = $this->client->request(
+                'GET',
+                'https://www.lyviapalay-books.fr/wp-json/wp/v2/media/', [
+                    'query' => [
+                        'per_page' => 100,
+                        'page' => $i,
+                        'orderby' => 'id', // Trie par ID croissant
+                        'order' => 'asc'
+                    ],
+                ]
+            );
+            $allPictures[] = $responsesPict->toArray();
+        }
+          return $allPictures;
+    }
 
     public function load(ObjectManager $manager): void
     {
@@ -98,23 +122,43 @@ class AppFixtures extends Fixture
 
 
         $posts = $this->getPosts();
-        foreach($posts as $post) {
+        $allPictures = $this->getPictures();
+
+        foreach ($posts as $post) {
+            $idPost = $post['featured_media'];
+
             $blog = new Blog();
             $blog->setTitle($post['title']['rendered'])
-                    ->setSlug($post['slug'])
-                    ->setContent($post['content']['rendered'])
-                    ->setCreatedAt(new \DateTime($post['date']))
-                    ->setUpdatedAt(new \DateTime($post['modified']))
-            ->setPublish(true);
+                ->setSlug($post['slug'])
+                ->setContent($post['content']['rendered'])
+                ->setExcerpt($post['excerpt']['rendered'])
+                ->setCreatedAt(new \DateTime($post['date']))
+                ->setUpdatedAt(new \DateTime($post['modified']))
+                ->setPublish(true);
+
             $authorUser = $this->getReference('user_admin');
             $blog->setAuthor($authorUser->getId())
-                    ->setCategory($this->getReference('category_' . $this->faker->randomElement(self::CATEGORIES)));
-
-
+                ->setCategory($this->getReference('category_' . $this->faker->randomElement(self::CATEGORIES)));
             $manager->persist($blog);
-            $this->addReference('post_' . $post['title']['rendered'], $blog);
-        }
-        $manager->flush();
+            $this->addReference('post_' . $idPost, $blog);
 
+            foreach ($allPictures as $pagePictures) {
+                foreach ($pagePictures as $picture) {
+                    if ($picture['id'] === $post['featured_media']) {
+                        $newPicture = new Picture();
+                        $fullUrl = $picture['source_url'];
+                        $baseUrl = "https://www.lyviapalay-books.fr/wp-content/";
+                        $relativeUrl = str_replace($baseUrl, "", $fullUrl);
+
+                        $newPicture->setUrlName($relativeUrl);
+                        $newPicture->setBlog($blog);
+                        $manager->persist($newPicture);
+                    }
+                }
+            }
+        }
+
+        $manager->flush();
     }
+
 }
