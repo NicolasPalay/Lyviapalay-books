@@ -1,0 +1,27 @@
+<section class="container">
+    <article class="col">
+        <h3 class="text-center my-5">Les derniers articles</h3>
+        <div class="row d-flex justify-content-around">
+            {% for article in articles %}
+
+                <div class="col-md-4 lp-card-blog text-center ">
+                    <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">
+                        <h4 class="mb-4">{{ article.title | slice(0, 30)  }}...</h4>
+                        <div class="lp-picture">
+                            <img  src="{{asset('assets/' ~ article.picture[0].urlName) }}"  class="img-fluid" alt="{{ article.title }}">
+                        </div>
+
+                        <span class="d-block mt-1">{{ article.category.name }}</span>
+
+                    <p class="d-block mt-4">{{ article.excerpt| slice(0, 50) | raw }}...</p></a>
+                </div>
+
+            {% else %}
+
+                no records found
+
+            {% endfor %}
+        </div>
+    </article>
+
+</section>

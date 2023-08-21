@@ -25,7 +25,7 @@
                 <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
 
                 <td>
-                    <a href="{{ path('app_blog_show', {'id': blog.id}) }}">show</a>
+                    <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">show</a>
 
                 </td>
             </tr>

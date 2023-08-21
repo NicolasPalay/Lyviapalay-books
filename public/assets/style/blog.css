@@ -1,0 +1,10 @@
+.articleHome{max-width: 1200px;margin: 0 auto;}
+
+.lp-card-blog{
+    max-width: 300px;
+    margin: 2%;
+    padding: 40px 35px;
+    border-radius: 10px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0 50px 100px -20px, rgba(146, 39, 143,0.35) 0 30px 60px -30px, rgba(146, 39, 143,0.35) 0px -2px 6px 0px inset;
+    position: relative;
+}
