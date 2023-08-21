@@ -20,7 +20,12 @@ class BlogRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Blog::class);
     }
-
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('b')
+            ->orderBy('b.id', 'desc')
+            ->getQuery();
+    }
 //    /**
 //     * @return Blog[] Returns an array of Blog objects
 //     */
