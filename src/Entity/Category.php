@@ -25,6 +25,7 @@ class Category
     private ?string $slug = null;
 
     #[ORM\ManyToOne(targetEntity: self::class, inversedBy: 'parent')]
+    #[ORM\JoinColumn(nullable: true, onDelete: 'SET NULL')]
     private ?self $category = null;
 
     #[ORM\OneToMany(mappedBy: 'category', targetEntity: self::class)]

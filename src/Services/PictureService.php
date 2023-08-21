@@ -69,8 +69,19 @@ class PictureService
 
         // Resize the new picture
         $resizedPicture = imagecreatetruecolor($width, $height);
+        if ($pictureWidth > $pictureHeight) {
+            $ratio = $pictureHeight / $squareSize;
+        } else {
+            $ratio = $pictureWidth / $squareSize;
+        }
+
+        $srcX = ($pictureWidth - $squareSize * $ratio) / 2;
+        $srcY = ($pictureHeight - $squareSize * $ratio) / 2;
+
+// Resize the new picture
+        $resizedPicture = imagecreatetruecolor($width, $height);
         imagecopyresampled($resizedPicture, $pictureSource, 0, 0, $srcX, $srcY, $width, $height,
-            $squareSize, $squareSize);
+            $squareSize * $ratio, $squareSize * $ratio);
         $path = $this->params->get('image_directory') . $folder;
 
         // create the folder if it does not exist

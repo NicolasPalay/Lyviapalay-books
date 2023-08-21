@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\OrderRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
@@ -28,6 +29,18 @@ class Order
     #[ORM\OneToMany(mappedBy: 'reference', targetEntity: OrderDetail::class, orphanRemoval:true,
         cascade: ['persist'])]
     private Collection $orderDetails;
+
+    #[ORM\Column(length: 255)]
+    private ?string $carrierName = null;
+
+    #[ORM\Column]
+    private ?float $carrierPrice = null;
+
+    #[ORM\Column(type: Types::TEXT)]
+    private ?string $delivery = null;
+
+    #[ORM\Column]
+    private ?bool $isPaid = null;
 
     public function __construct()
     {
@@ -102,6 +115,54 @@ class Order
                 $orderDetail->setReference(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getCarrierName(): ?string
+    {
+        return $this->carrierName;
+    }
+
+    public function setCarrierName(string $carrierName): static
+    {
+        $this->carrierName = $carrierName;
+
+        return $this;
+    }
+
+    public function getCarrierPrice(): ?float
+    {
+        return $this->carrierPrice;
+    }
+
+    public function setCarrierPrice(float $carrierPrice): static
+    {
+        $this->carrierPrice = $carrierPrice;
+
+        return $this;
+    }
+
+    public function getDelivery(): ?string
+    {
+        return $this->delivery;
+    }
+
+    public function setDelivery(string $delivery): static
+    {
+        $this->delivery = $delivery;
+
+        return $this;
+    }
+
+    public function isIsPaid(): ?bool
+    {
+        return $this->isPaid;
+    }
+
+    public function setIsPaid(bool $isPaid): static
+    {
+        $this->isPaid = $isPaid;
 
         return $this;
     }

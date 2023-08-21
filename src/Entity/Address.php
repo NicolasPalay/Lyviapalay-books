@@ -182,4 +182,9 @@ class Address
 
         return $this;
     }
+    public function __toString(): string
+    {
+        return $this->getName() . '[br]' . $this->getAdress() . '[br]' . $this->getPostal() . ' - ' . $this->getCity();
+
+    }
 }

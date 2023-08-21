@@ -39,6 +39,9 @@ class Blog
     #[ORM\Column]
     private ?bool $publish = null;
 
+    #[ORM\Column(length: 500)]
+    private ?string $excerpt = null;
+
     public function __construct()
     {
         $this->picture = new ArrayCollection();
@@ -147,6 +150,18 @@ class Blog
     public function setPublish(bool $publish): static
     {
         $this->publish = $publish;
+
+        return $this;
+    }
+
+    public function getExcerpt(): ?string
+    {
+        return $this->excerpt;
+    }
+
+    public function setExcerpt(string $excerpt): static
+    {
+        $this->excerpt = $excerpt;
 
         return $this;
     }
