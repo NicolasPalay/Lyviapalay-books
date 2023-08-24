@@ -2,7 +2,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 900px;
+    height: 91vh;
     box-shadow: 1px 3px 50px #92278f;
     -webkit-box-shadow: 1px 3px 50px #92278f;
     -moz-box-shadow: 1px 3px 50px #92278f;
@@ -14,7 +14,9 @@
 .lp-welcome{
     position: absolute;
     top: 17%;
+    color: var(--lp-color-primary);
 }
+
 .lp-welcome img
 {
     width:  445px

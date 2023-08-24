@@ -5,33 +5,45 @@
 {% block body %}
     <h1>Category index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Slug</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+
         {% for category in categories %}
-            <tr>
+            <a href="{{ path('app_category_show', {'slug': category.slug}) }}">afficher la catérigorie : {{ category.name }}</a>
+            <ul>
+            <li>{{ category.name }}</li>
+                <section class="container">
+                    <article class="col">
+                        <div class="row d-flex justify-content-around">
+            {% for blog in category.blogs %}
+                                <div class="col-md-4 lp-card-blog text-center ">
+                                    <div class="lp-picture mb-2">
+                                        <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">
+                                            <img  src="{{asset('assets/' ~ blog.picture[0].urlName) }}"  class="img-fluid" alt="{{ blog.title }}">
+                                        </a>
+                                    </div>
+                                    <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">
+                                        <h4 class="mb-4">{{ blog.title | slice(0, 28)  }}...</h4></a>
+                                    <span class="d-block mt-1">{{ blog.category.name }}</span>
 
-                <td>{{ category.name }}</td>
-                <td>{{ category.slug }}</td>
+                                    <p class="d-block mt-4">{{ blog.excerpt | slice(0, 100) | raw }}...</p>
+                                </div>
 
-                <td>
-                    <a href="{{ path('app_category_show', {'slug': category.slug}) }}">show</a>
 
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">no records found</td>
-            </tr>
+
+                {% endfor %}
+                        </div>
+                    </article>
+
+
+                </section>
+
+
+
+
+
+
+
+                </ul>
         {% endfor %}
-        </tbody>
-    </table>
+
 
 {% endblock %}
