@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\Blog;
 use App\Form\BlogType;
+use App\Form\SearchBLogType;
+use App\Model\SearchData;
 use App\Repository\BlogRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -43,5 +45,6 @@ class BlogController extends AbstractController
             'blog' => $blog,
         ]);
     }
+
 
 }

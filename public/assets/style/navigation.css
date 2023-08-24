@@ -9,14 +9,23 @@
 }
 .lp-logo h2 a{font-family: var(--lp-font-signature);color: var(--lp-color-primary);
 font-size:1.5em;}
-.lp-logo h2 a{fcolor: var(--lp-color-secondary);}
+.lp-logo h2 a{color: var(--lp-color-secondary);}
 
 .lp-font-title{font-family: var( --lp-font-tertiary);  font-size: 1.5em;}
 .navbar-expand-lg .navbar-collapse{justify-content: center}
 .lp-icon{border: 2px solid var(--lp-color-primary); border-radius: 10px; padding: 5px; margin: -5px 0;}
-.lp-icon:hover{border: 2px solid var(--lp-color-secondary);}
+.lp-icon:hover,.lp-form-search-icon:hover{border: 2px solid var(--lp-color-secondary);}
 
-.lp-search{position: absolute;display: none}
+.lp-search{position: absolute;display: none;top: 0;
+    z-index: 9999;transition: 1s ease-in-out;}
+.lp-search-active form{display: flex}
+.lp-form-search-icon{border: 2px solid var(--lp-color-primary); border-radius: 10px; margin: 0px -2px;
+    padding: 0 4px;
+    background: none;}
+.lp-search-active{background-color:rgb(255,255,255) ;padding :74px 38% 44px; width: 100%;transition: 1s ease-in-out;}
+.lp-search-active input{width: 0;  transition: width 4s;border: none; border-bottom: 2px solid var(--lp-color-primary); padding: 5px; font-size: 1.2em; font-family: var(--lp-font-tertiary); color: var(--lp-color-primary); background: none;}
+.lp-search-active input:focus{box-shadow: 0 0 0 0.25rem rgba(146,39,143,.25);}
+.lp-btn-search {background: none; border: 2px var(--lp-color-primary) solid; color: var(--lp-color-primary); font-size: 1.2em; font-family: var(--lp-font-tertiary); padding: 7px 10px 3px; margin: 0;}
 
 @media screen and (max-width: 768px) {
     .lp-background-nav .navbar-collapse{
