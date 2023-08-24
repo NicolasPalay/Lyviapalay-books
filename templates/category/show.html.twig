@@ -3,25 +3,40 @@
 {% block title %}Category{% endblock %}
 
 {% block body %}
-    <h1>Category</h1>
+    <ul>
+        <li>{{ category.name }}</li>
+        <section class="container">
+            <article class="col">
+                <div class="row d-flex justify-content-around">
+                    {% for blog in category.blogs %}
+                        <div class="col-md-4 lp-card-blog text-center ">
+                            <div class="lp-picture mb-2">
+                                <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">
+                                    <img  src="{{asset('assets/' ~ blog.picture[0].urlName) }}"  class="img-fluid" alt="{{ blog.title }}">
+                                </a>
+                            </div>
+                            <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">
+                                <h4 class="mb-4">{{ blog.title | slice(0, 28)  }}...</h4></a>
+                            <span class="d-block mt-1">{{ blog.category.name }}</span>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ category.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ category.name }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ category.slug }}</td>
-            </tr>
-        </tbody>
-    </table>
+                            <p class="d-block mt-4">{{ blog.excerpt | slice(0, 100) | raw }}...</p>
+                        </div>
 
-    <a href="{{ path('app_category_index') }}">back to list</a>
+
+
+                    {% endfor %}
+                </div>
+            </article>
+
+
+        </section>
+
+
+
+
+
+
+
+    </ul>
 
 {% endblock %}

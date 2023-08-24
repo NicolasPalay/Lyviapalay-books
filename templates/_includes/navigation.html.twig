@@ -12,9 +12,7 @@
                 <li class="nav-item">
                     <a class="nav-link" aria-current="page" href="{{ path('boutique_index') }}">Boutique</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ path('cart_index') }}">panier</a>
-                </li>
+
                 {% for cat in cats.getCategories %}
                     {% if cat.category == null  %}
                         <li   class="nav-item nav-item dropdown">
@@ -31,7 +29,7 @@
 
                 {% endfor %}
 
-                <li class="nav-item"><a class="nav-link" href="#"><span class="material-icons lp-icon">search</span></a></li>
+                <li class="nav-item"><a class="nav-link lp-search-icon" href="#"><span class="material-icons lp-icon">search</span></a></li>
 
                 {% if app.user %}
                 <li class="nav-item"><a class="nav-link" href="{{ path('account') }}"><span class="material-icons lp-icon">account_circle</span></a></li>
@@ -41,17 +39,15 @@
                 <li class="nav-item"><a class="nav-link" href="{{ path('app_register') }}">Inscription</a></li>
                 {% endif %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('cart_index') }}"><span class="material-icons lp-icon">shopping_cart</span></a>
+                    <a class="nav-link " href="{{ path('cart_index') }}"><span class="material-icons lp-icon ">shopping_cart</span></a>
                 </li>
 
             </ul>
 
-
         </div>
     </div>
 </nav>
-<div class="lp-search"><form class="d-flex" role="search">
-    <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-    <button class="btn btn-outline-success" type="submit">Search</button>
-</form>
+<div class="lp-search">
+    {{ render(controller('App\\Controller\\SearchController::renderSearchForm')) }}
+    </form>
 </div>
