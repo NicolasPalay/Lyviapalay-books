@@ -3,8 +3,11 @@
 namespace App\Repository;
 
 use App\Entity\Blog;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Blog>
@@ -16,15 +19,45 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class BlogRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private $paginatorInterface;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginatorInterface)
     {
         parent::__construct($registry, Blog::class);
+        $this->paginatorInterface = $paginatorInterface;
     }
     public function paginationQuery()
     {
         return $this->createQueryBuilder('b')
             ->orderBy('b.id', 'desc')
             ->getQuery();
+    }
+
+    public function findSearch(SearchData $searchData) : PaginationInterface
+    {
+        $queryBuilder = $this->createQueryBuilder('b')
+            ->where('b.title LIKE :title');
+          //  ->orWhere('b.content LIKE :content');
+
+        if (!empty($searchData->q)) {
+            $queryBuilder = $queryBuilder
+                ->andWhere('b.title LIKE :q');
+              //  ->orWhere('b.content LIKE :q');
+        }
+
+        $queryBuilder = $queryBuilder
+            ->setParameter('title', '%' . $searchData->q . '%')
+           // ->setParameter('content', '%' . $searchData->q . '%')
+            ->setParameter('q', '%' . $searchData->q . '%');
+
+        $data = $queryBuilder->getQuery()->getResult();
+
+        $blogs = $this->paginatorInterface->paginate(
+            $data, $searchData->page, 12
+        );
+
+        return $blogs;
+
     }
 //    /**
 //     * @return Blog[] Returns an array of Blog objects

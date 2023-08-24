@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Classe\Search;
 use App\Entity\CategoryProduct;
+use App\Model\SearchData;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -47,7 +48,7 @@ class SearchType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => Search::class,
+            'data_class' => SearchData::class,
             'method' => 'GET',
             'csrf_protection' => false
         ]);
