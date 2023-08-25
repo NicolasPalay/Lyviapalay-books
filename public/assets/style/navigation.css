@@ -9,8 +9,8 @@
 }
 .lp-logo h2 a{font-family: var(--lp-font-signature);color: var(--lp-color-primary);
 font-size:1.5em;}
-.lp-logo h2 a{color: var(--lp-color-secondary);}
-
+.lp-logo h2 a{color: var(--lp-color-primary);}
+.lp-logo h2 a:hover{color: var(--lp-color-secondary);}
 .lp-font-title{font-family: var( --lp-font-tertiary);  font-size: 1.5em;}
 .navbar-expand-lg .navbar-collapse{justify-content: center}
 .lp-icon{border: 2px solid var(--lp-color-primary); border-radius: 10px; padding: 5px; margin: -5px 0;}

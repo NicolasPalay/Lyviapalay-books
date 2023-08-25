@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mot de passe oublié{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Mot de passe oublié</h1>
+    {{ form(form) }}
+    <p class="text-center">
+        <a href="{{ path('app_register') }}"> Pas encore inscrit ?</a>
+        <a href="{{ path('app_login') }}">Se connecter</a>
+    </p>
+{% endblock %}
