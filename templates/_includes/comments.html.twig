@@ -1,0 +1,19 @@
+{% if comments %}<div class="my-5 container lp-comment">
+    <h4 class="my-5">Commentaires</h4>
+    {% for comment in comments %}
+
+    <strong>{{ comment.user.firstname }}</strong><br />
+    <p>{{ comment.content| raw }}</p>
+<hr class="w-75">
+
+{% endfor %}</div>
+{% endif %}
+{% if app.user %}
+{{ form_start(form) }}
+    {{ form_widget(form) }}
+    <input type="submit" value="Commenter" />
+{{ form_end(form) }}
+{% else %}
+
+<div class="my-5">  <a href="{{ path('app_login') }}">Connectez-vous</a> pour commenter</div>
+{% endif %}

@@ -3,10 +3,13 @@
 namespace App\Controller;
 
 use App\Entity\Blog;
+use App\Entity\Comment;
 use App\Form\BlogType;
+use App\Form\CommentType;
 use App\Form\SearchBLogType;
 use App\Model\SearchData;
 use App\Repository\BlogRepository;
+use App\Repository\CommentRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -38,11 +41,29 @@ class BlogController extends AbstractController
             'pagination' => $pagination,
         ]);
     }
-    #[Route('/{slug}', name: 'app_blog_show', methods: ['GET'])]
-    public function show(Blog $blog): Response
+    #[Route('/{slug}', name: 'app_blog_show', methods: ['GET', 'POST'])]
+    public function show(Blog $blog,CommentRepository $comment,Request $request,EntityManagerInterface
+    $entityManager):
+    Response
     {
+        $newComment = new Comment();
+        $form = $this->createForm(CommentType::class, $newComment);
+        $form->handleRequest($request);
+     if ($form->isSubmitted() && $form->isValid()) {
+            $newComment->setBlog($blog);
+            $newComment->setUser($this->getUser());
+
+            $entityManager->persist($newComment);
+            $entityManager->flush();
+            return $this->redirectToRoute('app_blog_show', ['slug' => $blog->getSlug()]);
+        }
+
         return $this->render('blog/show.html.twig', [
             'blog' => $blog,
+          'form' => $form->createView(),
+          'comments' => $comment->findBy(['blog' => $blog->getId()])
+
+
         ]);
     }
 
