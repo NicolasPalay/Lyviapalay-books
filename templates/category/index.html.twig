@@ -17,7 +17,7 @@
                                 <div class="col-md-4 lp-card-blog text-center ">
                                     <div class="lp-picture mb-2">
                                         <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">
-                                            <img  src="{{asset('assets/' ~ blog.picture[0].urlName) }}"  class="img-fluid" alt="{{ blog.title }}">
+                                            <img  src="{{asset('assets/uploads/' ~ blog.picture[0].urlName) }}"  class="img-fluid" alt="{{ blog.title }}">
                                         </a>
                                     </div>
                                     <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">
