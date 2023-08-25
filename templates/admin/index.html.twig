@@ -1,0 +1,9 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Bonjour {% if app.user %}{{ app.user.firstName }}{% endif %}}{% endblock %}
+
+{% block body %}
+    Bonjour {% if app.user %}{{ app.user.firstName }}{% endif %}
+
+
+{% endblock %}
