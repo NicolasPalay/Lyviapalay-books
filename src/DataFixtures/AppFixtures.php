@@ -96,6 +96,7 @@ class AppFixtures extends Fixture
             $this->addReference('user_admin', $user);
             $manager->persist($user);
 
+
         $manager->flush();
 
         foreach (self::CATEGORIESPROD as $categoryName) {
@@ -137,7 +138,7 @@ class AppFixtures extends Fixture
                 ->setPublish(true);
 
             $authorUser = $this->getReference('user_admin');
-            $blog->setAuthor($authorUser->getId())
+            $blog->setAuthor($this->getReference('user_admin'))
                 ->setCategory($this->getReference('category_' . $this->faker->randomElement(self::CATEGORIES)));
             $manager->persist($blog);
             $this->addReference('post_' . $idPost, $blog);
@@ -147,7 +148,7 @@ class AppFixtures extends Fixture
                     if ($picture['id'] === $post['featured_media']) {
                         $newPicture = new Picture();
                         $fullUrl = $picture['source_url'];
-                        $baseUrl = "https://www.lyviapalay-books.fr/wp-content/";
+                        $baseUrl = "https://www.lyviapalay-books.fr/wp-content/uploads/";
                         $relativeUrl = str_replace($baseUrl, "", $fullUrl);
 
                         $newPicture->setUrlName($relativeUrl);

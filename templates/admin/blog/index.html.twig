@@ -9,10 +9,10 @@
         <thead>
             <tr>
                 <th>Id</th>
+                <th>Publish</th>
                 <th>Title</th>
-                <th>Content</th>
+                <th>img</th>
                 <th>Author</th>
-                <th>Slug</th>
                 <th>CreatedAt</th>
                 <th>UpdatedAt</th>
                 <th>actions</th>
@@ -22,10 +22,13 @@
         {% for blog in blogs %}
             <tr>
                 <td>{{ blog.id }}</td>
+                <td>{{ blog.publish ? 'Yes' : 'No' }}</td>
                 <td>{{ blog.title }}</td>
-                <td>{{ blog.content | slice(0, 100) }}</td>
-                <td>{{ blog.author }}</td>
-                <td>{{ blog.slug }}</td>
+                {% if blog.picture %}
+                <td><img  src="{{asset('assets/uploads/' ~ blog.picture[0].urlName) }}"  class="img-fluid lp-sm-img"></td>
+                {% endif %}
+                <td>{{ blog.author.firstName }} {{ blog.author.lastName }}</td>
+
                 <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td>

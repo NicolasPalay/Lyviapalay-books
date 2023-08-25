@@ -27,9 +27,6 @@ class Blog
     #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Picture::class, cascade: ["persist"])]
     private Collection $picture;
 
-    #[ORM\Column(length: 255)]
-    private ?string $author = null;
-
     #[ORM\ManyToOne(inversedBy: 'blogs')]
     private ?Category $category = null;
 
@@ -42,9 +39,16 @@ class Blog
     #[ORM\Column(length: 500)]
     private ?string $excerpt = null;
 
+    #[ORM\ManyToOne(inversedBy: 'blogs')]
+    private ?User $author = null;
+
+    #[ORM\OneToMany(mappedBy: 'Blog', targetEntity: Comment::class)]
+    private Collection $comments;
+
     public function __construct()
     {
         $this->picture = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -75,7 +79,10 @@ class Blog
 
         return $this;
     }
-
+    public function __toString()
+    {
+        return $this->getTitle(); // Par exemple, renvoyer le titre du blog
+    }
     /**
      * @return Collection<int, Picture>
      */
@@ -106,17 +113,7 @@ class Blog
         return $this;
     }
 
-    public function getAuthor(): ?string
-    {
-        return $this->author;
-    }
 
-    public function setAuthor(string $author): static
-    {
-        $this->author = $author;
-
-        return $this;
-    }
 
     public function getCategory(): ?Category
     {
@@ -162,6 +159,48 @@ class Blog
     public function setExcerpt(string $excerpt): static
     {
         $this->excerpt = $excerpt;
+
+        return $this;
+    }
+
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    public function setAuthor(?User $author): static
+    {
+        $this->author = $author;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Comment>
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): static
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments->add($comment);
+            $comment->setBlog($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): static
+    {
+        if ($this->comments->removeElement($comment)) {
+            // set the owning side to null (unless already changed)
+            if ($comment->getBlog() === $this) {
+                $comment->setBlog(null);
+            }
+        }
 
         return $this;
     }

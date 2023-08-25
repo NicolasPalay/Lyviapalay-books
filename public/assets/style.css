@@ -9,7 +9,7 @@
 
 :root{
     --lp-color-primary: #92278f;
-    --lp-color-secondary: #6F8F8A;
+    --lp-color-secondary: #278f92;
     --lp-color-tertiary: #999999;
     --lp-dark: #343434;
     --lp-light: rgba(240, 236, 233,0.7);
@@ -24,6 +24,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    font-family: var(--lp-font-secondary);
 }
 h4 {
     font-size: 1.2em;
@@ -31,28 +32,36 @@ h4 {
     margin: 0;
     font-family: var(--lp-font-tertiary);
 }
-a, .nav-link, .nav-link:active, .nav-link:visited{
+.nav-link, .nav-link:active, .nav-link:visited{
     text-decoration: none;
     color: var(--lp-color-primary);
     font-size: 0.8em;
 }
+a{
+    text-decoration: none;
+    color: var(--lp-color-primary);
+}
 a:hover, .nav-link:hover{
     color: var(--lp-color-secondary);
 }
-
+ p,p a{
+    font-size: 1em;
+    font-family: var(--lp-font-secondary);
+}
 /* button */
 .lp-btn{
-
-    padding: 0.5rem 1rem;
-    border-radius: 10px;
-    background-color: var(--lp-color-primary);
-    color: var(--lp-color-tertiary);
-    cursor: pointer;
-    transition: all 0.5s ease-in-out;
-    border: 2px solid white;
-}
-.lp-btn:hover{
-    border: 2px solid var(--lp-color-primary);
+    border: 3px solid var(--lp-color-primary);
     background-color: white;
     color: var(--lp-color-primary);
+    padding: 0.3rem 1.5rem;
+    border-radius: 10px;
+
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+
+}
+.lp-btn:hover{
+    border: 3px solid white;
+    background-color: var(--lp-color-primary);
+    color:  white;
 }
