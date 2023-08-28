@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\Product;
 use App\Form\SearchBLogType;
 use App\Model\SearchData;
@@ -21,6 +22,7 @@ class HomeController extends AbstractController
                           CitationRepository  $citationRepository,
     Request $request): Response
     {
+
     return $this->render('home/index.html.twig', [
         'articles' => $blogRepository->findby([],['id' => 'desc'], 6),
         'products'=> $productRepository->findby([],['id' => 'DESC'], 3),

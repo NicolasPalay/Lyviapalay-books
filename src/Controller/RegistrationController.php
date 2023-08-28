@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
@@ -30,7 +31,11 @@ class RegistrationController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            // encode the plain password
+            $searchEmail = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
+            if ($searchEmail) {
+
+                return $this->redirectToRoute('app_register');
+            }
             $user->setPassword(
                 $userPasswordHasher->hashPassword(
                     $user,
@@ -40,7 +45,10 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            $mail->sendEmail();
+            $mail = new Mail();
+            $content = "bonjour " . $user->getFirstname() . " Vous étiez bien inscrire sur le site de Lyvia Palay";
+            $mail->send($user->getEmail(),$user->getFirstname(), 'Bienvenue dans la boutique de Lyvia Palay', $content);
+
             $this->addFlash('success', 'Votre compte a bien été créé');
 
             return $userAuthenticator->authenticateUser(

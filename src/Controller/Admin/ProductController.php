@@ -42,7 +42,7 @@ class ProductController extends AbstractController
             $folder = 'pictures';
 
             foreach ($pictures as $picture) {
-                $pictureName = $pictureService->add($picture, $folder, 150, 200);
+                $pictureName = $pictureService->add($picture, $folder, 250, 250);
 
                 $newPicture = new Picture();
                 $newPicture->setUrlName($pictureName);
@@ -79,7 +79,7 @@ class ProductController extends AbstractController
             $folder = 'pictures';
 
             foreach ($pictures as $picture) {
-                $pictureName = $pictureService->add($picture, $folder, 150, 200);
+                $pictureName = $pictureService->add($picture, $folder, 250, 250);
 
                 // Set the picture property for the Product entity
 

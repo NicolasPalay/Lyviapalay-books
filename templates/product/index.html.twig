@@ -7,7 +7,7 @@
         <div class="row">
             <article class="col-md-3">
                 <h3 class="text-center">La boutique de Lyvia</h3>
-                {{ form(form) }}
+           {#   {{ form(form) }}#}
 
 
             </article>
@@ -20,7 +20,7 @@
                             <a href="{{ path('app_product_show', {'slug': product.slug}) }}">
                                 <div class="lp-picture">
                                     <div class="lp-mask"></div>
-                                    <img  src="{{asset('assets/uploads/pictures/mini/150x200-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                    <img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
                                 </div>
                                 <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
 

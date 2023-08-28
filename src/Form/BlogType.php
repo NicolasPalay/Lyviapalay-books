@@ -3,8 +3,11 @@
 namespace App\Form;
 
 use App\Entity\Blog;
+use FOS\CKEditorBundle\Form\Type\CKEditorType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +17,8 @@ class BlogType extends AbstractType
     {
         $builder
             ->add('title')
-            ->add('content')
+            ->add('content',CKEditorType::class)
+            ->add('excerpt',TextareaType::class)
             ->add('category',null,[
                 'choice_label'=>'name'
             ])
@@ -28,7 +32,12 @@ class BlogType extends AbstractType
 
                     'onchange' => "previewPictures(this)"
                 ]])
-        ;
+        ->add('publish',CheckboxType::class,
+            [
+                'label'=>'Publier',
+                'required'=>false
+            ])
+
         ;
     }
 

@@ -1,4 +1,4 @@
-{% extends 'base.html.twig' %}
+{% extends 'baseAdmin.html.twig' %}
 
 {% block title %}Product index{% endblock %}
 
@@ -21,7 +21,7 @@
         <tbody>
         {% for product in products %}
             <tr>
-                <td><img class="lp-img-admin" src="{{asset('assets/uploads/pictures/mini/150x200-' ~ product.pictures[0].urlName) }}" alt="{{ product.name }}"></td>
+                <td><img class="lp-img-admin" src="{{asset('assets/uploads/pictures/mini/250x250-' ~ product.pictures[0].urlName) }}" alt="{{ product.name }}"></td>
                 <td>{{ product.name }}</td>
 
                 <td>{{ product.slug }}</td>
