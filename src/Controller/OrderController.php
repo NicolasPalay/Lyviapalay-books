@@ -62,6 +62,7 @@ class OrderController extends AbstractController
            if ($form->isSubmitted() && $form->isValid()) {
 
             $carriers = $form->get('carriers')->getData();
+            $transport= $carriers->getPrice() * $cart->getFullCart($session, $productRepository)['totalWeight'];
             $delivery = $form->get('adresses')->getData();
             $lastOrder = $orderRepository->findOneBy([], ['id' => 'desc']);
             if ($lastOrder) {
@@ -74,7 +75,7 @@ class OrderController extends AbstractController
             $order->setUser($this->getUser())
 
                 ->setCarrierName($carriers->getName())
-                ->setCarrierPrice($carriers->getPrice())
+                ->setCarrierPrice($transport)
                 ->setDelivery($delivery->getFirstname() . ' ' . $delivery->getLastname() . '[br] tél : '
                     . $delivery->getPhone() . '[br]'
                     . $delivery->getAdress() . '[br]'

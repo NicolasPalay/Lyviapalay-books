@@ -7,6 +7,7 @@ use App\Entity\Carrier;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -35,11 +36,19 @@ class OrderType extends AbstractType
                     'label' => 'Choisissez votre transporteur'
 
                 ])
+            ->add('dedication', TextareaType::class,
+                [
+                    'label' => 'Dédicace',
+                    'required' => false,
+                    'attr' => [
+                        'placeholder' => 'Si vous souhaitez une dédicace, c\'est ici !'
+                    ]
+                ])
             ->add('submit', SubmitType::class,
                 [
                     'label' => 'Valider ma commande',
                     'attr' => [
-                        'class' => 'btn btn-success btn-block'
+                        'class' => 'lp-btn btn-block mt-3'
                     ]
                 ])
         ;

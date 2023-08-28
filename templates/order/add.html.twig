@@ -4,13 +4,16 @@
 
 {% block body %}
     {% set formHtml %}
-    <h1>Ma commande</h1>
-Merci pour votre commande référence {{ order.reference }} {{ order.user.firstname }} {{ order.user.lastname }}<br>
-Elle sera livrée à l'adresse suivante :<br>
-    {{order.delivery }}
+        <div class="container ">
+    <h1 class="text-center">Ma commande</h1>
+<p>Merci pour votre commande : <strong>référence {{ order.reference }}</strong> {{ order.user.firstname }} {{ order.user.lastname }}</p><br>
+<p>Elle sera livrée à l'adresse suivante :</p>
 
-    <div class="col-md-6">
-        Récapitulatif de la commande
+  <p class="w-25 lp-border">{{order.delivery }}</p>
+
+
+        <p mt-5>Récapitulatif de la commande</p>
+        <div class="w-50 lp-border mb-5">
         {% set total = null %}
         {% for orderDetail in orderDetails %}
             <ul>
@@ -24,12 +27,13 @@ Elle sera livrée à l'adresse suivante :<br>
             {% set total = total + (orderDetail.product.price * orderDetail.quantity) %}
 {% endfor %}
 
-    </div>
+
     {% endset %}
     {{ formHtml|replace ({'[br]' : '<br>'})|raw }}
   <p>sous total : {{ total | number_format(2,',' ,'.')}} €</p>
     <p>frait de transport : {{ order. carrierPrice| number_format(2,',' ,'.')}} € avec {{ order.carrierName }}</p>
     <p>Total : {{ (total + order.carrierPrice)| number_format(2,',' ,'.')}} €</p>
-
-    <a href="{{ path('payment_index',{reference : order.reference }) }}">Payement de  {{ (total + order.carrierPrice)| number_format(2,',' ,'.')}} €</a>
+    </div>
+    <a class="lp-btn mt-5" href="{{ path('payment_index',{reference : order.reference }) }}">Payement de  {{ (total + order.carrierPrice)| number_format(2,',' ,'.')}} €</a>
+    </div>
 {% endblock %}
