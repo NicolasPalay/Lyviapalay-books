@@ -1,5 +1,5 @@
 .lp-img-admin{width: 50px}
-.lp-sideBarLeft{background-color: #2e9ad0}
+.lp-sideBarLeft{border-right:1px solid var(--lp-color-primary);height: 100vh}
 .lp-sm-img{width: 40px}
 
 
@@ -24,6 +24,24 @@ textarea::-webkit-scrollbar-thumb {
     cursor: pointer ;
     outline: 1px solid slategrey;
 }
+/*cart*/
+table{text-align: center}
+table .lp-td{text-align: left}
+table .lp-td-right{text-align: right; font-weight: bold; padding-right: 30px}
+.lp-quant{padding:5px 10px;border: 3px solid var(--lp-color-primary);
+    background-color: white;
+    color: var(--lp-color-primary);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;}
+
+.lp-quant:hover{
+    border: 3px solid white;
+    background-color: var(--lp-color-primary);
+    color:  white;
+}
+.lp-quant-number{padding:5px 10px;}
+
 
 /*order*/
 .lp-border{padding: 10px;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
@@ -31,6 +49,8 @@ textarea::-webkit-scrollbar-thumb {
 #order_adresses, #order_carriers{width: 80%;display: flex}
 #order_adresses input, #order_carriers input{margin: 2px 30px}
 #order_dedication{    width: 207%;}
+.lp-recap-order{list-style: none;margin:0;font-weight: bold}
+.lp-recap-order span{color: var(--lp-color-primary)}
 
 @media screen and (max-width: 768px){
     #order_dedication{    width: 100%;}

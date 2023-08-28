@@ -18,21 +18,21 @@
     {% endset %}
     {{ formHtml|replace ({'[br]' : '<br>'})|raw }}
         </div>
-            <div class="lp-border col-md-6">
+            <div class="lp-border col-md-6 pb-4">
 
-                <p class="p-3"> <strong>Récapitulatif de la commande</strong></p>
-                {% for item in items.data %}
-                    <ul>
-                        <li>{{ item.product.name }}</li>
-                        <li>{{ item.quantity }}</li>
-                        <li>{{ item.product.price  | number_format(2,',' ,'.')}} €</li>
-                    </ul>
+                <p class="pt-3"> <strong>Récapitulatif de la commande</strong></p>
+                <ul class="lp-recap-order">{% for item in items.data %}
+
+                        <li>Titre : <span>{{ item.product.name }}</span></li>
+                        <li>quantité : <span>{{ item.quantity }}</span></li>
+                        <li>Prix unitaire : <span>{{ item.product.price  | number_format(2,',' ,'.')}} €</span></li>
+
 
                 {% else %}
                     <tr>le panier est vide</tr>
                 {% endfor %}
-                <p>Total: {{ items.total | number_format(2, ',', '.') }} €</p>
-            </div>
+                <li>Montant total (sans frais de port) : <span>{{ items.total | number_format(2, ',', '.') }} €</span></li>
+                </ul></div>
     </div>
 
     </div>

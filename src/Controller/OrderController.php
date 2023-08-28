@@ -33,6 +33,11 @@ class OrderController extends AbstractController
                           SessionInterface  $session,
                           ProductRepository $productRepository):    Response
     {
+       $data = $cart->getFullCart($session, $productRepository);
+       //dd($data);
+       if($data['total'] == 0) {
+           return $this->redirectToRoute('boutique_index');
+       }
         if(!$this->getUser()->getAdresses()->getValues()) {
             return $this->redirectToRoute('account_address_add');
         }
@@ -40,7 +45,7 @@ class OrderController extends AbstractController
         $user = $this->getUser();
         $form = $this->createForm(OrderType::class,null,['user' => $user]);
 
-        $data = $cart->getFullCart($session, $productRepository);
+
 
 
         return $this->render('order/index.html.twig', [
@@ -108,17 +113,15 @@ class OrderController extends AbstractController
               $session->remove('panier');
                $lastOrder = $orderRepository->findOneBy([], ['id' => 'desc']);
                $orderDetails = $orderDetailRepository->findBy(['reference' => $lastOrder], ['id' => 'desc']);
-
                return $this->render('order/add.html.twig', [
                    'order' => $lastOrder,
                    'orderDetails' => $orderDetails,
 
                ]);
+
            }
         return $this->redirectToRoute('app_order_index');
+
         }
-
-
-
 
 }
