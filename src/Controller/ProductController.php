@@ -17,17 +17,17 @@ class ProductController extends AbstractController
     public function index(Request $request, ProductRepository $productRepository): Response
     {
         $products = $productRepository->findAll();
-        $search = new Search();
-        $form= $this->createForm(SearchType::class, $search);
+       /* $searchProduct = new Search();
+        $form= $this->createForm(SearchType::class, $searchProduct);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()){
-            $products = $productRepository->findBySearch($search);
+            $products = $productRepository->findBySearchProduct($searchProduct);
 
-        }
+        }*/
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
-            'form' => $form->createView()
+           // 'form' => $form->createView()
         ]);
     }
 

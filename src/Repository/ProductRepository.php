@@ -26,7 +26,7 @@ class ProductRepository extends ServiceEntityRepository
      * Method Search $search
      *
      */
-    public function findBySearch(Search $search)
+    public function findBySearchProduct(Search $search)
     {
         $query= $this
             ->createQueryBuilder('p')

@@ -54,6 +54,15 @@ class Product
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Comment::class)]
     private Collection $comments;
 
+    #[ORM\Column(length: 50, nullable: true)]
+    private ?string $isbn = null;
+
+    #[ORM\Column]
+    private ?float $weight = null;
+
+    #[ORM\Column(length: 500, nullable: true)]
+    private ?string $excerpt = null;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
@@ -213,6 +222,42 @@ class Product
                 $comment->setProduct(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getIsbn(): ?string
+    {
+        return $this->isbn;
+    }
+
+    public function setIsbn(?string $isbn): static
+    {
+        $this->isbn = $isbn;
+
+        return $this;
+    }
+
+    public function getWeight(): ?float
+    {
+        return $this->weight;
+    }
+
+    public function setWeight(float $weight): static
+    {
+        $this->weight = $weight;
+
+        return $this;
+    }
+
+    public function getExcerpt(): ?string
+    {
+        return $this->excerpt;
+    }
+
+    public function setExcerpt(?string $excerpt): static
+    {
+        $this->excerpt = $excerpt;
 
         return $this;
     }

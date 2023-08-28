@@ -3,44 +3,26 @@
 {% block title %}Blog{% endblock %}
 
 {% block body %}
-    <h1>Blog</h1>
+<div class="container">
+    <div class="row d-flex">
+    <h1 class="my-5">{{ blog.title }}</h1>
+        <div class="col-4">
+            <img class="img-fluid" src="{{ asset('assets/uploads/' ~ blog.picture[0].urlName) }}" alt="">
+            <span class="d-block">Author :
+                <em>{{ blog.author.firstName }} {{ blog.author.lastName }} </em>
+                <em>le {{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</em>
+            </span>
+        </div>
+    <div class="col-8">
+                {{ blog.content| raw }}
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ blog.id }}</td>
-            </tr>
-            <tr>
-                <th>Title</th>
-                <td>{{ blog.title }}</td>
-            </tr>
-            <tr>
-                <th>Content</th>
-                <td>{{ blog.content| raw }}</td>
-            </tr>
-            <tr>
-                <th>Author</th>
-                <td>{{ blog.author }}</td>
-            </tr>
-            <tr>
-                <th>Slug</th>
-                <td>{{ blog.slug }}</td>
-            </tr>
-            <tr>
-                <th>CreatedAt</th>
-                <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-            <tr>
-                <th>UpdatedAt</th>
-                <td>{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-            </tr>
-        </tbody>
-    </table>
+    </div>
+{% include '_includes/comments.html.twig' %}
 
     <a href="{{ path('app_blog_index') }}">back to list</a>
 
 
 
-
+</div>
+    </div>
 {% endblock %}

@@ -22,7 +22,7 @@ class PicturesController extends AbstractController
         $entityManager->flush();
 
         $imagePath = 'assets/uploads/pictures/' . $picture->getUrlName();
-        $imagePathMini = 'assets/uploads/pictures/mini/150x200-' . $picture->getUrlName();
+        $imagePathMini = 'assets/uploads/pictures/mini/250x250-' . $picture->getUrlName();
         if (file_exists($imagePath)) {
             unlink($imagePath);
             unlink($imagePathMini);
@@ -33,26 +33,7 @@ class PicturesController extends AbstractController
 
         ]);
     }
-  /*  #[Route('/deleteSpeciality/{id}', name: 'delete_speciality')]
-    public function deleteSpeciality(Request $request, SpecialityRepository $specialityRepository, EntityManagerInterface $entityManager, Pictures $picture): Response
-    {
-        $speciality = $specialityRepository->findOneBy(['picture' => $picture]);
-        $speciality->setPicture(null);
-        $entityManager->remove($picture);
-        $entityManager->flush();
 
-        $imagePath = 'assets/uploads/pictures/' . $picture->getName();
-        $imagePathMini = 'assets/uploads/pictures/mini/300x300-' . $picture->getName();
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
-            unlink($imagePathMini);
-        }
-
-        return $this->redirectToRoute('admin_speciality_edit',
-            ['id' => $speciality->getId()
-
-            ]);
-    }*/
 
 
 }
