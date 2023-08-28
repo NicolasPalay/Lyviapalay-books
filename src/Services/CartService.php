@@ -13,15 +13,20 @@ class CartService
         $panier = $session->get('panier', []);
         $data = [];
         $total = 0;
+        $totalWeight = 0;
         foreach ($panier as $id => $quantity) {
             $product = $productRepository->find($id);
             $data[] = [
                 'product' => $product,
                 'quantity' => $quantity
+
             ];
             $total += $product->getPrice() * $quantity;
+            $totalWeight += $quantity * $product->getWeight();
+
         }
-        return ['data' => $data, 'total' => $total];
+
+        return ['data' => $data, 'total' => $total, 'totalWeight' => $totalWeight];
 
     }
 }

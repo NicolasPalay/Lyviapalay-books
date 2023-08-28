@@ -24,3 +24,14 @@ textarea::-webkit-scrollbar-thumb {
     cursor: pointer ;
     outline: 1px solid slategrey;
 }
+
+/*order*/
+.lp-border{padding: 10px;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
+    box-shadow: 2px 6px 10px -4px #92278f; }
+#order_adresses, #order_carriers{width: 80%;display: flex}
+#order_adresses input, #order_carriers input{margin: 2px 30px}
+#order_dedication{    width: 207%;}
+
+@media screen and (max-width: 768px){
+    #order_dedication{    width: 100%;}
+}

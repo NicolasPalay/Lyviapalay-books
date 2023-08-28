@@ -42,6 +42,9 @@ class Order
     #[ORM\Column]
     private ?bool $isPaid = null;
 
+    #[ORM\Column(length: 300, nullable: true)]
+    private ?string $dedication = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -163,6 +166,18 @@ class Order
     public function setIsPaid(bool $isPaid): static
     {
         $this->isPaid = $isPaid;
+
+        return $this;
+    }
+
+    public function getDedication(): ?string
+    {
+        return $this->dedication;
+    }
+
+    public function setDedication(?string $dedication): static
+    {
+        $this->dedication = $dedication;
 
         return $this;
     }
