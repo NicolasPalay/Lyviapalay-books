@@ -9,11 +9,14 @@
 
             <div class="col-md-6">
     {% set formHtml %}
-{{ form_start(form,{action:path('app_order_recap')}) }}
+{{ form_start(form) }}
                 <p class="p-3">{{ form_label(form.adresses, 'choississez votre adresses de livraison') }}</p>
         <a href="{{ path('account_address_add') }}">Ajouter une nouvelle adresse</a>
 {{ form_row(form.adresses) }}
         {{ form_row(form.carriers) }}
+        {{ form_row(form.dedication) }}
+        <a href="{{ path('cart_index') }}">Modifier mon panier</a>
+
 {{ form_end(form) }}
     {% endset %}
     {{ formHtml|replace ({'[br]' : '<br>'})|raw }}

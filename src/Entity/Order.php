@@ -45,6 +45,12 @@ class Order
     #[ORM\Column(length: 300, nullable: true)]
     private ?string $dedication = null;
 
+    #[ORM\Column]
+    private ?float $totalPrice = null;
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $stripeSession = null;
+
     public function __construct()
     {
         $this->orderDetails = new ArrayCollection();
@@ -178,6 +184,30 @@ class Order
     public function setDedication(?string $dedication): static
     {
         $this->dedication = $dedication;
+
+        return $this;
+    }
+
+    public function getTotalPrice(): ?float
+    {
+        return $this->totalPrice;
+    }
+
+    public function setTotalPrice(float $totalPrice): static
+    {
+        $this->totalPrice = $totalPrice;
+
+        return $this;
+    }
+
+    public function getStripeSession(): ?string
+    {
+        return $this->stripeSession;
+    }
+
+    public function setStripeSession(?string $stripeSession): static
+    {
+        $this->stripeSession = $stripeSession;
 
         return $this;
     }
