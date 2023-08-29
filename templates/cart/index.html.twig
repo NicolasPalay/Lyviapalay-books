@@ -29,14 +29,18 @@
                             <tbody>
                             {% for item in items %}
                                 <tr>
-                                    <td>{{ item.product.name }}</td>
-                                    <td>{{ item.quantity }}</td>
+                                    <td class="lp-td">{{ item.product.name }}</td>
+                                    <td>
+                                        <a href="{{ path('cart_ajouter', {id : item.product.id}) }}" class="lp-quant">+</a>
+                                        <span class="lp-quant-number">{{ item.quantity }}</span>
+                                        <a href="{{ path('cart_remove', {id : item.product.id}) }}" class="lp-quant">-</a>
+                                    </td>
                                     <td>{{ item.product.price  | number_format(2,',' ,'.')}} €</td>
                                     <td>{{ item.product.price * item.quantity  }} €</td>
                                     <td>
-                                        <a href="{{ path('cart_ajouter', {id : item.product.id}) }}" class="btn btn-danger">+</a>
-                                        <a href="{{ path('cart_remove', {id : item.product.id}) }}" class="btn btn-danger">-</a>
-                                        <a href=" " class="btn btn-danger">Supprimer</a>
+
+
+                                        <a href=" " class="lp-quant">x</a>
                                     </td>
                                 </tr>
                                 {% else %}
@@ -45,9 +49,9 @@
                             </tbody>
                             <tfoot>
                             <tr>
-                                <td colspan="3">Total</td>
+                                <td class="lp-td-right" colspan="3">Total</td>
                                 <td>{{ total | number_format(2,',' ,'.')}} €</td>
-                                <td> <a href="{{ path('cart_empty') }}" class="btn btn-danger">vider</a></td>
+                                <td> <a href="{{ path('cart_empty') }}" class="lp-quant">vider</a></td>
                             </tr>
                             </tfoot>
                         </table>

@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mes commandes{% endblock %}
+
+{% block body %}
+    <h1 class="text-center">Mes commandes</h1>
+    <div class="container">
+
+    <p>Ceci est votre espace personnelle, vous allez pouvoir gérer vos commandes</p>
+    <hr>
+    {% if commandes|length == 0 %}
+        <p class="text-center">vous n'avez pas de commandes.</p>
+        <a class="btn-info btn-sm" href="{{ path('boutique_index') }}">Ajouter une commande</a>
+    {% else %}
+
+    <div class="w-50 lp-border mb-5">
+            <table class="table">
+                <thead>
+
+                <tr>
+                    <th scope="col">passée le </th>
+                    <th scope="col">Référence</th>
+                    <th scope="col">Produits</th>
+                    <th scope="col">Total (hors fraits de port)</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for commande in commandes %}
+                <tr>
+                    <th scope="row">{{ commande.createdAt|date('d/m/y') }}</th>
+                    <td>{{ commande.reference }}</td>
+                    <td>{{ commande.orderDetails|length }}</td>
+                    <td>{{ commande.totalPrice}}</td>
+                    <td>Voir ma commande</td>
+                </tr>
+        {% endfor %}
+                </tbody>
+            </table>
+    </div>
+    {% endif %}
+
+    <br>
+    <a href="{{ path('account') }}">Retour dans mon compte</a>
+
+
+
+
+{% endblock %}
