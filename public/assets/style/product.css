@@ -51,10 +51,19 @@ font-size: 2em;
     justify-content: space-between;
     margin-top: 0;
     padding: 0;
+    flex-wrap: wrap
 }
-.lp-img-gallery img{
-    width: 25%;
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+.lp-full-gallery{
+    box-shadow: rgba(146, 39, 143, 0.4) 1.95px 1.95px 2.6px;
+}
+.lp-img-gallery a{
+    width: 32%;
+    display: block;
+    margin: 0;
+    padding: 0;}
+.lp-img-gallery a img{
+    width: 100%;
+    box-shadow: rgba(146, 39, 143, 0.4) 1.95px 1.95px 2.6px;
     transition: all 0.5s ease-in-out;
 }
 .lp-text-justify{
