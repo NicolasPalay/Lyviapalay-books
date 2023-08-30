@@ -60,7 +60,7 @@ class Product
     #[ORM\Column]
     private ?float $weight = null;
 
-    #[ORM\Column(length: 500, nullable: true)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $excerpt = null;
 
     public function __construct()

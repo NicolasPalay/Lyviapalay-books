@@ -6,6 +6,7 @@ use App\Entity\Blog;
 use App\Entity\Category;
 use App\Entity\CategoryProduct;
 use App\Entity\Picture;
+use App\Entity\Product;
 use App\Entity\SubCategory;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -22,7 +23,7 @@ class AppFixtures extends Fixture
 
     const  CATEGORIESPROD = [ 'Livre','Ebook','Goodies'];
     const CATEGORIES = ['Mes livres', 'Vos avis', 'Rencontres & Dédidaces', 'Coin partage',
-        'Retours des lecteurs', 'Posts passions', 'Ecriture AE'];
+        'Retour lecture', 'Posts passions', 'Auto-édition'];
 
 
 
@@ -66,7 +67,28 @@ class AppFixtures extends Fixture
         }
           return $allPictures;
     }
+public function getWoocommerce(): array{
+    $consumer_key = 'ck_8d94d3b2cc86d3262bf136146376ea722eda36b8';
+    $consumer_secret = 'cs_d7174e218d3703e32655089007c8f61ea759c77e';
+    $endpoint = 'products';
+    $base_url = 'https://www.lyviapalay-books.fr/wp-json/wc/v3/';
+    $url = $base_url . $endpoint;
+    $responses = $this->client->request(
+        'GET',
+        $url,
+        [
+            'auth_basic' => [$consumer_key, $consumer_secret],
+            'query' => [
+                'per_page' => 20,
+                'orderby' => 'id', // Trie par ID croissant
+                'order' => 'asc'
+            ],
+        ]
 
+    );
+
+    return $responses->toArray();
+}
     public function load(ObjectManager $manager): void
     {
 
@@ -156,6 +178,45 @@ class AppFixtures extends Fixture
                         $manager->persist($newPicture);
                     }
                 }
+            }
+        }
+        $products = $this->getWoocommerce();
+
+        foreach ($products as $product) {
+
+
+            $NewProduct = new Product();
+            $NewProduct->setName($product['name'])
+                ->setSlug($product['slug'])
+                ->setDescription($product['description'])
+                ->setExcerpt($product['short_description'])
+                ->setCategory($this->getReference('categoryProd_' . $this->faker->randomElement(self::CATEGORIESPROD)))
+                ->setCreatedAt(new \DateTime($product['date_created']))
+                ->setUpdatedAt(new \DateTime($product['date_modified']));
+            $price = (float) $product['price'];
+            $weight = (float) $product['weight'];
+            $NewProduct->setPrice($price)
+                ->setWeight($weight);
+            if($product['sku'] != null){
+                $NewProduct->setIsbn($product['sku']);
+            }
+
+            $manager->persist($NewProduct);
+            //$this->addReference('product_' . $product['slug'], $NewProduct);
+
+
+                foreach ($product['images'] as $key) {
+
+                        $newPicture = new Picture();
+                        $fullUrl = $key['src'];
+                        $baseUrl = "https://www.lyviapalay-books.fr/wp-content/uploads/";
+                        $relativeUrl = str_replace($baseUrl, "", $fullUrl);
+
+                        $newPicture->setUrlName($relativeUrl);
+                        $newPicture->setProduct($NewProduct);
+                        $manager->persist($newPicture);
+
+
             }
         }
 

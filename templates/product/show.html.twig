@@ -8,23 +8,49 @@
     <span>accueil / </span>
         <a href="{{ path('boutique_index') }}">boutique</a> / <span>{{ product.name }}</span>
     </div>
-    <div class="row d-flex flex-lg-row">
+    <div class="row flex-lg-row">
         <div class="col-md-5">
-            <img  src="{{asset('assets/uploads/pictures/' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
-            <div class="img-gallery">
+            {% if product.pictures is not empty and
+                product.pictures[0].urlName starts with '2020' or
+                product.pictures is not empty and
+                product.pictures[0].urlName starts with '2021' or
+                product.pictures is not empty and
+                product.pictures[0].urlName starts with '2022' or
+                product.pictures is not empty and
+                product.pictures[0].urlName starts with '2023' %}
+                <img  src="{{asset('assets/uploads/' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+            {% elseif product.pictures is not empty %}
+                <img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+            {% endif %}
+
+            <div class="lp-img-gallery">
             {% for picture in product.pictures %}
-                <img class="lp-vignette img-fluid" src="{{asset('assets/uploads/pictures/mini/150x200-' ~ picture.urlName) }}"  alt="{{ product.name }}">
+                {% if picture is not empty and
+                    picture.urlName starts with '2020' or
+                    picture is not empty and
+                    picture.urlName starts with '2021' or
+                    picture is not empty and
+                    picture.urlName starts with '2022' or
+                    picture is not empty and
+                    picture.urlName starts with '2023' %}
+                    <img  src="{{asset('assets/uploads/' ~ picture.urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                {% elseif product.pictures is not empty %}
+                    <img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ picture.urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                {% endif %}
+
             {% endfor %}
             </div>
         </div>
 
-        <div class="col-md-7 text-center">
+
+        <div class="col-md-6 text-center">
             <h1>{{ product.name }}</h1>
             <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
-                <p>{{ product.description }}</p>
-            <a href="{{ path('cart_ajouter', {id: product.id}) }}" class="btn lp-btn">Ajouter au Panier</a>
+                <div class="lp-text-justify h5 mt-4">{{ product.description|raw }}</div>
+            <a href="{{ path('cart_ajouter', {id: product.id}) }}" class="btn lp-btn mt-5">Ajouter au Panier</a>
 
         </div>
     </div>
-
+    {% include '_includes/comments.html.twig' %}
+    </div>
 {% endblock %}
