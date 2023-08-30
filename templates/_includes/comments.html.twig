@@ -1,19 +1,24 @@
-{% if comments %}<div class="my-5 container lp-comment">
-    <h4 class="my-5">Commentaires</h4>
+{% if comments %}
+    <div class="my-5 container lp-comment w-75">
+    <h4 class="mt-2 mb-4">Commentaires</h4>
     {% for comment in comments %}
 
     <strong>{{ comment.user.firstname }}</strong><br />
     <p>{{ comment.content| raw }}</p>
-<hr class="w-75">
+<hr>
 
-{% endfor %}</div>
+{% endfor %}
+    </div>
 {% endif %}
 {% if app.user %}
+    <div class="w-75 container mx-auto">
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <input type="submit" value="Commenter" />
+    {{ form_row(form.content) }}
+    <div class="lp-dflex-rgpd">
+    {{ form_row(form.rgpt) }}</div>
+    <input type="submit"  class="btn lp-btn my-2" value="Commenter" />
 {{ form_end(form) }}
 {% else %}
 
-<div class="my-5">  <a href="{{ path('app_login') }}">Connectez-vous</a> pour commenter</div>
+<div class="my-5 ">  <a href="{{ path('app_login') }}">Connectez-vous</a> pour commenter</div>   </div>
 {% endif %}

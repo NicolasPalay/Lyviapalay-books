@@ -8,9 +8,10 @@ position: relative;
 }
 .lp-price{
     display: block;
-font-size: 15px;
+font-size: 2em;
     font-weight: bold;
     margin-top: 20px;
+    color:var(--lp-color-primary);
 }
 .lp-picture{position: relative;width: 100%}
 .lp-card-product img{
@@ -45,3 +46,22 @@ font-size: 15px;
     font-weight: bold;
     margin: 0;}
 
+.lp-img-gallery{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 0;
+    padding: 0;
+}
+.lp-img-gallery img{
+    width: 25%;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+    transition: all 0.5s ease-in-out;
+}
+.lp-text-justify{
+    text-align: justify;}
+
+.lp-comment{padding: 25px;idth: 100%;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
+    box-shadow: 2px 6px 10px -4px #92278f;}
+#comment_content{width:50% ;height: 100px}
+.lp-dflex-rgpd div{display: flex;}
+#comment_rgpt{width: 20px;height: 20px;margin: 21px 10px}
