@@ -20,7 +20,18 @@
                             <a href="{{ path('app_product_show', {'slug': product.slug}) }}">
                                 <div class="lp-picture">
                                     <div class="lp-mask"></div>
-                                    <img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                    {% if product.pictures is not empty and
+                                        product.pictures[0].urlName starts with '2020' or
+                                        product.pictures is not empty and
+                                        product.pictures[0].urlName starts with '2021' or
+                                        product.pictures is not empty and
+                                        product.pictures[0].urlName starts with '2022' or
+                                        product.pictures is not empty and
+                                        product.pictures[0].urlName starts with '2023' %}
+                                        <img  src="{{asset('assets/uploads/' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                    {% elseif product.pictures is not empty %}
+                                        <img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                    {% endif %}
                                 </div>
                                 <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
 

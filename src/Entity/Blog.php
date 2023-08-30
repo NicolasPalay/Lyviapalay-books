@@ -36,7 +36,7 @@ class Blog
     #[ORM\Column]
     private ?bool $publish = null;
 
-    #[ORM\Column(length: 500)]
+    #[ORM\Column(type: Types::TEXT, nullable: true)]
     private ?string $excerpt = null;
 
     #[ORM\ManyToOne(inversedBy: 'blogs')]

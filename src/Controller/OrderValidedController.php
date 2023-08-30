@@ -26,8 +26,8 @@ class OrderValidedController extends AbstractController
             foreach ($order[0]->getOrderDetails()->getValues() as $product){
                 $content .= $product->getProduct()->getName() . ' x ' . $product->getQuantity() . '<br>';
             }
-        $content .= "Total de votre commande : " . $order[0]->getTotalPrice() +
-            $order[0]->getCarrierPrice() .
+        $content .= "Total de votre commande : " . round($order[0]->getTotalPrice(),2 )+
+            round($order[0]->getCarrierPrice(),2) .
             "€ <br><hr>";
         $content .= "<p  style='color: white; font-size: 20px'>Votre commande sera livré à l'adresse suivante : </p><br>";
         $content .= "<span  style='color: white; font-size: 20px'>" . $order[0]->getUser()

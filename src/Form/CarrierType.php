@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Carrier;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\MoneyType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -14,7 +15,7 @@ class CarrierType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('price')
+            ->add('price',MoneyType::class)
         ;
     }
 
