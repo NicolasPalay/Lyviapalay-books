@@ -16,12 +16,19 @@ class ProductType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('description')
+            ->add('description',TextareaType::class,
+                [
+                    'attr'=>[
+                        'class'=>'editor'
+                    ]
+                ])
             ->add('excerpt',TextareaType::class)
             ->add('isbn')
             ->add('price',MoneyType::class)
             ->add('weight')
-            ->add('category')
+            ->add('category',null,[
+                'choice_label'=>'name'
+            ])
             ->add('pictures',FileType::class,[
                 'multiple'=>true,
                 'label'=>'Ajouter des photos',

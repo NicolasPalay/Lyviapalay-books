@@ -1,13 +1,22 @@
-<ul class="lp-sideBarLeft col-2">
+<ul class="col-2 p-4  mb-2">
     <li><a href="{{ path('admin_blog_index') }}">Les articles</a></li>
+        <ul class="px-3 mb-4">
+            <li><a href="{{ path('admin_blog_new') }}">Ajouter un nouvel article</a></li>
+        </ul>
     <li><a href="{{ path('admin_category_index') }}">Les catégories</a></li>
-    <li><a href="{{ path('admin_product_index') }}">Les produits et livres</a>
-        <ul>
+    <ul class="px-3 mb-4">
+        <li><a href="{{ path('admin_category_new') }}">Ajouter une catégorie</a></li>
+    </ul>
+    <li><a href="{{ path('admin_product_index') }}">Les produits</a></li>
+        <ul class="px-3 mb-4">
             <li><a href="{{ path('admin_product_new') }}">Ajouter un nouveau produit</a></li>
         </ul>
-        <li><a href="{{ path('admin_comment_index') }}">Les commaentaires</a></li>
-    </li>
+    <li class="mb-4"><a href="{{ path('admin_comment_index') }}">Les commentaires</a></li>
+
     <li><a href="{{ path('admin_carrier_index') }}">Les transporteurs</a></li>
+    <ul class="px-3 mb-4">
+        <li><a href="{{ path('admin_carrier_new') }}">Ajouter un transporteur</a></li>
+    </ul>
 
 
 </ul>
