@@ -8,6 +8,7 @@ use App\Form\CommentType;
 use App\Form\SearchType;
 use App\Repository\CommentRepository;
 use App\Repository\ProductRepository;
+use App\Services\Listing;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -39,7 +40,7 @@ class ProductController extends AbstractController
     #[Route('/{slug}', name: 'app_product_show', methods: ['GET','POST'])]
     public function show(ProductRepository $productRepository, $slug,
                          CommentRepository $comment,Request $request,EntityManagerInterface
-                                           $entityManager): Response
+                                           $entityManager, Listing $listing): Response
     {
         $product = $productRepository->findOneBy(['slug' => $slug]);
         if (!$product) {
@@ -49,6 +50,12 @@ class ProductController extends AbstractController
         $form = $this->createForm(CommentType::class, $newComment);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $comment = $form->getData('content');
+            $interdit = $listing->getListing();
+
+            $forbidden = str_replace($interdit, '***', $comment->getContent());
+
+            $newComment->setContent($forbidden);
             $newComment->setProduct($product);
             $newComment->setUser($this->getUser());
 
@@ -59,7 +66,7 @@ class ProductController extends AbstractController
         return $this->render('product/show.html.twig', [
             'product' => $product,
             'form' => $form->createView(),
-            'comments' => $comment->findBy(['product' => $product->getId()])
+            'comments' => $comment->findByActiveProduct(true,$product, ['id' => 'DESC'])
         ]);
     }
 

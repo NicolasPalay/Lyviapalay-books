@@ -1,6 +1,13 @@
 {% if comments %}
     <div class="my-5 container lp-comment w-75">
     <h4 class="mt-2 mb-4">Commentaires</h4>
+        {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="alert alert-{{ label }}">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% endfor %}
     {% for comment in comments %}
 
     <strong>{{ comment.user.firstname }}</strong><br />
@@ -13,6 +20,7 @@
 {% if app.user %}
     <div class="w-75 container mx-auto">
 {{ form_start(form) }}
+
     {{ form_row(form.content) }}
     <div class="lp-dflex-rgpd">
     {{ form_row(form.rgpt) }}</div>

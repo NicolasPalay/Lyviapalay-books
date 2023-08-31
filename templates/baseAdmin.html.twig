@@ -13,13 +13,12 @@
         {% block javascripts %}
         {% endblock %}
     </head>
-    <body class="{% block bodyClass %}
-    {% endblock %}">
+    <body class="{% block bodyClass %}{% endblock %}">
     {% include '_includes/navigation.html.twig' %}
     <div class="d-flex">{% include '_includes/navigationAdmin.html.twig' %}
 
     {% include '_includes/flash.html.twig' %}
-        <div class="col-10">{% block body %} {% endblock %}</div></div>
+        <div class="col-10 container lp-admin-container">{% block body %} {% endblock %}</div></div>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous"></script>
     <script src="{{ asset('assets/search.js') }}"></script>
     {% block javascriptsEnd %}{% endblock %}

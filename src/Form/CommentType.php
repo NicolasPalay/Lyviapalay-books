@@ -22,7 +22,7 @@ class CommentType extends AbstractType
             ])
             ->add('rgpt',CheckboxType::class,[
                 'label' => 'J\'accepte le stockage de mes données personnelles',
-                'mapped' => false,
+
                 'required' => true,
             ])
 

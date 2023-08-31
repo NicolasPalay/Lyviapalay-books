@@ -21,20 +21,35 @@ class CommentRepository extends ServiceEntityRepository
         parent::__construct($registry, Comment::class);
     }
 
-//    /**
-//     * @return Comment[] Returns an array of Comment objects
-//     */
-//    public function findByExampleField($value): array
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->andWhere('c.exampleField = :val')
-//            ->setParameter('val', $value)
-//            ->orderBy('c.id', 'ASC')
-//            ->setMaxResults(10)
-//            ->getQuery()
-//            ->getResult()
-//        ;
-//    }
+    /**
+     * @return Comment[] Returns an array of Comment objects
+     */
+    public function findByActiveProduct($activeValue,$product): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.product', 'p')
+            ->andWhere('c.product = :product')
+            ->setParameter('product', $product)
+            ->andWhere('c.active = :active')
+            ->setParameter('active', $activeValue)
+            ->orderBy('c.id', 'desc')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+    public function findByActiveBlog($activeValue,$blog): array
+    {
+        return $this->createQueryBuilder('c')
+            ->join('c.blog', 'b')
+            ->andWhere('c.blog = :blog')
+            ->setParameter('blog', $blog)
+            ->andWhere('c.active = :active')
+            ->setParameter('active', $activeValue)
+            ->orderBy('c.id', 'desc')
+            ->getQuery()
+            ->getResult()
+            ;
+    }
 
 //    public function findOneBySomeField($value): ?Comment
 //    {

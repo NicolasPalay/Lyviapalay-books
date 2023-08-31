@@ -61,7 +61,7 @@ class BlogController extends AbstractController
         return $this->render('blog/show.html.twig', [
             'blog' => $blog,
           'form' => $form->createView(),
-          'comments' => $comment->findBy(['blog' => $blog->getId()])
+            'comments' => $comment->findByActiveBlog(true,$blog, ['id' => 'DESC'])
 
 
         ]);

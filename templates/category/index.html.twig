@@ -3,13 +3,13 @@
 {% block title %}Category index{% endblock %}
 
 {% block body %}
-    <h1>Category index</h1>
 
+    <a href="{{ path('app_category_show', {'slug': category.slug}) }}">afficher la catérigorie : {{ category.name }}</a>
+
+    <span>{{ category.name }}</span>
 
         {% for category in categories %}
-            <a href="{{ path('app_category_show', {'slug': category.slug}) }}">afficher la catérigorie : {{ category.name }}</a>
-            <ul>
-            <li>{{ category.name }}</li>
+
                 <section class="container">
                     <article class="col">
                         <div class="row d-flex justify-content-around">
@@ -42,7 +42,7 @@
 
 
 
-                </ul>
+
         {% endfor %}
 
 

@@ -204,4 +204,5 @@ class Blog
 
         return $this;
     }
+
 }
