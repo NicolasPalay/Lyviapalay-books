@@ -48,6 +48,8 @@ a:hover, .nav-link:hover{
     font-size: 1em;
     font-family: var(--lp-font-secondary);
 }
+ ul{list-style: none;
+ margin: 0;padding: 0;}
 /* button */
 .lp-btn{
     border: 3px solid var(--lp-color-primary);

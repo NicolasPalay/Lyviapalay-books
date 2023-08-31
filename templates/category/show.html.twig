@@ -3,9 +3,10 @@
 {% block title %}Category{% endblock %}
 
 {% block body %}
-    <ul>
-        <li>{{ category.name }}</li>
-        <section class="container">
+
+
+        <section class="container my-5">
+            <h1 class="h3 ">{{ category.name }}</h1>
             <article class="col">
                 <div class="row d-flex justify-content-around">
                     {% for blog in category.blogs %}
@@ -31,12 +32,5 @@
 
         </section>
 
-
-
-
-
-
-
-    </ul>
 
 {% endblock %}

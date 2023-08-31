@@ -66,6 +66,10 @@ font-size: 2em;
     box-shadow: rgba(146, 39, 143, 0.4) 1.95px 1.95px 2.6px;
     transition: all 0.5s ease-in-out;
 }
+.lp-img-gallery a img:hover{
+    box-shadow: rgba(146, 39, 143, 0.4) 1.95px 1.95px 2.6px;
+    transform: scale(1.1);
+}
 .lp-text-justify{
     text-align: justify;}
 
