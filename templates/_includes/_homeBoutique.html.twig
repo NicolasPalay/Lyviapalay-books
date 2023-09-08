@@ -1,7 +1,7 @@
 <section class="container">
     <article class="col">
         <h3 class="text-center my-5">La boutique de Lyvia</h3>
-        <div class="row d-flex justify-content-lg-around">
+        <div class="row d-flex justify-content-lg-around ">
             {% for product in products %}
                 <div class="col-md-4 lp-card-product text-center mx-auto my-4">
                     <a href="{{ path('app_product_show', {'slug': product.slug}) }}">
@@ -16,10 +16,13 @@
                             <img  src="{{asset('assets/uploads/pictures/mini/150x200-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
                             {% endif %}
                         </div>
-                        <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
 
-                        <h4>{{ product.name }}</h4></a>
-                    <span class="d-block mt-4">{{ product.category.name }}</span>
+
+                        <h4 class="my-3">{{ product.name }}</h4>
+                        <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
+                    </a>
+                    <span class="d-block mt-4">{{ product.categoryProduct.name }}</span>
+
                 </div>
 
             {% else %}

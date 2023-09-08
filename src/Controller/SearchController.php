@@ -6,7 +6,7 @@ use App\Entity\Product;
 use App\Form\SearchBLogType;
 use App\Model\SearchData;
 use App\Repository\BlogRepository;
-
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,7 +15,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class SearchController extends AbstractController
 {
 #[Route('/recherche', name: 'search')]
-    public function searchBar(BlogRepository $blogRepository, Request $request): Response
+    public function searchBar(BlogRepository $blogRepository, ProductRepository
+$productRepository, Request $request): Response
     {
         $searchData = new SearchData();
         $form = $this->createForm(SearchBLogType::class, $searchData);
@@ -26,13 +27,14 @@ class SearchController extends AbstractController
 
             $searchData->page = $request->query->getInt('page', 1);
             $blogs = $blogRepository->findSearch($searchData);
+            $products = $productRepository->findBySearchProduct($searchData);
         }
 
-        // Si le formulaire n'est pas soumis ou n'est pas valide, vous devez retourner une réponse par défaut
-        return $this->render('blog/searchBlog.html.twig', [
+    return $this->render('blog/searchBlog.html.twig', [
             'blogs' => $blogRepository->findSearch($searchData),
+            'products' => $productRepository->findBySearchProduct($searchData),
             'searchResult' => $searchData,
-            // Autres données à passer au template par défaut
+
         ]);
     }
     public function renderSearchForm(): Response

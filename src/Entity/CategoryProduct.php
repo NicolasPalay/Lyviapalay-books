@@ -18,7 +18,7 @@ class CategoryProduct
     #[ORM\Column(length: 100)]
     private ?string $name = null;
 
-    #[ORM\OneToMany(mappedBy: 'category', targetEntity: Product::class, cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'categoryProduct', targetEntity: Product::class, cascade: ["persist"])]
     private Collection $products;
 
     #[ORM\Column(length: 255)]
@@ -61,7 +61,7 @@ class CategoryProduct
     {
         if (!$this->products->contains($product)) {
             $this->products->add($product);
-            $product->setCategory($this);
+            $product->setCategoryProduct($this);
         }
 
         return $this;
