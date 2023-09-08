@@ -41,9 +41,9 @@ class Product
     #[Assert\Length(min: 0, max: 1000)]
     private ?float $price = null;
 
-    #[ORM\ManyToOne(inversedBy: 'products')]
+    #[ORM\ManyToOne(targetEntity:"App\Entity\CategoryProduct",inversedBy: 'products')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?CategoryProduct $category = null;
+    private ?CategoryProduct $categoryProduct = null;
 
     #[ORM\OneToMany(mappedBy: 'product', targetEntity: Picture::class, cascade: ["persist"])]
     private Collection $pictures;
@@ -124,14 +124,14 @@ class Product
         return $this;
     }
 
-    public function getCategory(): ?CategoryProduct
+    public function getCategoryProduct(): ?CategoryProduct
     {
-        return $this->category;
+        return $this->categoryProduct;
     }
 
-    public function setCategory(?CategoryProduct $category): static
+    public function setCategoryProduct(?CategoryProduct $categoryProduct): static
     {
-        $this->category = $category;
+        $this->categoryProduct = $categoryProduct;
 
         return $this;
     }
