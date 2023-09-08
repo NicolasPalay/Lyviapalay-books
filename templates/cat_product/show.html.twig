@@ -1,0 +1,62 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Category{% endblock %}
+
+{% block body %}
+
+
+    <section class="container">
+
+        <article class="col-md-12">
+            <h3 class="text-center">La boutique de Lyvia</h3>
+            <ul class="lp-cat-product-list">
+            {% for categoryMenu in catProductMenu %}
+                {% if categoryMenu.name == category.name %}
+                <li><a class="lp-active-cat" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.name }}</a></li>
+                {% else %}
+                    <li><a class="" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.name }}</a></li>
+                {% endif %}
+            {% endfor %}
+            </ul>
+            <div class="row d-flex justify-content-between">
+
+{% for product in products %}
+                    <div class="col-md-4 lp-card-product text-center ">
+                        <a href="{{ path('app_product_show', {'slug': product.slug}) }}">
+
+                            <div class="lp-picture">
+                                <div class="lp-mask"></div>
+                                {% if product.pictures is not empty and
+                                    product.pictures[0].urlName starts with '2020' or
+                                    product.pictures is not empty and
+                                    product.pictures[0].urlName starts with '2021' or
+                                    product.pictures is not empty and
+                                    product.pictures[0].urlName starts with '2022' or
+                                    product.pictures is not empty and
+                                    product.pictures[0].urlName starts with '2023' %}
+                                    <img  src="{{asset('assets/uploads/' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                {% elseif product.pictures is not empty %}
+                                    <img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                {% endif %}
+                            </div>
+                            <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
+
+                            <h2 class="h5">{{ product.name }}</h2></a>
+               {#      <span class="d-block mt-4">{{ product.category.name }}</span>#}
+                    </div>
+
+                {% else %}
+
+                    no records found
+
+                {% endfor %}
+            </div>
+        </article>
+
+
+
+        </div>
+    </section>
+
+
+{% endblock %}
