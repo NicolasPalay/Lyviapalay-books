@@ -19,7 +19,6 @@ class Comment
     //#[Assert\Callback("App\Validator\ForbiddenWordsValidator")]
     #[Assert\NotBlank(message: 'Veuillez le nom du produit')]
     #[Assert\Length(min: 10, max: 500)]
-    #[Assert\Regex(pattern: '/^[\w\s]+$/')]
     private ?string $content = null;
 
     #[ORM\ManyToOne(inversedBy: 'comments')]

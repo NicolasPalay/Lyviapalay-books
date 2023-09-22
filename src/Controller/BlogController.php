@@ -10,6 +10,8 @@ use App\Form\SearchBLogType;
 use App\Model\SearchData;
 use App\Repository\BlogRepository;
 use App\Repository\CommentRepository;
+use App\Services\CommentValidator;
+use App\Services\Listing;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -43,13 +45,19 @@ class BlogController extends AbstractController
     }
     #[Route('/{slug}', name: 'app_blog_show', methods: ['GET', 'POST'])]
     public function show(Blog $blog,CommentRepository $comment,Request $request,EntityManagerInterface
-    $entityManager):
+    $entityManager, Listing $listing, CommentValidator
+    $commentValidator):
     Response
     {
         $newComment = new Comment();
         $form = $this->createForm(CommentType::class, $newComment);
         $form->handleRequest($request);
      if ($form->isSubmitted() && $form->isValid()) {
+         $content= 'content';
+         if (!$commentValidator->validateComment($form,$content, $listing)) {
+             $this->addFlash('danger', 'Type de commentaire invalide. Veuillez éviter d\'utiliser des mots inappropriés.');
+             return $this->redirectToRoute('app_blog_show', ['slug' => $blog->getSlug()]);
+         }
             $newComment->setBlog($blog);
             $newComment->setUser($this->getUser());
 
