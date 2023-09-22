@@ -32,7 +32,17 @@ class BlogRepository extends ServiceEntityRepository
             ->orderBy('b.id', 'desc')
             ->getQuery();
     }
+    public function promoteQuery()
+    {
+        $query = $this->createQueryBuilder('b')
+            ->where('b.promote = :promote')
+            ->setParameter('promote', true)
+            ->orderBy('b.id', 'DESC')
+            ->setMaxResults(2)
+            ->getQuery();
 
+        return $query->getResult();
+    }
     public function findSearch(SearchData $searchData) : PaginationInterface
     {
         $queryBuilder = $this->createQueryBuilder('b')

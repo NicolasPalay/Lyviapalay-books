@@ -8,8 +8,11 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Timestampable\Traits\TimestampableEntity;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 #[ORM\Entity(repositoryClass: BlogRepository::class)]
+#[ORM\Table(name: 'blog')]
+#[UniqueEntity(fields: ['title'], message: "Le title doit être unique")]
 class Blog
 {
     use TimestampableEntity;
@@ -44,6 +47,15 @@ class Blog
 
     #[ORM\OneToMany(mappedBy: 'Blog', targetEntity: Comment::class)]
     private Collection $comments;
+
+    #[ORM\Column(length: 100, nullable: true)]
+    private ?string $auteur = null;
+
+    #[ORM\Column]
+    private ?bool $promote = null;
+
+    #[ORM\ManyToOne(inversedBy: 'blogs')]
+    private ?Decication $dedication = null;
 
     public function __construct()
     {
@@ -201,6 +213,42 @@ class Blog
                 $comment->setBlog(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAuteur(): ?string
+    {
+        return $this->auteur;
+    }
+
+    public function setAuteur(?string $auteur): static
+    {
+        $this->auteur = $auteur;
+
+        return $this;
+    }
+
+    public function isPromote(): ?bool
+    {
+        return $this->promote;
+    }
+
+    public function setPromote(bool $promote): static
+    {
+        $this->promote = $promote;
+
+        return $this;
+    }
+
+    public function getDedication(): ?Decication
+    {
+        return $this->dedication;
+    }
+
+    public function setDedication(?Decication $dedication): static
+    {
+        $this->dedication = $dedication;
 
         return $this;
     }
