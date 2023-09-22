@@ -3,9 +3,9 @@
     left: 0;
     width: 100%;
     height: 91vh;
-    box-shadow: 1px 3px 50px #92278f;
-    -webkit-box-shadow: 1px 3px 50px #92278f;
-    -moz-box-shadow: 1px 3px 50px #92278f;
+    box-shadow: 1px 3px 20px #92278f;
+    -webkit-box-shadow: 1px 3px 20px #92278f;
+    -moz-box-shadow: 1px 3px 20px #92278f;
 
     background: url("/assets/uploads/home-lyvia-palay-books.jpg") no-repeat top left;
     background-size: cover;
@@ -33,17 +33,22 @@
     padding-left: 29%;
     transform: rotate(2deg);
 }
+.lp-promote{justify-content: center;margin:75px auto;}
+.lp-promote-border{;padding :0;}
+.lp-promote-border >div:first-child{flex-direction: row-reverse;}
+.lp-promote-info{
+padding: 0 40px;margin-right:2px;
 
+background-color: var(--lp-color-secondary);
+    color:var(--lp-light)
+}
 
-.citationHome{
+.separatedHome{
+    margin: 50px auto;
     -webkit-box-shadow: 0px 10px 13px -7px var(--lp-color-primary), inset 0px -5px 21px 8px rgba(0,0,0,0);
-    box-shadow: 0px 10px 13px -7px var(--lp-color-primary), inset 0px -5px 21px 8px rgba(0,0,0,0);
-    font-size: 1.5em;
-    font-style: italic;
-    text-align: center;
-
-    margin-bottom: 1em;
-    padding: 3em;
+    box-shadow: 0 10px 13px -7px var(--lp-color-primary),0 -10px 13px -7px var(--lp-color-primary);
+    margin-bottom: 4em;
+    padding: 1em 0 4em;
 
 }
 .carousel-control-next, .carousel-control-prev{

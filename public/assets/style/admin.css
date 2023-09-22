@@ -3,15 +3,15 @@
 .lp-img-admin{width: 50px}
 .lp-sideBarLeft{border-right:1px solid var(--lp-color-primary);height: 100vh}
 .lp-sm-img{width: 40px}
-
+.lp-menu-admin{min-width: 250px}
 
 label{font-weight: bold;display: block;padding: 20px 0 10px}
 #blog{width: 70%;margin: 0 auto}
-.tox-tinymce,input[type="text"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], select,textarea{width: 100%;padding: 10px;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
+.tox-tinymce,input[type="datetime-local"], .tox-tinymce,input[type="text"],input[type="tel"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], select,textarea{width: 100%;padding: 10px;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
     box-shadow: 2px 6px 10px -4px #92278f; }
 .tox-tinymce{width: 100%;padding: 10px;border-radius: 10px;border: 2px solid var(--lp-color-primary) !important;-webkit-box-shadow: 2px 6px 10px -4px #92278f !important;
     box-shadow: 2px 6px 10px -4px #92278f; }
-.lp-admin-container{margin:20px auto; width: 100%;padding: 60px;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
+.lp-admin-container{margin:20px auto; width: 70%;padding: 60px;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
     box-shadow: 2px 6px 10px -4px #92278f; }
 #editor,textarea, .ck-editor__main p{height: 200px}
 textarea::-webkit-scrollbar-track {
@@ -55,7 +55,7 @@ table .lp-td-right{text-align: right; font-weight: bold; padding-right: 30px}
     box-shadow: 2px 6px 10px -4px #92278f; }
 #order_adresses, #order_carriers{width: 80%;display: flex}
 #order_adresses input, #order_carriers input{margin: 2px 30px}
-#order_dedication{    width: 207%;}
+
 .lp-recap-order{list-style: none;margin:0;font-weight: bold}
 .lp-recap-order span{color: var(--lp-color-primary)}
 
@@ -64,7 +64,48 @@ table .lp-td-right{text-align: right; font-weight: bold; padding-right: 30px}
 #rgpdModal .modal-content{width:500px;padding:40px;margin:0 ;border: 1px solid var(--lp-color-primary);background-color: white;position: fixed;top: 45%;z-index: 9999;display: flex;justify-content: center;align-items: center}
 #acceptButton{padding: 5px 20px;width:150px; margin:10px auto;cursor: pointer}
 #rejectButton{padding: 3px 10px;width:150px; margin:5px auto;cursor: pointer}
+/*menu  admin*/
+.lp-menu-admin li{position: relative}
+.lp-menu-admin li a{display: block}
+.lp-menu-admin li ul {
+    display: none;transition: 0.5s ease-in-out;
+}
+.lp-menu-admin li:hover ul {
+    display: block;
+    transition: 0.5s ease-in-out;
+
+}
+.lp-author-index{display: block}
+/*dedicace*/
+input[type="datetime-local"]{width:40%}
 
 @media screen and (max-width: 768px){
     #order_dedication{    width: 100%;}
+}
+@media screen and (max-width: 910px){
+    .lp-menu-admin li{padding-left: 10px;}
+    .lp-menu-admin li ul {
+        position: absolute;top : 17px;padding:5px 10px 20px;width:250px;background-color: white}
+    .lp-admin-page{flex-direction: column}
+    .lp-menu-admin{width: 100%; display: flex;justify-content: center;align-items: center; flex-wrap: wrap}
+    .lp-admin-container{ width: 90%;padding: 20px;}
+}
+@media screen and (max-width: 668px){
+    .lp-author-index{display: none}
+    th {
+        font-size: 12px
+    }
+    td {
+        font-size: 12px
+    }
+}
+@media screen and (max-width: 448px) {
+    .lp-created-index {
+        display: none
+    }
+
+    .lp-admin-container {
+        width: 95%;
+        padding: 10px;
+    }
 }

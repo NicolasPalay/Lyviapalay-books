@@ -26,11 +26,14 @@
     box-sizing: border-box;
     font-family: var(--lp-font-secondary);
 }
-h4 {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin: 0;
+h1,h2,h3,h4,h5,h6{
     font-family: var(--lp-font-tertiary);
+    font-weight: bold;
+
+}
+h4 {
+    font-size: 1em;
+
 }
 .nav-link, .nav-link:active, .nav-link:visited{
     text-decoration: none;
@@ -50,6 +53,8 @@ a:hover, .nav-link:hover{
 }
  ul{list-style: none;
  margin: 0;padding: 0;}
+
+.lp-w-45{width: 45%}
 /* button */
 .lp-btn{
     border: 3px solid var(--lp-color-primary);
@@ -67,3 +72,4 @@ a:hover, .nav-link:hover{
     background-color: var(--lp-color-primary);
     color:  white;
 }
+/*flash message*/
