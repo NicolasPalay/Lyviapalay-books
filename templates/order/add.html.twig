@@ -3,7 +3,7 @@
 {% block title %}Ma commande{% endblock %}
   {% block javascripts %}
     <script src="https://js.stripe.com/v3/"></script>
-    <script src="{{ asset('js/payment.js') }}"></script>
+    <script src="{{ asset('assets/js/payment.js') }}"></script>
   {% endblock %}
 {% block body %}
     {% set formHtml %}
@@ -20,12 +20,12 @@
         {% set total = null %}
         {% for orderDetail in orderDetails %}
             <ul>
+                <li class="d-flex justify-content-between mb-1">
+                {{ orderDetail.product.name }},
 
-                {{ orderDetail.product.name }}
-
-                {{ orderDetail.quantity }}
-                {{ orderDetail.price | number_format(2,',' ,'.')}} €
-
+                <span> quantité <strong>{{ orderDetail.quantity }}</strong>
+                : <strong>{{ orderDetail.price | number_format(2,',' ,'.')}} €</strong></span>
+            </li>
             </ul>
             {% set total = total + (orderDetail.product.price * orderDetail.quantity) %}
 {% endfor %}
@@ -33,10 +33,13 @@
 
     {% endset %}
     {{ formHtml|replace ({'[br]' : '<br>'})|raw }}
-  <p>sous total : {{ total | number_format(2,',' ,'.')}} €</p>
-    <p>frait de transport : {{ order. carrierPrice| number_format(2,',' ,'.')}} € avec {{ order.carrierName }}</p>
-    <p>Total : {{ (total + order.carrierPrice)| number_format(2,',' ,'.')}} €</p>
+    <p>Réduction : <strong>{{ order.reductionPrice | number_format(2,',' ,'.')}} €</strong></p>
+    <hr>
+  <p>Sous total : <strong>{{ order.totalPrice | number_format(2,',' ,'.')}} €</strong></p>
+    <p>Frais de transport : <strong>{{ order. carrierPrice| number_format(2,',' ,'.')}} €</strong> avec {{ order.carrierName }}</p>
+    <hr>
+    <p>Total TTC : <strong>{{ (order.totalPrice + order.carrierPrice)| number_format(2,',' ,'.')}} €</strong></p>
     </div>
-    <a class="lp-btn mt-5" href="{{ path('payment_index',{reference : order.reference }) }}">Payement de  {{ (total + order.carrierPrice)| number_format(2,',' ,'.')}} €</a>
+    <a class="lp-btn mt-5" href="{{ path('payment_index',{reference : order.reference }) }}">Payement de  {{ (order.totalPrice + order.carrierPrice)| number_format(2,',' ,'.')}} €</a>
     </div>
 {% endblock %}

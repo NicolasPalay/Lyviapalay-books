@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Toutes les dates de dédicaces{% endblock %}
+
+{% block body %}
+    <div class="col-10 lp-admin-container">
+    <h1>Toutes les dates de dédicaces</h1>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>Adresse</th>
+                <th>Date de début de la dédicace</th>
+                <th>Date de fin de la dédicace</th>
+
+            </tr>
+        </thead>
+        <tbody>
+        {% for decication in decications %}
+            <tr>
+                <td> <a href="{{ path('app_decication_show', {'id': decication.id}) }}">{{ decication.address }}</a></td>
+                <td>{{ decication.dateDedication ? decication.dateDedication|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ decication.dateDedicationEnd ? decication.dateDedicationEnd|date('Y-m-d H:i:s') : '' }}</td>
+
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock %}

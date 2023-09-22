@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma commande{% endblock %}
+
+{% block body %}
+
+    <section class="lp-border lp-admin-container p-5">
+        <h2 class="mb-5 text-center">Erreur de payment</h2>
+        <p class="h5">Malheureusement, <strong>{{ order.user.firstname }}</strong>, vous n'avez pas réussi le payement ! </p>
+        <p class="5">Votre numéro de commande est le <strong>{{ order.reference }}.</strong></p>
+          <p class="h5 mb-5">Vous pouvez réessayer de payer votre commande en cliquant sur le bouton ci-dessous.</p>
+
+        <a class="lp-btn text-center" href="{{ path('cart_index') }}">Retour au panier</a>
+
+
+
+
+
+
+        <p class="h5 mt-5">Vous pouvez retourner sur <a href="{{ path('account') }}">votre compte</a>.</p>
+
+
+    </section>
+{% endblock %}
