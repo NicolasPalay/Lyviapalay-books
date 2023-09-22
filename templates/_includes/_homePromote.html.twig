@@ -1,0 +1,30 @@
+
+    <article class="row lp-promote mx-auto">
+        <div class="col-md-3 lp-promote-info lp-promote-border">
+        <h3 class="text-center my-5"><a href="{{ path('app_decication_index') }}">Prochaine date de dédicace</a></h3>
+            <p>{{ dedication.address }} le {{ dedication.dateDedication | date('d/m/y H:i' )  }}</p>
+        </div>
+        <div class="col-md-6 lp-promote-border">
+            {% for article in articlesPromoted %}
+
+                <div class="col text-center d-flex align-items-center">
+                    <div class="col-md-8 text-center ">
+
+                    <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">
+                        <h4 class="mb-4">{{ article.title | slice(0, 28)  }}...</h4></a>
+                        <p class="d-block mt-4">{{ article.excerpt | slice(0, 100) | raw }}...</p>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="{{ path('app_blog_show', {'slug': article.slug}) }}">
+                            <img  src="{{asset('assets/uploads/' ~ article.picture[0].urlName) }}"  class="img-fluid" alt="{{ article.title }}">
+                        </a>
+                    </div>
+                </div>
+
+            {% else %}
+
+                no records found
+
+            {% endfor %}
+        </div>
+    </article>

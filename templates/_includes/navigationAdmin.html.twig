@@ -1,36 +1,48 @@
-<ul class="col-2 p-4  mb-1">
+<ul class="col-2 p-4 mb-1 lp-menu-admin">
     <hr class="lp-color-hr">
-    <li><a href="{{ path('admin_blog_index') }}">Les articles</a></li>
-        <ul class="px-3 mb-2">
+    <li><a href="{{ path('admin_decication_index') }}">Les dédicaces</a>
+        <ul class="px-1  mb-2">
+            <li><a href="{{ path('admin_decication_new') }}">Ajouter une date de dédicace</a></li>
+        </ul>
+    </li>
+    <hr class="lp-color-hr">
+    <li><a href="{{ path('admin_blog_index') }}">Les articles</a>
+        <ul class="px-1 mb-2">
             <li><a href="{{ path('admin_blog_new') }}">Ajouter un nouvel article</a></li>
         </ul>
+    </li>
     <hr class="lp-color-hr">
-    <li><a href="{{ path('admin_category_index') }}">Les catégories</a></li>
-    <ul class="px-3 mb-2">
-        <li><a href="{{ path('admin_category_new') }}">Ajouter une catégorie</a></li>
-    </ul>
+    <li><a href="{{ path('admin_category_index') }}">Les catégories articles</a>
+        <ul class="px-1 mb-2">
+            <li><a href="{{ path('admin_category_new') }}">Ajouter une catégorie</a></li>
+        </ul>
+    </li>
     <hr class="lp-color-hr">
-    <li><a href="{{ path('admin_citation_index') }}">Les citations</a></li>
-    <ul class="px-3 mb-2">
-        <li><a href="{{ path('admin_citation_new') }}">Ajouter une nouvelle citation</a></li>
-    </ul>
-    <hr class="lp-color-hr">
-    <li><a href="{{ path('admin_product_index') }}">Les produits</a></li>
-        <ul class="px-3 mb-2">
+    <li><a href="{{ path('admin_product_index') }}">Les produits</a>
+        <ul class="px-1 mb-2">
             <li><a href="{{ path('admin_product_new') }}">Ajouter un nouveau produit</a></li>
         </ul>
+    </li>
     <hr class="lp-color-hr">
-    <li><a href="{{ path('admin_category_product_index') }}">Les catégories produits</a></li>
-    <ul class="px-3 mb-2">
-        <li><a href="{{ path('admin_category_product_new') }}">Ajouter une nouvelle catégorie produit</a></li>
-    </ul>
+    <li><a href="{{ path('admin_category_product_index') }}">Les catégories produits</a>
+        <ul class="px-1 mb-2">
+            <li><a href="{{ path('admin_category_product_new') }}">Ajouter une nouvelle catégorie produit</a></li>
+        </ul>
+    </li>
     <hr class="lp-color-hr">
-    <li class="mb-2"><a href="{{ path('admin_comment_index') }}">Les commentaires</a></li>
+    <li><a href="{{ path('admin_comment_index') }}">Les commentaires</a></li>
     <hr class="lp-color-hr">
-    <li><a href="{{ path('admin_carrier_index') }}">Les transporteurs</a></li>
-    <ul class="px-3 mb-2">
-        <li><a href="{{ path('admin_carrier_new') }}">Ajouter un transporteur</a></li>
-    </ul>
+    <li><a href="{{ path('admin_carrier_index') }}">Les transports</a>
+        <ul class="px-1 mb-2">
+            <li><a href="{{ path('admin_carrier_new') }}">Ajouter un transport</a></li>
+        </ul>
+    </li>
+    <hr class="lp-color-hr">
+    <li><a href="{{ path('admin_reduction_index') }}">Les reductions</a>
+        <ul class="px-1 mb-2">
+            <li><a href="{{ path('admin_reduction_new') }}">Ajouter une reduction</a></li>
+        </ul>
+    </li>
     <hr class="lp-color-hr">
 
 </ul>
