@@ -4,8 +4,11 @@ namespace App\Repository;
 
 use App\Classe\Search;
 use App\Entity\Product;
+use App\Model\SearchData;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @extends ServiceEntityRepository<Product>
@@ -17,32 +20,41 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class ProductRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginatorInterface)
     {
         parent::__construct($registry, Product::class);
+        $this->paginatorInterface = $paginatorInterface;
     }
-
+    public function paginationQuery()
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.id', 'desc')
+            ->getQuery();
+    }
     /**
      * Method Search $search
      *
      */
-    public function findBySearchProduct(Search $search)
+    public function findBySearchProduct(SearchData $searchData) : PaginationInterface
     {
-        $query= $this
-            ->createQueryBuilder('p')
-            ->select('c','p')
-            ->join('p.category','c');
-        if (!empty($seach->categoryProduct)) {
-            $query = $query
-                ->andWhere('c.id IN (:categoryProduct)')
-                ->setParameter('categoryProduct', $search->categoryProduct);
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.name LIKE :name');
+        //  ->orWhere('b.content LIKE :content');
+
+        if (!empty($searchData->q)) {
+            $queryBuilder = $queryBuilder
+                ->andWhere('p.name LIKE :q');
         }
-        if(!empty($search->string)){
-            $query = $query
-                ->andWhere('p.name LIKE :string')
-                ->setParameter('string', "%{$search->string}%");
-        }
-        return $query ->getQuery()->getResult();
+
+        $queryBuilder = $queryBuilder
+            ->setParameter('name', '%' . $searchData->q . '%')
+            ->setParameter('q', '%' . $searchData->q . '%');
+
+        $data = $queryBuilder->getQuery()->getResult();
+        $products = $this->paginatorInterface->paginate(
+            $data, $searchData->page, 12
+        );
+        return $products;
     }
 
 

@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Classe\Search;
+use App\Entity\CategoryProduct;
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Form\SearchType;
+use App\Repository\CategoryProductRepository;
 use App\Repository\CommentRepository;
 use App\Repository\ProductRepository;
 use App\Services\Listing;
@@ -19,20 +21,17 @@ use Symfony\Component\Routing\Annotation\Route;
 class ProductController extends AbstractController
 {
     #[Route('/', name: 'boutique_index', methods: ['GET'])]
-    public function index(Request $request, ProductRepository $productRepository): Response
+    public function index(Request $request, ProductRepository $productRepository, CategoryProductRepository
+    $categoryProduct): Response
     {
         $products = $productRepository->findby([], ['id' => 'DESC']);
-       /* $searchProduct = new Search();
-        $form= $this->createForm(SearchType::class, $searchProduct);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()){
-            $products = $productRepository->findBySearchProduct($searchProduct);
 
-        }*/
+
 
         return $this->render('product/index.html.twig', [
             'products' => $products,
-           // 'form' => $form->createView()
+            'catProducts' => $categoryProduct->findAll()
+
         ]);
     }
 

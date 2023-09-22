@@ -1,12 +1,12 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Resultat de recherche{% endblock %}
+{% block title %}Résultat de recherche {% endblock %}
 
 {% block body %}
 
     <section class="container">
         <article class="col">
-            <h1 class="text-center my-5">Resultat de recherche "{{ searchResult.q }}"</h1>
+            <h1 class="text-center my-5">Résultat de recherche "{{ searchResult.q }}" côté article</h1>
             <div class="row d-flex justify-content-around">
                 {% for article in blogs %}
 
@@ -26,6 +26,47 @@
                         <span class="mt-4">{{ article.excerpt| slice(0, 100) | raw }}...</span>
                     </div>
 
+                {% else %}
+
+                    no records found
+
+                {% endfor %}
+                
+            </div>
+            <div class="d-flex justify-content-center">
+
+            </div>
+        </article>
+
+    </section>
+    <section class="container">
+        <article class="col">
+            <h1 class="text-center my-5">Résultat de recherche "{{ searchResult.q }}" côté boutique</h1>
+            <div class="row d-flex justify-content-around">
+
+                {% for product in products %}
+                    <div class="col-md-4 lp-card-product text-center ">
+                        <a href="{{ path('app_product_show', {'slug': product.slug}) }}">
+                            <div class="lp-picture">
+                                <div class="lp-mask"></div>
+                                {% if product.pictures is not empty and
+                                    product.pictures[0].urlName starts with '2020' or
+                                    product.pictures is not empty and
+                                    product.pictures[0].urlName starts with '2021' or
+                                    product.pictures is not empty and
+                                    product.pictures[0].urlName starts with '2022' or
+                                    product.pictures is not empty and
+                                    product.pictures[0].urlName starts with '2023' %}
+                                    <img  src="{{asset('assets/uploads/' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                {% elseif product.pictures is not empty %}
+                                    <img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ product.pictures[0].urlName) }}"  class="img-fluid" alt="{{ product.name }}">
+                                {% endif %}
+                            </div>
+                            <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
+
+                            <h2 class="h5">{{ product.name }}</h2></a>
+                        <span class="d-block mt-4">{{ product.category.name }}</span>
+                    </div>
                 {% else %}
 
                     no records found

@@ -3,7 +3,14 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <section class="container">
+    <section class="container my-5">
+        <ul class="lp-cat-product-list">
+            {% for categoryMenu in catProducts %}
+
+                    <li><a class="" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.name }}</a></li>
+
+            {% endfor %}
+        </ul>
 
             <article class="col-md-12">
                 <h3 class="text-center">La boutique de Lyvia</h3>
@@ -28,8 +35,8 @@
                                 </div>
                                 <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
 
-                                <h4>{{ product.name }}</h4></a>
-                            <span class="d-block mt-4">{{ product.category.name }}</span>
+                                <h2 class="h5">{{ product.name }}</h2></a>
+                            <span class="d-block mt-4">{{ product.categoryProduct.name }}</span>
                         </div>
 
                     {% else %}

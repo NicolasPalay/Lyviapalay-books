@@ -24,6 +24,45 @@ class ApiController extends AbstractController
     #[Route('/')]
     public function getPosts(): array
     {
+        $responses = $this->client->request(
+            'GET',
+            'https://www.lyviapalay-books.fr/wp-json/wp/v2/users', [
+                'query' => [
+                    'per_page' => 100,
+                    'orderby' => 'id', // Trie par ID croissant
+                    'order' => 'asc'
+
+                ],
+            ]
+        );
+        $apis = $responses->toArray();
+
+
+        $responses2 = $this->client->request(
+            'GET',
+            'https://www.lyviapalay-books.fr/wp-json/wp/v2/posts/', [
+                'query' => [
+                    'per_page' => 100,
+                    'orderby' => 'id', // Trie par ID croissant
+                    'order' => 'asc'
+
+                ],
+            ]
+
+
+        );
+        $apis2= $responses2->toArray();
+
+        $asis = array_merge($apis,$apis2);
+
+
+
+        dd($apis) ;
+
+        return $this->render('api.html.twig', ['apis' => $apis]);
+    }
+  /*  public function getPosts(): array
+    {
         $consumer_key = 'ck_8d94d3b2cc86d3262bf136146376ea722eda36b8';
         $consumer_secret = 'cs_d7174e218d3703e32655089007c8f61ea759c77e';
         $endpoint = 'products';
@@ -50,5 +89,5 @@ foreach ($apis as $api){
     dd($image) ;
 }
         return $this->render('api.html.twig', ['apis' => $apis]);
-    }
+    }*/
 }
