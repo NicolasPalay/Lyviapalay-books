@@ -4,11 +4,11 @@
 
 {% block body %}
     <h1>Mes adresses</h1>
-
+    <div class="container lp-border p-5">
 
     {{ include('account/address/_form.html.twig') }}
 
     <a href="{{ path('account') }}">Retour dans mon compte</a>
     <hr>
-
+    </div>
 {% endblock %}

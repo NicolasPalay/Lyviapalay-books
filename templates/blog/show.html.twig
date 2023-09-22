@@ -4,19 +4,22 @@
 
 {% block body %}
 <div class="container">
-    <div class="row d-flex">
-    <h1 class="my-5">{{ blog.title }}</h1>
-        <div class="col-4">
-            <img class="img-fluid" src="{{ asset('assets/uploads/' ~ blog.picture[0].urlName) }}" alt="">
-            <span class="d-block">Author :
+
+    <h1 class="mt-5">{{ blog.title }}</h1>
+    <span class="d-block mt-2 mb-5">Author :
                 <em>{{ blog.author.firstName }} {{ blog.author.lastName }} </em>
                 <em>le {{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</em>
             </span>
+        <div class="lp-float-img">
+            <img class="img-fluid" src="{{ asset('assets/uploads/' ~ blog.picture[0].urlName) }}" alt="">
+
         </div>
-    <div class="col-8">
+    <div class="lp-float-text">
                 {{ blog.content| raw }}
 
     </div>
+</div>
+        <hr class="clear-float"> <div>
 {% include '_includes/comments.html.twig' %}
 
     <a href="{{ path('app_blog_index') }}">back to list</a>
@@ -24,5 +27,5 @@
 
 
 </div>
-    </div>
+
 {% endblock %}

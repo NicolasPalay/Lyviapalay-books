@@ -22,16 +22,22 @@
                     <th scope="col">Référence</th>
                     <th scope="col">Produits</th>
                     <th scope="col">Total (hors fraits de port)</th>
+                    <th scope="col">règlée</th>
                 </tr>
                 </thead>
                 <tbody>
                 {% for commande in commandes %}
                 <tr>
                     <th scope="row">{{ commande.createdAt|date('d/m/y') }}</th>
-                    <td>{{ commande.reference }}</td>
+                    <td><a href="{{ path('app_order_recap', {'reference': commande.reference}) }}">{{ commande.reference }}</a></td>
                     <td>{{ commande.orderDetails|length }}</td>
                     <td>{{ commande.totalPrice}}</td>
-                    <td>Voir ma commande</td>
+
+                   {%  if commande.isPaid == 1%}
+                    <td><span class="badge-success">payée</span></td>
+                {%  else%}
+                    <td><span class="badge-danger">non payée</span></td>
+                {% endif %}
                 </tr>
         {% endfor %}
                 </tbody>
