@@ -3,34 +3,37 @@
 {% block title %}Blog index{% endblock %}
 
 {% block body %}
-    <h1>Blog index</h1>
+<div class="col-10 lp-admin-container">
+    <h1>Tous les articles</h1>
+
     <a class="lp-btn" href="{{ path('admin_blog_new') }}">Create new</a>
-    <table class="table">
+
+    <table class="table my-5">
         <thead>
             <tr>
-                <th>Id</th>
-                <th>Publish</th>
+
+                <th>Publier</th>
                 <th>Title</th>
-                <th>img</th>
-                <th>Author</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
-                <th>actions</th>
+                <th>image</th>
+                <th class="lp-author-index">Author</th>
+                <th class="lp-created-index" >CreatedAt</th>
+                <th class="lp-author-index">UpdatedAt</th>
+                <th>action</th>
             </tr>
         </thead>
         <tbody>
         {% for blog in blogs %}
             <tr>
-                <td>{{ blog.id }}</td>
+
                 <td>{{ blog.publish ? 'Yes' : 'No' }}</td>
                 <td>{{ blog.title }}</td>
                 {% if blog.picture %}
                 <td><img  src="{{asset('assets/uploads/' ~ blog.picture[0].urlName) }}"  class="img-fluid lp-sm-img"></td>
                 {% endif %}
-                <td>{{ blog.author.firstName }} {{ blog.author.lastName }}</td>
+                <td class="lp-author-index">{{ blog.author.firstName }} {{ blog.author.lastName }}</td>
 
-                <td>{{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="lp-created-index">{{ blog.createdAt ? blog.createdAt|date('Y-m-d') : '' }}</td>
+                <td class="lp-author-index">{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d') : '' }}</td>
                 <td>
                                     <a href="{{ path('admin_blog_edit', {'id': blog.id}) }}">edit</a>
                 </td>
@@ -44,4 +47,5 @@
     </table>
 
     <a href="{{ path('admin_blog_new') }}">Create new</a>
+    </div>
 {% endblock %}

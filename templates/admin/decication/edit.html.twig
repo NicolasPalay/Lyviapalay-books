@@ -1,0 +1,14 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Edit Decication{% endblock %}
+
+{% block body %}
+    <h1>Edit Decication</h1>
+<div class="lp-bornes my-5">
+    {{ include('admin/decication/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('admin_decication_index') }}">back to list</a>
+
+    {{ include('admin/decication/_delete_form.html.twig') }}
+</div>
+{% endblock %}

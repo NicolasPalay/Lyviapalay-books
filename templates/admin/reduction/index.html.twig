@@ -1,0 +1,45 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Reduction index{% endblock %}
+
+{% block body %}
+    <h1>Reduction index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>ReductCode</th>
+                <th>CouponId</th>
+                <th>Montant</th>
+                <th>Actived</th>
+                <th>DateEnd</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reduction in reductions %}
+            <tr>
+                <td>{{ reduction.id }}</td>
+                <td>{{ reduction.reductCode }}</td>
+                {% if reduction.couponId != null %}
+                <td>{{ reduction.couponId}}</td>
+                {% endif %}
+                <td>{{ reduction.montant }}</td>
+                <td>{{ reduction.actived ? 'Yes' : 'No' }}</td>
+                <td>{{ reduction.dateEnd ? reduction.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_reduction_show', {'id': reduction.id}) }}">show</a>
+                    <a href="{{ path('admin_reduction_edit', {'id': reduction.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_reduction_new') }}">Create new</a>
+{% endblock %}

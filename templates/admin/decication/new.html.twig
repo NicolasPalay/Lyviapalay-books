@@ -1,0 +1,14 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}New Decication{% endblock %}
+
+{% block body %}
+<div class="col-10 lp-admin-container">
+    <h1>Create new Decication</h1>
+
+    {{ include('admin/decication/_form.html.twig') }}
+
+    <a href="{{ path('admin_decication_index') }}">back to list</a>
+
+</div>
+{% endblock %}

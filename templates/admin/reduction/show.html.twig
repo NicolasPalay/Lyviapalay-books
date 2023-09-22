@@ -1,0 +1,42 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Reduction{% endblock %}
+
+{% block body %}
+    <h1>Reduction</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ reduction.id }}</td>
+            </tr>
+            <tr>
+                <th>ReductCode</th>
+                <td>{{ reduction.reductCode }}</td>
+            </tr>
+            <tr>
+                <th>Code coupon</th>
+                <td>{{ reduction.couponId }}</td>
+            </tr>
+            <tr>
+                <th>Montant</th>
+                <td>{{ reduction.montant }}</td>
+            </tr>
+            <tr>
+                <th>Actived</th>
+                <td>{{ reduction.actived ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>DateEnd</th>
+                <td>{{ reduction.dateEnd ? reduction.dateEnd|date('Y-m-d H:i:s') : '' }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('admin_reduction_index') }}">back to list</a>
+
+    <a href="{{ path('admin_reduction_edit', {'id': reduction.id}) }}">edit</a>
+
+    {{ include('admin/reduction/_delete_form.html.twig') }}
+{% endblock %}

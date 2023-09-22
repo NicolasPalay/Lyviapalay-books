@@ -1,0 +1,42 @@
+{% extends 'baseAdmin.html.twig' %}
+
+{% block title %}Toutes les dates de dédicaces{% endblock %}
+
+{% block body %}
+    <div class="col-10 lp-admin-container">
+    <h1>Toutes les dates de dédicaces</h1>
+        <a class="lp-btn"  href="{{ path('admin_decication_new') }}">Create new</a>
+
+    <table class="table my-5">
+        <thead>
+            <tr>
+
+                <th>Adresse</th>
+                <th>Date de début de la dédicace</th>
+                <th>Date de fin de la dédicace</th>
+                <th>action</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for decication in decications %}
+            <tr>
+                <td>{{ decication.id }}</td>
+                <td>{{ decication.address }}</td>
+                <td>{{ decication.dateDedication ? decication.dateDedication|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ decication.dateDedicationEnd ? decication.dateDedicationEnd|date('Y-m-d H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('admin_decication_show', {'id': decication.id}) }}">show</a>
+                    <a href="{{ path('admin_decication_edit', {'id': decication.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+
+</div>
+{% endblock %}
