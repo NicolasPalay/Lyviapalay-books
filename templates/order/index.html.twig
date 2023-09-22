@@ -12,8 +12,8 @@
 {{ form_start(form) }}
                 <p class="p-3">{{ form_label(form.adresses, 'choississez votre adresses de livraison') }}</p>
         <a href="{{ path('account_address_add') }}">Ajouter une nouvelle adresse</a>
-{{ form_row(form.adresses) }}
-        {{ form_row(form.carriers) }}
+        {{ form_row(form.adresses) }}
+
         {{ form_row(form.dedication) }}
         <a href="{{ path('cart_index') }}">Modifier mon panier</a>
 
@@ -29,12 +29,13 @@
                         <li>Titre : <span>{{ item.product.name }}</span></li>
                         <li>quantité : <span>{{ item.quantity }}</span></li>
                         <li>Prix unitaire : <span>{{ item.product.price  | number_format(2,',' ,'.')}} €</span></li>
-
+<hr>
 
                 {% else %}
                     <tr>le panier est vide</tr>
                 {% endfor %}
-                <li>Montant total (sans frais de port) : <span>{{ items.total | number_format(2, ',', '.') }} €</span></li>
+               {% if reduction %} <li>Réduction code : {{ reduction[1] }}<span> d'un montant réduit de {{ montantReduct | number_format(2, ',', '.') }} €</span></li> {% endif %}
+                <li>Montant total (avant frais de port) : <span>{{ items.total | number_format(2, ',', '.') }} €</span></li>
                 </ul></div>
     </div>
 

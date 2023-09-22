@@ -3,14 +3,8 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
-    <section class="container">
+    <section class="container lp-border p-5">
         <div class="row">
-            <article class="col-md-3">
-                <h3 class="text-center">La boutique de Lyvia</h3>
-
-
-
-            </article>
 
             <article class="col-md-12">
                 <h3 class="text-center">Panier</h3>
@@ -49,8 +43,20 @@
                             </tbody>
                             <tfoot>
                             <tr>
+                                {{ form_start(form) }}
+                                <td>{{ form_row(form.reductCode) }}</td>
+                                <td>{{ form_row(form.submit) }}</td>
+                                {{ form_end(form) }}
+
+                            </tr>
+                            <tr>
+                                <td class="lp-td-right" colspan="3">Réduction</td>
+                                <td>{{ reduction | number_format(2,',' ,'.')}} €</td>
+                                <td></td>
+                            </tr>
+                            <tr>
                                 <td class="lp-td-right" colspan="3">Total</td>
-                                <td>{{ total | number_format(2,',' ,'.')}} €</td>
+                                <td>{{ (total - reduction) | number_format(2,',' ,'.')}}   €</td>
                                 <td> <a href="{{ path('cart_empty') }}" class="lp-quant">vider</a></td>
                             </tr>
                             </tfoot>

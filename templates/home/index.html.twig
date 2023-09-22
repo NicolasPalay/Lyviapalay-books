@@ -17,6 +17,7 @@
                 Prenez une pause détente pour visiter ce site.<br>
             </em>
         </div>
+
         {% include '_includes/_booksHome.html.twig' %}
     </div>
     {% for message in  app.flashes('success') %}
@@ -24,13 +25,17 @@
             {{ message }}
         </div>
     {% endfor %}
-    <section class="articleHome">
+    <section class="promoteHome container">
+    {% include '_includes/_homePromote.html.twig' %}
+    </section>
+    <div class="separatedHome">
+        <section class="articleHome">
         {% include '_includes/_homeArtcile.html.twig' %}
     </section>
 {#{%  include '_includes/_searchData.html.twig' %}#}
-    <section class="citationHome">
-    {% include '_includes/_homeCitation.html.twig' %}
-</section>
+
+
+</div>
 
 
 

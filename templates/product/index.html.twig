@@ -1,19 +1,20 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Product index{% endblock %}
+{% block title %}La boutique de Lyvia{% endblock %}
 
 {% block body %}
     <section class="container my-5">
         <ul class="lp-cat-product-list">
+            <li><a class="" href="{{ path('boutique_index') }}">Tous</a></li>
             {% for categoryMenu in catProducts %}
 
-                    <li><a class="" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.name }}</a></li>
+                    <li><a class="" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.menu }}</a></li>
 
             {% endfor %}
         </ul>
 
             <article class="col-md-12">
-                <h3 class="text-center">La boutique de Lyvia</h3>
+                <h3 class="text-center">Boutique</h3>
                 <div class="row d-flex justify-content-between">
                     {% for product in products %}
                         <div class="col-md-4 lp-card-product text-center ">

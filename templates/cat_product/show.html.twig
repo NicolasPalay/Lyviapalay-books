@@ -5,19 +5,22 @@
 {% block body %}
 
 
-    <section class="container">
+    <section class="container my-5">
 
         <article class="col-md-12">
-            <h3 class="text-center">La boutique de Lyvia</h3>
+
             <ul class="lp-cat-product-list">
+                <li><a class="" href="{{ path('boutique_index') }}">Tous</a></li>
             {% for categoryMenu in catProductMenu %}
                 {% if categoryMenu.name == category.name %}
-                <li><a class="lp-active-cat" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.name }}</a></li>
+                <li><a class="lp-active-cat" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.menu }}</a></li>
                 {% else %}
-                    <li><a class="" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.name }}</a></li>
+                    <li><a class="" href="{{ path('app_cat_product', {'slug': categoryMenu.slug}) }}">{{ categoryMenu.menu }}</a></li>
                 {% endif %}
             {% endfor %}
+
             </ul>
+            <h3 class="text-center">Boutique</h3>
             <div class="row d-flex justify-content-between">
 
 {% for product in products %}
@@ -42,7 +45,7 @@
                             <span class="lp-price" >{{ product.price | number_format(2,',' ,'.')}} €</span>
 
                             <h2 class="h5">{{ product.name }}</h2></a>
-               {#      <span class="d-block mt-4">{{ product.category.name }}</span>#}
+                   <span class="d-block mt-4">{{ product.categoryProduct.name }}</span>
                     </div>
 
                 {% else %}
