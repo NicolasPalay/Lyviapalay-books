@@ -5,18 +5,18 @@
 {% block body %}
     <h1>Mes adresses</h1>
 
-
+<div class="container lp-border p-5">
     <p>C'est votre espace personnelle, vous allez pouvoir gérer vos adresses</p>
     <hr>
 {% if app.user.adresses|length == 0 %}
     <p class="text-center">vous n'avez pas encore enregistré d'adresse dans votre compte.</p>
-    <a class="btn-info btn-sm" href="{{ path('account_address_add') }}">Ajouter une adresse</a>
+    <a class="lp-btn mx-1" href="{{ path('account_address_add') }}">Ajouter une adresse</a>
     {% else %}
-        <a class="btn-info btn-sm" href="{{ path('account_address_add') }}">Ajouter une adresse</a>
+        <a class="lp-btn my-5 mx-1" href="{{ path('account_address_add') }}">Ajouter une adresse</a>
+        <div class="d-flex">
     {% for adresse in app.user.adresses %}
-        <ul>
-            <em><a class="btn btn-sm btn-info" href="{{ path('account_address_edit', {'id' : adresse.id}) }}">modifier cette adresse </a></em>
-            <em><a class="btn btn-sm btn-danger" href="{{ path('account_address_delete', {'id' : adresse.id}) }}">supprimer cette adresse </a></em>
+        <ul  class="lp-border p-5  my-5 ">
+
             <li>le name de l'adresse : {{ adresse.name }}</li>
             <li>le prénom : {{ adresse.firstName }}</li>
             <li>le nom : {{ adresse.lastName }}</li>
@@ -25,12 +25,15 @@
             <li>la ville : {{ adresse.city }}</li>
             <li>le numéro de téléphone : {{ adresse.phone }}</li>
             <li>le nom du pays : {{ adresse.pays }}</li>
-
+            <br> <em><a class="lp-btn my-5 mx-2" href="{{ path('account_address_edit', {'id' : adresse.id}) }}">modifier cette adresse </a></em>
+            <em><a class="lp-btn my-5 mx-1" href="{{ path('account_address_delete', {'id' : adresse.id}) }}">supprimer cette adresse </a></em>
         </ul>
 
     {% endfor %}
+        </div>
     {% endif %}
 
-    <br>
-    <a href="{{ path('account') }}">Retour dans mon compte</a>
+
+    <a class="lp-btn my-5 mx-1" href="{{ path('account') }}">Retour dans mon compte</a>
+</div>
 {% endblock %}
