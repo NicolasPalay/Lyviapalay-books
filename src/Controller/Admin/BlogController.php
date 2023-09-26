@@ -12,8 +12,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
-
+#[IsGranted('ROLE_ADMIN')]
 #[Route('admin/blog', name: 'admin_blog_')]
 class BlogController extends AbstractController
 {
@@ -48,6 +49,7 @@ class BlogController extends AbstractController
                 $blog->addPicture($newPicture);
             }
             $slug = $slugger->slug($blog->getTitle());
+            $slug = strtolower($slug);
             $blog->setSlug($slug);
             $entityManager->persist($blog);
             $entityManager->flush();
@@ -84,6 +86,7 @@ class BlogController extends AbstractController
                 $blog->addPicture($newPicture);
             }
             $slug = $slugger->slug($blog->getTitle());
+            $slug = strtolower($slug);
             $blog->setSlug($slug);
 
             $entityManager->persist($blog);
@@ -102,6 +105,9 @@ class BlogController extends AbstractController
     public function delete(Request $request, Blog $blog, EntityManagerInterface $entityManager): Response
     {
         if ($this->isCsrfTokenValid('delete'.$blog->getId(), $request->request->get('_token'))) {
+            foreach ($blog->getPicture() as $picture) {
+                $picture->setBlog(null);
+            }
             $entityManager->remove($blog);
             $entityManager->flush();
         }

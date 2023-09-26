@@ -2,9 +2,16 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Product;
+use App\Entity\Reduction;
+use App\Form\ReductionTypeCartType;
 use App\Repository\ProductRepository;
+use App\Repository\ReductionRepository;
+use App\Services\CartService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,24 +19,52 @@ use Symfony\Component\Routing\Annotation\Route;
 class CartController extends AbstractController
 {
     #[Route('/', name: 'index')]
-    public function index(SessionInterface $session, ProductRepository
-    $productRepository)
+    public function index(SessionInterface $session, ProductRepository $productRepository, ReductionRepository $reductionRepository, Request $request, CartService $cart): Response
     {
+        $reductions = $reductionRepository->findAll();
+        $form = $this->createForm(ReductionTypeCartType::class);
+        $form->handleRequest($request);
+        $reductionMontant = 0;
+
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $reductCode = $form->getData()->getReductCode();
+            $reduction = $reductionRepository->findOneBy(['reductCode' => $reductCode]);
+
+            if ($reduction) {
+                $reductionMontant = $reduction->getMontant();
+                $session->set('reduction', [$reductionMontant, $reductCode]);
+            } else {
+                $this->addFlash('danger', 'Code de réduction invalide');
+                return $this->redirectToRoute('cart_index');
+            }
+        }
+
         $panier = $session->get('panier', []);
         $data = [];
         $total = 0;
+
         foreach ($panier as $id => $quantity) {
-        $product = $productRepository->find($id);
+            $product = $productRepository->find($id);
             $data[] = [
                 'product' => $product,
                 'quantity' => $quantity
             ];
             $total += $product->getPrice() * $quantity;
-            }
+        }
+
+        $cartData = $cart->getFullCart($session, $productRepository);
+        $montantReductCart = $cartData['montantReduct'];
+
+//dd($reductionMontant,$total,$montantReductCart  );
+
+
 
         return $this->render('cart/index.html.twig', [
             'items' => $data,
-            'total' => $total
+            'total' => $total,
+            'reduction' => $montantReductCart,
+            'form' => $form->createView()
         ]);
     }
 
@@ -45,6 +80,7 @@ class CartController extends AbstractController
             $panier[$id]++;
         }
        $session->set('panier', $panier);
+        $session->set('reduction', []);
 
         return $this->redirectToRoute('cart_index');
     }
