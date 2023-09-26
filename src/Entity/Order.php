@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: OrderRepository::class)]
 #[ORM\Table(name: '`order`')]
@@ -26,8 +27,8 @@ class Order
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
-    #[ORM\OneToMany(mappedBy: 'reference', targetEntity: OrderDetail::class, orphanRemoval:true,
-        cascade: ['persist'])]
+    #[ORM\OneToMany(mappedBy: 'reference', targetEntity: OrderDetail::class, cascade: ['persist'],
+        orphanRemoval: true)]
     private Collection $orderDetails;
 
     #[ORM\Column(length: 255)]
@@ -43,6 +44,10 @@ class Order
     private ?bool $isPaid = null;
 
     #[ORM\Column(length: 300, nullable: true)]
+    #[Assert\Length(min: 10,
+        max: 300,
+        minMessage: 'La demande de dédicace doit faire plus de 10 caractères',
+        maxMessage: 'La demande de dédicace doit faire moins de 300 caractères')]
     private ?string $dedication = null;
 
     #[ORM\Column]
@@ -50,6 +55,12 @@ class Order
 
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $stripeSession = null;
+
+    #[ORM\Column(length: 10, nullable: true)]
+    private ?string $reductionCode = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?float $reductionPrice = null;
 
     public function __construct()
     {
@@ -208,6 +219,30 @@ class Order
     public function setStripeSession(?string $stripeSession): static
     {
         $this->stripeSession = $stripeSession;
+
+        return $this;
+    }
+
+    public function getReductionCode(): ?string
+    {
+        return $this->reductionCode;
+    }
+
+    public function setReductionCode(?string $reductionCode): static
+    {
+        $this->reductionCode = $reductionCode;
+
+        return $this;
+    }
+
+    public function getReductionPrice(): ?float
+    {
+        return $this->reductionPrice;
+    }
+
+    public function setReductionPrice(?float $reductionPrice): static
+    {
+        $this->reductionPrice = $reductionPrice;
 
         return $this;
     }

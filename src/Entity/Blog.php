@@ -27,7 +27,7 @@ class Blog
     #[ORM\Column(type: Types::TEXT)]
     private ?string $content = null;
 
-    #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Picture::class, cascade: ["persist"])]
+    #[ORM\OneToMany(mappedBy: 'blog', targetEntity: Picture::class, cascade: ["persist", "remove"])]
     private Collection $picture;
 
     #[ORM\ManyToOne(inversedBy: 'blogs')]

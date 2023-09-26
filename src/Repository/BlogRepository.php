@@ -47,17 +47,14 @@ class BlogRepository extends ServiceEntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('b')
             ->where('b.title LIKE :title');
-          //  ->orWhere('b.content LIKE :content');
 
         if (!empty($searchData->q)) {
             $queryBuilder = $queryBuilder
                 ->andWhere('b.title LIKE :q');
-              //  ->orWhere('b.content LIKE :q');
         }
 
         $queryBuilder = $queryBuilder
             ->setParameter('title', '%' . $searchData->q . '%')
-           // ->setParameter('content', '%' . $searchData->q . '%')
             ->setParameter('q', '%' . $searchData->q . '%');
 
         $data = $queryBuilder->getQuery()->getResult();

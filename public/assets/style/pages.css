@@ -1,0 +1,25 @@
+
+.lyviaEcrivaine {
+display: flex;
+}
+.lyviaPhoto{
+    width:200px;margin : 0 20px 20px 0;
+}
+.lyviaPhoto img{
+    width:100%
+}
+.lyviaPrenom {
+    font-size: 40px;
+    color: #d70b52;
+    font-family: var(--lp-font-signature);
+}
+.lyviaNom {
+    font-size: 35px;
+    color: #d70b52;
+    font-family: var(--lp-font-signature);
+}
+.lyviaEcri {
+    font-size: 30px;
+    color: #575556;
+    font-family: var(--lp-font-signature);
+}

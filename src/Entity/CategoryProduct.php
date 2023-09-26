@@ -24,6 +24,9 @@ class CategoryProduct
     #[ORM\Column(length: 255)]
     private ?string $slug = null;
 
+    #[ORM\Column(length: 100)]
+    private ?string $menu = null;
+
     public function __construct()
     {
         $this->products = new ArrayCollection();
@@ -87,6 +90,18 @@ class CategoryProduct
     public function setSlug(string $slug): static
     {
         $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getMenu(): ?string
+    {
+        return $this->menu;
+    }
+
+    public function setMenu(string $menu): static
+    {
+        $this->menu = $menu;
 
         return $this;
     }
