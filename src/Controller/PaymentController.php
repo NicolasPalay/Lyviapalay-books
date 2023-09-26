@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 
-use App\Controller\Secret;
+use App\services\Secret;
 use App\Entity\Order;
 use App\Entity\Reduction;
 use App\Repository\OrderRepository;
@@ -52,8 +52,6 @@ class PaymentController extends AbstractController
 
 $carrier = (int) ($order->getCarrierPrice() * 100);
 
-       // $stripe = new \Stripe\StripeClient
-        //('sk_test_51NfktXDt9N58DMNsDEHDqWKOh4HYrjfXw03RoGVZPh6faT4ktDpDMPZdrHMdK6FtUJ5nsjWJmHRzexczoJjFMNQW00d42rUwzh');
        Stripe::setApiKey($secret->secretKey());
         header('Content-Type: application/json');
 

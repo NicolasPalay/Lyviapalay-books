@@ -7,7 +7,7 @@
 /var/
 /vendor/
 /.idea/
-/src/Controller/Secret.php
+/src/Services/Secret.php
 ###< symfony/framework-bundle ###
 
 ###> phpunit/phpunit ###
