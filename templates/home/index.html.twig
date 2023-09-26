@@ -1,6 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Hello Home{% endblock %}
+  {% block javascripts %}
+     <script src="{{ asset('assets/js/carrousel.js') }}"></script>
+  {% endblock %}
 {% block bodyClass %}lp-home-body
 {% endblock %}
 
@@ -27,12 +30,15 @@
     {% endfor %}
     <section class="promoteHome container">
     {% include '_includes/_homePromote.html.twig' %}
-    </section>
+    </section> <div class="carousel-item">
+    1
+</div>
+    {% include '_includes/_homePictures.html.twig' %}
     <div class="separatedHome">
         <section class="articleHome">
         {% include '_includes/_homeArtcile.html.twig' %}
     </section>
-{#{%  include '_includes/_searchData.html.twig' %}#}
+
 
 
 </div>

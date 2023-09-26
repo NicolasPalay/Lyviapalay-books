@@ -1,8 +1,18 @@
 
     <article class="row lp-promote mx-auto">
         <div class="col-md-3 lp-promote-info lp-promote-border">
-        <h3 class="text-center my-5"><a href="{{ path('app_decication_index') }}">Prochaine date de dédicace</a></h3>
-            <p>{{ dedication.address }} le {{ dedication.dateDedication | date('d/m/y H:i' )  }}</p>
+        <h5 class="text-center my-4"><a href="{{ path('app_decication_index') }}">Prochaine date de dédicace</a></h5>
+            {% if dedication != 0 %}
+                <p><strong>{{ dedication.address|raw }}</strong></p>
+                <p><strong>le {{ dedication.dateDedication | date('d/m/y' )  }} à partir de {{ dedication.dateDedication | date('H:i' )  }}</strong></p>
+            {% else %}
+                <p>Pas de date de dédicace prévue</p>
+            {% endif %}
+            <hr class="lp-color-hr">
+            <h5 class="text-center my-4 lp-biographie"><a href="{{ path('bio') }}">Biographie</a></h5>
+            <p>Lyvia Palay, Champenoise expatriée dans le Sud-Ouest, est née en 1980 et vit désormais près de Bordeaux...<br>
+                <a  class="d-block mt-3" href="{{ path('bio') }}">lire la suite</a>
+                 </p>
         </div>
         <div class="col-md-6 lp-promote-border">
             {% for article in articlesPromoted %}

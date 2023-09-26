@@ -6,12 +6,46 @@
 <div class="container">
 
     <h1 class="mt-5">{{ blog.title }}</h1>
-    <span class="d-block mt-2 mb-5">Author :
-                <em>{{ blog.author.firstName }} {{ blog.author.lastName }} </em>
-                <em>le {{ blog.createdAt ? blog.createdAt|date('Y-m-d H:i:s') : '' }}</em>
+
+    <span class="d-block mt-2 mb-5">
+
+        <em>le {{ blog.createdAt ? blog.createdAt|date('d-m-Y') : '' }}</em>
             </span>
-        <div class="lp-float-img">
-            <img class="img-fluid" src="{{ asset('assets/uploads/' ~ blog.picture[0].urlName) }}" alt="">
+    {% if blog.auteur %}
+        <em><strong>Auteur : {{ blog.auteur  }} </strong></em>
+    {% endif %}
+    <div class="lp-float-img lp-modal-content">
+
+            {% if blog.picture is not empty and
+                blog.picture[0].urlName starts with '2020' or
+                blog.picture is not empty and
+                blog.picture[0].urlName starts with '2021' or
+                blog.picture is not empty and
+                blog.picture[0].urlName starts with '2022' or
+                blog.picture is not empty and
+                blog.picture[0].urlName starts with '2023' %}
+                <img  src="{{asset('assets/uploads/' ~ blog.picture[0].urlName) }}"  class="img-fluid lp-full-gallery" alt="{{ blog.title }}">
+            {% elseif blog.picture is not empty %}
+                <img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ blog.picture[0].urlName) }}"  class="img-fluid lp-img-gallery" alt="{{ blog.title }}">
+            {% endif %}
+
+            <div class="lp-img-gallery">
+                {% for picture in blog.picture %}
+                    {% if picture is not empty and
+                        picture.urlName starts with '2020' or
+                        picture is not empty and
+                        picture.urlName starts with '2021' or
+                        picture is not empty and
+                        picture.urlName starts with '2022' or
+                        picture is not empty and
+                        picture.urlName starts with '2023' %}
+                        <a href="{{asset('assets/uploads/' ~ picture.urlName) }}" class="lp-gallery"><img  src="{{asset('assets/uploads/' ~ picture.urlName) }}"  class="img-fluid" alt="{{ blog.title }}"></a>
+                    {% elseif product.pictures is not empty %}
+                        <a href="{{asset('assets/uploads/' ~ picture.urlName) }}" class="lp-gallery"><img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ picture.urlName) }}"  class="img-fluid" alt="{{ blog.title }}"></a>
+                    {% endif %}
+
+                {% endfor %}
+            </div>
 
         </div>
     <div class="lp-float-text">
@@ -22,10 +56,12 @@
         <hr class="clear-float"> <div>
 {% include '_includes/comments.html.twig' %}
 
-    <a href="{{ path('app_blog_index') }}">back to list</a>
+
 
 
 
 </div>
+    <script src="{{ asset('assets/gallery.js') }}">
 
+    </script>
 {% endblock %}
