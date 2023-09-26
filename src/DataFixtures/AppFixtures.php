@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Blog;
 use App\Entity\Category;
 use App\Entity\CategoryProduct;
+use App\Entity\Citation;
 use App\Entity\Picture;
 use App\Entity\Product;
 use App\Entity\SubCategory;
@@ -21,9 +22,9 @@ class AppFixtures extends Fixture
     private SluggerInterface $slugger;
     private $client;
 
-    const  CATEGORIESPROD = [ 'Livre','Ebook','Goodies'];
+    const  CATEGORIESPROD = [ 'Roman','Livre jeunesse','Ebook','Goodies'];
     const CATEGORIES = ['Mes livres', 'Vos avis', 'Rencontres & Dédidaces', 'Coin partage',
-        'Retour lecture', 'Posts passions', 'Auto-édition'];
+        'Citations', 'Retour lecture', 'Posts passions', 'Auto-édition'];
 
 
 
@@ -34,20 +35,22 @@ class AppFixtures extends Fixture
         $this->client = $client;
     }
     public function getPosts(): array
-        {
-            $responses = $this->client->request(
-                'GET',
-                'https://www.lyviapalay-books.fr/wp-json/wp/v2/posts/', [
-                    'query' => [
-                        'per_page' => 100,
-                        'orderby' => 'id', // Trie par ID croissant
-                        'order' => 'asc'
+    {
+        $responses = $this->client->request(
+            'GET',
+            'https://www.lyviapalay-books.fr/wp-json/wp/v2/posts/', [
+                'query' => [
+                    'per_page' => 100,
+                    'orderby' => 'id', // Trie par ID croissant
+                    'order' => 'asc'
 
-                    ],
-                ]
-            );
-            return $responses->toArray();
-        }
+                ],
+            ]
+
+
+        );
+        return $responses->toArray();
+    }
     public function getPictures(): array
     {
         $allPictures = [];
@@ -65,30 +68,47 @@ class AppFixtures extends Fixture
             );
             $allPictures[] = $responsesPict->toArray();
         }
-          return $allPictures;
+        return $allPictures;
     }
-public function getWoocommerce(): array{
-    $consumer_key = 'ck_8d94d3b2cc86d3262bf136146376ea722eda36b8';
-    $consumer_secret = 'cs_d7174e218d3703e32655089007c8f61ea759c77e';
-    $endpoint = 'products';
-    $base_url = 'https://www.lyviapalay-books.fr/wp-json/wc/v3/';
-    $url = $base_url . $endpoint;
-    $responses = $this->client->request(
-        'GET',
-        $url,
-        [
-            'auth_basic' => [$consumer_key, $consumer_secret],
-            'query' => [
-                'per_page' => 20,
-                'orderby' => 'id', // Trie par ID croissant
-                'order' => 'asc'
-            ],
-        ]
+    public function getWoocommerce(): array{
+        $consumer_key = 'ck_8d94d3b2cc86d3262bf136146376ea722eda36b8';
+        $consumer_secret = 'cs_d7174e218d3703e32655089007c8f61ea759c77e';
+        $endpoint = 'products';
+        $base_url = 'https://www.lyviapalay-books.fr/wp-json/wc/v3/';
+        $url = $base_url . $endpoint;
+        $responses = $this->client->request(
+            'GET',
+            $url,
+            [
+                'auth_basic' => [$consumer_key, $consumer_secret],
+                'query' => [
+                    'per_page' => 20,
+                    'orderby' => 'id', // Trie par ID croissant
+                    'order' => 'asc'
+                ],
+            ]
 
-    );
+        );
 
-    return $responses->toArray();
-}
+        return $responses->toArray();
+    }
+
+    public function getCitation(): array
+    {
+        $responses = $this->client->request(
+            'GET',
+            'https://www.lyviapalay-books.fr/wp-json/wp/v2/citation', [
+                'query' => [
+                    'per_page' => 100,
+                    'orderby' => 'id', // Trie par ID croissant
+                    'order' => 'asc'
+
+                ],
+            ]
+        );
+        return $responses->toArray();
+    }
+
     public function load(ObjectManager $manager): void
     {
 
@@ -108,15 +128,15 @@ public function getWoocommerce(): array{
             $manager->persist($user);
         }
 
-            $user = new User();
-            $user->setEmail('admin@lyviapalay-books.fr');
-            $user->setFirstname('lyvia');
-            $user->setLastname('palay');
-            $user->setRoles(['ROLE_ADMIN']);
-            $user->setPlainPassword('123456');
-            $user->setIsVerified(true);
-            $this->addReference('user_admin', $user);
-            $manager->persist($user);
+        $user = new User();
+        $user->setEmail('admin@lyviapalay-books.fr');
+        $user->setFirstname('lyvia');
+        $user->setLastname('palay');
+        $user->setRoles(['ROLE_ADMIN']);
+        $user->setPlainPassword('123456');
+        $user->setIsVerified(true);
+        $this->addReference('user_admin', $user);
+        $manager->persist($user);
 
 
         $manager->flush();
@@ -144,7 +164,10 @@ public function getWoocommerce(): array{
         $manager->flush();
 
 
-        $posts = $this->getPosts();
+        $post = $this->getPosts();
+        $citation = $this->getCitation();
+
+        $posts = array_merge($post,$citation);
         $allPictures = $this->getPictures();
 
         foreach ($posts as $post) {
@@ -154,7 +177,7 @@ public function getWoocommerce(): array{
             $blog->setTitle($post['title']['rendered'])
                 ->setSlug($post['slug'])
                 ->setContent($post['content']['rendered'])
-                ->setExcerpt($post['excerpt']['rendered'])
+                ->setExcerpt($post['excerpt']['rendered'] ?? 'Ok')
                 ->setCreatedAt(new \DateTime($post['date']))
                 ->setUpdatedAt(new \DateTime($post['modified']))
                 ->setPublish(true);
@@ -190,7 +213,8 @@ public function getWoocommerce(): array{
                 ->setSlug($product['slug'])
                 ->setDescription($product['description'])
                 ->setExcerpt($product['short_description'])
-                ->setCategory($this->getReference('categoryProd_' . $this->faker->randomElement(self::CATEGORIESPROD)))
+                ->setCategoryProduct($this->getReference('categoryProd_' .
+                    $this->faker->randomElement(self::CATEGORIESPROD)))
                 ->setCreatedAt(new \DateTime($product['date_created']))
                 ->setUpdatedAt(new \DateTime($product['date_modified']));
             $price = (float) $product['price'];
@@ -205,22 +229,24 @@ public function getWoocommerce(): array{
             //$this->addReference('product_' . $product['slug'], $NewProduct);
 
 
-                foreach ($product['images'] as $key) {
+            foreach ($product['images'] as $key) {
 
-                        $newPicture = new Picture();
-                        $fullUrl = $key['src'];
-                        $baseUrl = "https://www.lyviapalay-books.fr/wp-content/uploads/";
-                        $relativeUrl = str_replace($baseUrl, "", $fullUrl);
+                $newPicture = new Picture();
+                $fullUrl = $key['src'];
+                $baseUrl = "https://www.lyviapalay-books.fr/wp-content/uploads/";
+                $relativeUrl = str_replace($baseUrl, "", $fullUrl);
 
-                        $newPicture->setUrlName($relativeUrl);
-                        $newPicture->setProduct($NewProduct);
-                        $manager->persist($newPicture);
+                $newPicture->setUrlName($relativeUrl);
+                $newPicture->setProduct($NewProduct);
+                $manager->persist($newPicture);
 
 
             }
         }
 
         $manager->flush();
+
+
     }
 
 }
