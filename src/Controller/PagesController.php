@@ -22,4 +22,12 @@ class PagesController extends AbstractController
 
         ]);
     }
+    #[Route('/biographie', name: 'bio')]
+    public function biographie(): Response
+    {
+        return $this->render('pages/biographie.html.twig', [
+
+        ]);
+    }
+
 }

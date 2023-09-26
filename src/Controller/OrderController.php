@@ -6,10 +6,14 @@ use App\Entity\Order;
 use App\Entity\OrderDetail;
 use App\Entity\Product;
 use App\Form\OrderType;
+use App\Repository\CarrierRepository;
 use App\Repository\OrderDetailRepository;
 use App\Repository\OrderRepository;
 use App\Repository\ProductRepository;
+use App\Services\CarrierService;
 use App\Services\CartService;
+use App\Services\CommentValidator;
+use App\Services\Listing;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,10 +35,16 @@ class OrderController extends AbstractController
     #[Route ('/', name: 'index')]
     public function index(Request               $request,
                           CartService           $cart,
+                          CarrierService        $carrier,
                           SessionInterface      $session,
                           ProductRepository     $productRepository,
                           OrderRepository       $orderRepository,
-                          OrderDetailRepository $orderDetailRepository): Response
+                          CarrierRepository     $carrierRepository,
+                          OrderDetailRepository $orderDetailRepository,
+                          Listing $listing,
+                          CommentValidator $commentValidator,
+
+    ): Response
     {
         $data = $cart->getFullCart($session, $productRepository);
         //dd($data);
@@ -44,18 +54,34 @@ class OrderController extends AbstractController
         if (!$this->getUser()->getAdresses()->getValues()) {
             return $this->redirectToRoute('account_address_add');
         }
+        $reduction = $data['reduction'];
+        $montantReduct = $data['montantReduct'];
 
         $user = $this->getUser();
         $form = $this->createForm(OrderType::class, null, ['user' => $user]);
 
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            $content= 'dedication';
+            if (!$commentValidator->validateComment($form,$content, $listing)) {
+                $this->addFlash('danger', 'Type de commentaire invalide. Veuillez éviter d\'utiliser des mots inappropriés.');
+                return $this->redirectToRoute('app_order_index');
+            }
 
-            $carriers = $form->get('carriers')->getData();
-            $transport = $carriers->getPrice() * $cart->getFullCart($session, $productRepository)['totalWeight'];
+
+            $transport = $carrier->getCarrierPrice($cart, $carrierRepository, $session, $productRepository)->getPrice();
+
             $delivery = $form->get('adresses')->getData();
             $dedication = $form->get('dedication')->getData();
+            $montantReductCart = 0;
+            $montantReductCart = $cart->getFullCart($session, $productRepository)['montantReduct'];
+            $codeReductCart = $cart->getFullCart($session, $productRepository)['codeReduction'];
+
             $total = $cart->getFullCart($session, $productRepository)['total'];
+
+
+
+
             $lastOrder = $orderRepository->findOneBy([], ['id' => 'desc']);
             if ($lastOrder) {
                 $lastOrderReference = $lastOrder->getReference();
@@ -65,7 +91,7 @@ class OrderController extends AbstractController
 
             $order = new Order();
             $order->setUser($this->getUser())
-                ->setCarrierName($carriers->getName())
+                ->setCarrierName($carrier->getCarrierPrice($cart, $carrierRepository, $session, $productRepository)->getName())
                 ->setCarrierPrice($transport)
                 ->setDelivery($delivery->getFirstname() . ' ' . $delivery->getLastname() . '[br] tél : '
                     . $delivery->getPhone() . '[br]'
@@ -75,6 +101,8 @@ class OrderController extends AbstractController
                     . $delivery->getPays())
                 ->setIsPaid(0)
                 ->setDedication($dedication)
+                ->setReductionPrice($montantReductCart)
+                ->setReductionCode($codeReductCart)
                 ->setTotalPrice($total);
             if ($lastOrderReference) {
                 $order->setReference($lastOrderReference + 1);
@@ -92,8 +120,6 @@ class OrderController extends AbstractController
                     ->setPrice($product['product']->getPrice())
                     ->setTotal($product['product']->getPrice() * $product['quantity']);
                 $this->entityManager->persist($orderDetails);
-
-
             }
             $this->entityManager->flush();
             return $this->redirectToRoute('app_order_recap', ['reference' => $order->getReference()]);
@@ -102,27 +128,26 @@ class OrderController extends AbstractController
         return $this->render('order/index.html.twig', [
             'form' => $form->createView(),
             'items' => $data,
-            'lastOrder' => $lastOrder
+            'lastOrder' => $lastOrder,
+            'reduction' => $reduction,
+
+            'montantReduct' => $montantReduct,
         ]);
     }
 
     #[Route ('/recapitulatif/{reference}', name: 'recap', methods: ['GET'])]
     public function add(Request               $request,
-                        CartService           $cart,
                         SessionInterface      $session,
-                        ProductRepository     $productRepository,
                         OrderRepository       $orderRepository,
                         OrderDetailRepository $orderDetailRepository): Response
     {
-
         $lastOrder = $orderRepository->findOneBy(['user'=>$this->getUser()], ['id' => 'desc']);
         $reference = $lastOrder->getReference();
         if( $reference != $request->get('reference') && $this->getUser()){
-            return $this->redirectToRoute('app_order_index');
-            return $this->redirectToRoute('boutique_index');
+           return $this->redirectToRoute('boutique_index');
         }
-        $session->remove('panier');
-        //return $this->redirectToRoute('app_order_index');
+
+
 
         $lastOrder = $orderRepository->findOneBy([], ['id' => 'desc']);
         $orderDetails = $orderDetailRepository->findBy(['reference' => $lastOrder], ['id' => 'desc']);

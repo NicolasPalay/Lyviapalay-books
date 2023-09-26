@@ -6,7 +6,6 @@ use App\Classe\Mail;
 use App\Entity\User;
 use App\Form\RegistrationFormType;
 use App\Security\LoginAuthenticator;
-use App\Services\MailerService;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -21,7 +20,7 @@ class RegistrationController extends AbstractController
     #[Route('/inscription', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher,
                              UserAuthenticatorInterface $userAuthenticator, LoginAuthenticator
-                             $authenticator, EntityManagerInterface $entityManager, MailerService
+                             $authenticator, EntityManagerInterface $entityManager, Mail
     $mail): Response
     {
         $user = new User();
