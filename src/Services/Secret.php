@@ -1,5 +1,5 @@
 <?php
-namespace App\Controller;
+namespace App\Services;
 
 class Secret {
     public function secretKey() : string
