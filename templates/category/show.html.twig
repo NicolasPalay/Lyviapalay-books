@@ -9,7 +9,9 @@
             <h1 class="h3 ">{{ category.name }}</h1>
             <article class="col">
                 <div class="row d-flex justify-content-around">
-                    {% for blog in category.blogs %}
+
+                    {% for blog in category.blogs | sort((a, b) => b.id <=> a.id) %}
+                        {% if blog.publish %}
                         <div class="col-md-4 lp-card-blog text-center ">
                             <div class="lp-picture mb-2">
                                 <a href="{{ path('app_blog_show', {'slug': blog.slug}) }}">
@@ -24,7 +26,7 @@
                         </div>
 
 
-
+{% endif %}
                     {% endfor %}
                 </div>
             </article>
