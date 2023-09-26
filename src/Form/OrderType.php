@@ -27,15 +27,7 @@ class OrderType extends AbstractType
                     'label' => false,
 
                 ])
-            ->add('carriers', EntityType::class,
-                [
-                    'class' => Carrier::class,
 
-                    'expanded' => true,
-                    'multiple' => false,
-                    'label' => 'Choisissez votre transporteur'
-
-                ])
             ->add('dedication', TextareaType::class,
                 [
                     'label' => 'Dédicace',

@@ -43,14 +43,19 @@ class BlogType extends AbstractType
                 'label'=>'Publier',
                 'required'=>false
             ])
-        ->add('auteur',TextType::class)
+        ->add('auteur',TextType::class,
+            [
+                'label'=>'Auteur',
+                'required'=>false
+            ])
             ->add('promote',CheckboxType::class,
                 [
                     'label'=>'Mettre en avant',
                     'required'=>false
                 ])
             ->add('dedication',null,[
-                'choice_label'=>'address'
+                'choice_label'=>'address',
+                'required'=>false
             ])
 
 

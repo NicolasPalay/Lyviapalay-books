@@ -17,6 +17,7 @@ class Listing{
                         'vente privée',
             'réduction',
             'sexe',
+                'sexy',
             'gratuit',
             'femmes sexy',
             'femmes nues',
@@ -27,7 +28,10 @@ class Listing{
             'pénis',
             'Pharmacie',
             'médicament',
-                'cul'
+                'cul',
+                'script',
+                'drop',
+                'truncate'
 
         ];
             return $listing;
