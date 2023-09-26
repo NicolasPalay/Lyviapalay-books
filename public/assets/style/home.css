@@ -34,6 +34,8 @@
     transform: rotate(2deg);
 }
 .lp-promote{justify-content: center;margin:75px auto;}
+.lp-promote-border p{ padding :0 20px}
+.lp-promote p{font-size: 0.9em;}
 .lp-promote-border{;padding :0;}
 .lp-promote-border >div:first-child{flex-direction: row-reverse;}
 .lp-promote-info{
@@ -44,13 +46,14 @@ background-color: var(--lp-color-secondary);
 }
 
 .separatedHome{
-    margin: 50px auto;
+    margin: 80px auto;
     -webkit-box-shadow: 0px 10px 13px -7px var(--lp-color-primary), inset 0px -5px 21px 8px rgba(0,0,0,0);
     box-shadow: 0 10px 13px -7px var(--lp-color-primary),0 -10px 13px -7px var(--lp-color-primary);
     margin-bottom: 4em;
     padding: 1em 0 4em;
 
 }
+
 .carousel-control-next, .carousel-control-prev{
     color: var(--lp-color-primary);
 }
