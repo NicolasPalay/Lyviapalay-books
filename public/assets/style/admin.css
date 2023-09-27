@@ -6,6 +6,7 @@
 .lp-menu-admin{min-width: 250px}
 
 label{font-weight: bold;display: block;padding: 20px 0 10px}
+.lp-admin-page{align-items: flex-start;}
 #blog{width: 70%;margin: 0 auto}
 .tox-tinymce,input[type="datetime-local"], .tox-tinymce,input[type="text"],input[type="tel"], input[type="password"], input[type="email"], input[type="number"], input[type="date"], select,textarea{width: 100%;padding: 10px;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
     box-shadow: 2px 6px 10px -4px #92278f; }
@@ -49,10 +50,12 @@ table .lp-td-right{text-align: right; font-weight: bold; padding-right: 30px}
 .lp-quant-number{padding:5px 10px;}
 /*product*/
 .lp-img-product-admin{width: 100px}
+.ca-mini-img-admin {width: 150px}
+.ca-mini-img-admin img{width: 100%}
 
 /*order*/
 .lp-border{padding: 10px;border-radius: 10px;border: 2px solid var(--lp-color-primary);-webkit-box-shadow: 2px 6px 10px -4px #92278f;
-    box-shadow: 2px 6px 10px -4px #92278f; }
+    box-shadow: 2px 6px 10px -4px #92278f; margin:50px}
 #order_adresses, #order_carriers{width: 80%;display: flex}
 #order_adresses input, #order_carriers input{margin: 2px 30px}
 

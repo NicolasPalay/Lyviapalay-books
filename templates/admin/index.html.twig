@@ -3,8 +3,9 @@
 {% block title %}Bonjour {% if app.user %}{{ app.user.firstName }}{% endif %}}{% endblock %}
 
 {% block body %}
+
     {% if articles %}
-    <section class="lp-border mt-5 mx-auto">
+    <section class="lp-border mt-5 mx-auto w-50">
 
 
     <h2 class="h4">Articles de blog en attente de validation</h2>
@@ -24,7 +25,7 @@
     </section>
     {% endif %}
     {% if comments %}
-    <section class="lp-border mt-5 mx-auto">
+    <section class="lp-border mt-5 mx-auto w-50">
 
         <h2 class="h4">Commentaires en attente de validation</h2>
 
@@ -43,4 +44,40 @@
 
     </section>
     {% endif %}
+
+    {% if orders %}
+        <section class="lp-border mt-5 mx-auto container">
+
+
+            <h2 class="h4">Toutes les ventes en cours</h2>
+
+
+            {% for order in orders %}
+                <ul>
+                    <li>
+                        référence : {{ order.reference }}
+                    </li>
+                    <li>
+                        Date :  {{ order.createdAt|date('d/m/Y') }}
+                    </li>
+                    <li>
+                        payement :  {% if order.isPaid == false %} non payé {% else %} payé {% endif %}
+                    </li>
+                    Total : {{ order.totalPrice + order.carrierPrice  }} €
+                </ul>
+                {% for orderDetail in order.orderDetails %}
+                    <ul>
+                        <li>{{ orderDetail.product.name }}</li>
+
+
+                    </ul>
+                {% endfor %}
+                <hr>
+
+            {% endfor %}
+
+
+        </section>
+    {% endif %}
+    <div>
 {% endblock %}

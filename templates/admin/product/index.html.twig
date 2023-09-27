@@ -3,6 +3,9 @@
 {% block title %}Product index{% endblock %}
 
 {% block body %}
+
+
+<div class="col-10 lp-admin-container">
     <h1>Product index</h1>
     <a class="lp-btn" href="{{ path('admin_product_new') }}">Create new</a>
     <table class="table">
@@ -33,7 +36,7 @@
                 <td>
                     {{ product.description | length > 50 ? product.description|slice(0, 50) ~ '...' : product.description }}
                 </td>
-                <td>{{ product.category.name }}</td>
+                <td>{{ product.categoryProduct.name }}</td>
                 <td>{{ product.createdAt|date('Y-m-d H:i:s') }}</td>
                 <td>{{ product.price | number_format(2,',' ,'.')  }} €</td>
                 <td><a href="{{ path('admin_product_edit', {'slug': product.slug}) }}">edit</a></td>
@@ -47,6 +50,6 @@
         {% endfor %}
         </tbody>
     </table>
-
+</div>
 
 {% endblock %}

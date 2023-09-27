@@ -27,10 +27,21 @@
 
                 <td>{{ blog.publish ? 'Yes' : 'No' }}</td>
                 <td>{{ blog.title }}</td>
-                {% if blog.picture %}
-                <td><img  src="{{asset('assets/uploads/' ~ blog.picture[0].urlName) }}"  class="img-fluid lp-sm-img"></td>
+                {% for picture in blog.picture %}
+                {% if picture is not empty and
+                    picture.urlName starts with '2020' or
+                    picture is not empty and
+                    picture.urlName starts with '2021' or
+                    picture is not empty and
+                    picture.urlName starts with '2022' or
+                    picture is not empty and
+                    picture.urlName starts with '2023' %}
+                <td><img  src="{{asset('assets/uploads/' ~ picture.urlName) }}"  class="img-fluid lp-sm-img"></td>
+                {% else %}
+                <td><img  src="{{asset('assets/uploads/pictures/mini/250x250-' ~ picture.urlName) }}"  class="img-fluid lp-sm-img"></td>
                 {% endif %}
-                <td class="lp-author-index">{{ blog.author.firstName }} {{ blog.author.lastName }}</td>
+                {% endfor %}
+                <td class="lp-author-index">{{ blog.author.firstname }} {{ blog.author.lastname }}</td>
 
                 <td class="lp-created-index">{{ blog.createdAt ? blog.createdAt|date('Y-m-d') : '' }}</td>
                 <td class="lp-author-index">{{ blog.updatedAt ? blog.updatedAt|date('Y-m-d') : '' }}</td>
