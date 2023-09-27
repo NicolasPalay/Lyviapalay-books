@@ -32,7 +32,7 @@ class RegistrationController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $searchEmail = $entityManager->getRepository(User::class)->findOneBy(['email' => $user->getEmail()]);
             if ($searchEmail) {
-
+                $this->addFlash('alert', 'Votre email existe déjà');
                 return $this->redirectToRoute('app_register');
             }
             $user->setPassword(

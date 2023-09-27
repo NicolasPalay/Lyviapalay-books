@@ -20,9 +20,7 @@ class BlogType extends AbstractType
             ->add('title')
             ->add('content',TextareaType::class,
                 [
-                    'attr'=>[
-                        'class'=>'editor'
-                    ]
+
                 ])
             ->add('excerpt',TextareaType::class)
             ->add('category',null,[

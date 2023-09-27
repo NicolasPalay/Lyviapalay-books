@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
+
 #[IsGranted('ROLE_ADMIN')]
 #[Route('admin/blog', name: 'admin_blog_')]
 class BlogController extends AbstractController
@@ -51,6 +52,7 @@ class BlogController extends AbstractController
             $slug = $slugger->slug($blog->getTitle());
             $slug = strtolower($slug);
             $blog->setSlug($slug);
+            $blog->setAuthor($this->getUser());
             $entityManager->persist($blog);
             $entityManager->flush();
 
