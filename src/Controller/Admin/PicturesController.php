@@ -29,8 +29,27 @@ class PicturesController extends AbstractController
             unlink($imagePathMini);
         }
 
-        return $this->redirectToRoute('admin_product_edit', ['slug' => $picture->getProduct()
-            ->getSlug()
+        return $this->redirectToRoute('admin_product_edit', ['id' => $picture->getProduct()
+            ->getId()
+
+        ]);
+    }
+    #[Route('/delete_blog/{id}', name: 'delete_blog')]
+    public function deleteBlog(Request $request, EntityManagerInterface $entityManager, Picture
+    $picture): Response
+    {
+        $entityManager->remove($picture);
+        $entityManager->flush();
+
+        $imagePath = 'assets/uploads/pictures/' . $picture->getUrlName();
+        $imagePathMini = 'assets/uploads/pictures/mini/250x250-' . $picture->getUrlName();
+        if (file_exists($imagePath)) {
+            unlink($imagePath);
+            unlink($imagePathMini);
+        }
+
+        return $this->redirectToRoute('admin_blog_edit', ['id' => $picture->getBlog()
+            ->getId()
 
         ]);
     }

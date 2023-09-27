@@ -26,7 +26,7 @@ class ProductType extends AbstractType
             ->add('isbn')
             ->add('price',MoneyType::class)
             ->add('weight')
-            ->add('category',null,[
+            ->add('categoryProduct',null,[
                 'choice_label'=>'name'
             ])
             ->add('pictures',FileType::class,[

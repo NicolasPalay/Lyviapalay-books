@@ -14,8 +14,9 @@ class SecurityController extends AbstractController
     {
         if ($this->getUser()) {
           return $this->redirectToRoute('account');
+        }elseif ($this->getUser() && $this->getUser()->getRoles() == ['ROLE_ADMIN']) {
+            return $this->redirectToRoute('app_admin');
         }
-
         // get the login error if there is one
         $error = $authenticationUtils->getLastAuthenticationError();
         // last username entered by the user

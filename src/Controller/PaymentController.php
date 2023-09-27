@@ -3,7 +3,7 @@
 namespace App\Controller;
 
 
-use App\services\Secret;
+use App\Services\Secret;
 use App\Entity\Order;
 use App\Entity\Reduction;
 use App\Repository\OrderRepository;

@@ -31,11 +31,11 @@ class CartController extends AbstractController
             $reductCode = $form->getData()->getReductCode();
             $reduction = $reductionRepository->findOneBy(['reductCode' => $reductCode]);
 
-            if ($reduction) {
+            if ($reduction->getDateEnd() > new \DateTime() && $reduction->isActived() == true) {
                 $reductionMontant = $reduction->getMontant();
                 $session->set('reduction', [$reductionMontant, $reductCode]);
             } else {
-                $this->addFlash('danger', 'Code de réduction invalide');
+                $this->addFlash('danger', 'Code de réduction invalide ou a expiré');
                 return $this->redirectToRoute('cart_index');
             }
         }
