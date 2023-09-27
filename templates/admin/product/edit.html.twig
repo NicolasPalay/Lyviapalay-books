@@ -3,8 +3,9 @@
 {% block title %}Edit Product{% endblock %}
 
 {% block body %}
-    <h1>Edit Product</h1>
 
+<div class="col-10 lp-admin-container">
+    <h1>Edit Product</h1>
     {{ include('admin/product/_form.html.twig', {'button_label': 'Update'}) }}
 
     <a href="{{ path('admin_product_index') }}">back to list</a>
@@ -15,11 +16,15 @@
         {% for image in product.pictures %}
             <div class="ca-box-book">
                 <div class="c-dflex-columns ">
-
-                    <img class="ca-mini-img-admin" src="{{ asset('assets/uploads/pictures/mini/150x200-' ~ image.urlName) }}" alt="">
+                    {% if image.urlName starts with 'lyvia' %}
+                    <img  class="ca-mini-img-admin m-2" src="{{ asset('assets/uploads/pictures/mini/250x250-' ~ image.urlName) }}" alt=""><br>
+                    {% else %}
+                    <img class="ca-mini-img-admin m-2" src="{{ asset('assets/uploads/' ~ image.urlName) }}" alt=""><br>
+                    {% endif %}
                     <a href="{{ path('picture_delete', {id: image.id}) }}" class="btn btn-danger">Supprimer</a>
                 </div>
             </div>
         {% endfor %}
     </div>
+</div>
 {% endblock %}

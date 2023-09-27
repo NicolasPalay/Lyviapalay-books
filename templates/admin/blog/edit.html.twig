@@ -9,8 +9,17 @@
     {{ include('admin/blog/_form.html.twig', {'button_label': 'Update'}) }}
     {% if blog.picture %}
         <ul>
-            {% for picture in blog.picture %}
-        <li><img  src="{{asset('assets/uploads/' ~ picture.urlName) }}"  class="img-fluid lp-sm-img"></li>
+            {% for image in blog.picture %}
+                <div class="ca-box-book">
+                    <div class="c-dflex-columns ">
+                        {% if image.urlName starts with 'lyvia' %}
+                            <img  class="ca-mini-img-admin m-2" src="{{ asset('assets/uploads/pictures/mini/250x250-' ~ image.urlName) }}" alt=""><br>
+                        {% else %}
+                            <img class="ca-mini-img-admin m-2" src="{{ asset('assets/uploads/' ~ image.urlName) }}" alt=""><br>
+                        {% endif %}
+                        <a href="{{ path('picture_delete_blog', {id: image.id}) }}" class="btn btn-danger">Supprimer</a>
+                    </div>
+                </div>
         {% endfor %}
         </ul>
 
